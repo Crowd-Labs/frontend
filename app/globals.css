@@ -99,11 +99,11 @@ body {
 
 @layer utilities {
   .h1-heading {
-    @apply text-4xl text-[#FCFDC7] font-bold
+    @apply text-4xl text-yellow font-bold
   }
 
   .h2-heading {
-    @apply text-2xl text-[#FCFDC7] font-semibold
+    @apply text-2xl text-yellow font-semibold
   }
 
   .p-content {

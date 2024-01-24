@@ -79,7 +79,7 @@ const Header = () => {
                       );
                     }
                     return (
-                      <div className="flex gap-3 text-[#FCFDC7] items-center">
+                      <div className="flex gap-3 text-yellow items-center">
                         <Button
                           onClick={openAccountModal}
                           className="flex items-center text-[#9BA885] font-semibold"
