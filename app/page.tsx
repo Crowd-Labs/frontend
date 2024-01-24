@@ -1,13 +1,9 @@
-import Hero from "@/components/Hero";
-import Nav from "@/components/Nav";
+import Home from "@/components/Home";
 
-export default function Home() {
+export default () => {
   return (
     <main className='relative'>
-      <Nav />
-      <section className="xl:padding-1 wide:padding-r padding-b">
-        <Hero />
-      </section>
+      <Home />
     </main>
   );
 }
