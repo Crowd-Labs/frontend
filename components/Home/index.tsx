@@ -1,11 +1,13 @@
 import Hero from "@/components/Home/Hero";
 import Intro from "@/components/Home/Intro";
+import Launchpad from "@/components/Home/Launchpad";
 
 export default function Home() {
     return (
-        <section className="xl:padding-1 wide:padding-r padding-b">
+        <div className="xl:padding-1 wide:padding-r padding-b">
             <Hero />
             <Intro />
-        </section>
+            <Launchpad/>
+        </div>
     );
 }
