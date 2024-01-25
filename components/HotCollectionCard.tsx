@@ -1,7 +1,13 @@
 
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 
-const HotCollectionCard = ({collName, pic, cata}) => {
+type HotColltionProps = {
+  collName: string,
+  pic: StaticImageData,
+  cata: string
+}
+
+const HotCollectionCard = ({collName, pic, cata}: HotColltionProps) => {
   return (
         <Image src={pic} alt={collName} className='object-fit w-48'/>
   )

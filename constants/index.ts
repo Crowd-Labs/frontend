@@ -35,5 +35,6 @@ export const HotCollections = [
     },
 ];
 
-export const TWITTER_ADDRESS = 'https://twitter.com/'
+export const BRCROWD_DOC = 'https://docs.becrowd.xyz/'
+export const TWITTER_ADDRESS = 'https://twitter.com/BeCrowd_'
 export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'
