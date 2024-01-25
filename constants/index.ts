@@ -38,3 +38,5 @@ export const HotCollections = [
 export const BRCROWD_DOC = 'https://docs.becrowd.xyz/'
 export const TWITTER_ADDRESS = 'https://twitter.com/BeCrowd_'
 export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'
+
+export const IPFS_GATEWAY_URL = 'https://ipfs.io/ipfs'
