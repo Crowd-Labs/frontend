@@ -3,7 +3,7 @@ import footer_logo from "../../public/icons/footer_logo.png";
 import Image from "next/image";
 const Footer = () => {
   return (
-    <footer className='py-8 absolute z-10 w-full text-white text-xl'>
+    <footer className='py-8 w-full text-white text-xl'>
       <div className='border-t-2 border-[#9BA885] my-4'></div>
       <div className='flex mt-20 gap-40 items-end'>
         <div className='flex-1'>

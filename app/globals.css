@@ -85,7 +85,7 @@
 
 body {
   background-color: #11140C;
-  overflow-x: hidden;
+  @apply w-screen overflow-x-hidden
 }
 
 @layer components {
