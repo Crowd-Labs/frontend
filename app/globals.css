@@ -84,7 +84,8 @@
 }
 
 body {
-  background-color: #11140C
+  background-color: #11140C;
+  overflow-x: hidden;
 }
 
 @layer components {

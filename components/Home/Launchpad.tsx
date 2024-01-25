@@ -1,4 +1,4 @@
-import { HotCollections } from "@/constants"
+import { LaunchPadCollections } from "@/constants"
 import LaunchpadCard from "../Collection/LaunchpadCard"
 
 const Launchpad = () => {
@@ -7,8 +7,8 @@ const Launchpad = () => {
             <div className="h1-heading">
                 Launchpad drops
             </div>
-            <div className="mt-12 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-                {HotCollections.map((coll) => (
+            <div className="mt-12 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+                {LaunchPadCollections.map((coll) => (
                     <LaunchpadCard key={coll.collName} {...coll} />
                 ))}
             </div>

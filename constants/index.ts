@@ -35,6 +35,29 @@ export const HotCollections = [
     },
 ];
 
+export const LaunchPadCollections = [
+    {
+        collName: "OrdLinks",
+        cata: "HOT COLLECTION",
+        pic: Coll1,
+    },
+    {
+        collName: "GitBoy",
+        cata: "HOT COLLECTION",
+        pic: Coll2,
+    },
+    {
+        collName: "Alien",
+        cata: "HOT COLLECTION",
+        pic: Coll3,
+    },
+    {
+        collName: "NodeMonkey",
+        cata: "HOT COLLECTION",
+        pic: Coll4,
+    },
+];
+
 export const BRCROWD_DOC = 'https://docs.becrowd.xyz/'
 export const TWITTER_ADDRESS = 'https://twitter.com/BeCrowd_'
 export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'

@@ -9,7 +9,7 @@ type HotColltionProps = {
 
 const HotCollectionCard = ({collName, pic, cata}: HotColltionProps) => {
   return (
-        <Image src={pic} alt={collName} className='object-fit w-48'/>
+        <Image src={pic} alt={collName} className='object-fit w-full'/>
   )
 }
 
