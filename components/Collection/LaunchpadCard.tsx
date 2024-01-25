@@ -1,7 +1,12 @@
 
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 
-const LaunchpadCard = ({ collName, pic }) => {
+type LaunchpadProps = {
+  collName: string,
+  pic: StaticImageData
+}
+
+const LaunchpadCard = ({ collName, pic }: LaunchpadProps) => {
   return (
     <div className="rounded-lg overflow-hidden relative">
       <Image src={pic} alt={collName} className='object-fit w-full' />
