@@ -16,16 +16,13 @@ import CollectionCards from "./collections";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
-  NewCollectionCreateds,
+  CollectionInfo,
   NewNFTCreateds,
-  CollectionMintInfo,
 } from "@/lib/type";
 import {
-  getNewNFTCreatedByCollectionId,
-  getNewNFTCreateds,
-  getNewCollectionMintInfo,
+  getCollectionInfoById,
+  getAllNFTByCollectionId,
 } from "@/api/thegraphApi";
-import { categorys } from "../Create/components/FormInfo";
 import { format } from "date-fns";
 import { DERIVED_NFT_ABI } from "@/abis/BeCrowdProxy";
 import {
@@ -41,22 +38,21 @@ import { toAmount } from "@/lib/utils";
 import { getCollectionCreated } from "@/api/mongodbApi";
 import { MongoCollection } from "@/models/createcollection";
 import { DefaultNFTS } from "@/constants";
+import Image from "next/image";
 
 const Collection = ({ params }: { params: { id: string } }) => {
 
-  const [collectionItem, setCollectionItem] = useState<NewCollectionCreateds>();
-  const [collectionInfo, setCollectionInfo] = useState<CollectionMintInfo>();
+  const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
   const [collectionmongo, setCollection] = useState<MongoCollection>();
 
   const [nfts, setNFTs] = useState<NewNFTCreateds[]>(DefaultNFTS);
   useEffect(() => {
     
-    getNewNFTCreatedByCollectionId(params.id).then((res) =>
+    getCollectionInfoById(params.id).then((res) =>
       setCollectionItem(res)
     );
 
-    getNewCollectionMintInfo(params.id).then((res) => setCollectionInfo(res));
-    getNewNFTCreateds(params.id).then((res) => {
+    getAllNFTByCollectionId(params.id).then((res) => {
       console.log("res", res);
       setNFTs(res);
     });
@@ -118,15 +114,15 @@ const Collection = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <div className="container mx-auto">
-        <img
-          src={collectionItem?.detailJson.image}
+        <Image
+          src={collectionItem?.detailJson.image!}
           alt=""
           style={{ objectFit: "cover" }}
           className="w-full h-56 -mb-32"
         />
         <div className="px-10 ">
-          <img
-            src={collectionItem?.detailJson.image}
+          <Image
+            src={collectionItem?.detailJson.image!}
             alt=""
             className="w-40 h-40"
           />
@@ -181,18 +177,6 @@ const Collection = ({ params }: { params: { id: string } }) => {
                   <div className="text-white-rgba">Community earnings</div>
                   <div>{`${(collectionItem?.baseRoyalty ?? 0) / 100} %`}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="text-white-rgba">Category </div>
-                  <div>
-                    {
-                      categorys.find(
-                        (category) =>
-                          category.value ===
-                          collectionItem?.collectionType?.toString()
-                      )?.label
-                    }
-                  </div>
-                </div>
               </div>
               <div className="mt-4">
                 {collectionItem?.detailJson.description}
@@ -235,19 +219,19 @@ const Collection = ({ params }: { params: { id: string } }) => {
               <div className="text-2xl font-medium text-white-rgba">Rule</div>
               <div className="flex gap-4 mt-4">
                 <div className="text-white-rgba">Mint Limit: </div>
-                <div>{collectionInfo?.mintLimit}</div>
+                <div>{collectionItem?.mintLimit}</div>
               </div>
               <div className="flex gap-4 mt-4">
                 <div className="text-white-rgba">End Time: </div>
                 <div>
-                  {collectionInfo?.mintExpired
-                    ? format(collectionInfo?.mintExpired * 1000, "PPP")
+                  {collectionItem?.mintExpired
+                    ? format(collectionItem?.mintExpired * 1000, "PPP")
                     : ""}
                 </div>
               </div>
               <div className="flex gap-4 mt-4">
                 <div className="text-white-rgba">Mint Price: </div>
-                <div>{collectionInfo?.mintPrice}</div>
+                <div>{collectionItem?.mintPrice}</div>
               </div>
               <div className="flex gap-4 mt-4">
                 <div className="text-white-rgba">Permission: </div>

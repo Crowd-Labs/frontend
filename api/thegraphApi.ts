@@ -1,10 +1,9 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { getReq } from './server/abstract';
 import { sanitizeDStorageUrl } from '@/lib/utils';
-import { NewCollectionCreateds, NewNFTCreateds, CollectionMintInfo, CollectionFreeInfo } from '@/lib/type';
+import { CollectionInfo, NewNFTCreateds, StakeEthAmountForInitialCollection } from '@/lib/type';
 
-//const API_URL = 'https://api.studio.thegraph.com/query/50436/BeCrowd_subgraph_base/version/latest';
-const API_URL = 'https://thegraph.optree.xyz/subgraphs/name/BeCrowd_subgraph';
+const API_URL = process.env.SUBGRAPH_URL || ""
 
 /* create the API client */
 export const client = new ApolloClient({
@@ -14,48 +13,50 @@ export const client = new ApolloClient({
 
 
 /* define a GraphQL query  */
-export const newCollectionCreatedsDoc = gql`
+
+//get all collection info
+export const queryAllCollectionInfo = gql`
   query newCollectionCreateds {
     newCollectionCreateds {
-      baseRoyalty
-      blockNumber
-      blockTimestamp
-      collInfoURI
-      collectionId
       collectionOwner
-      collectionType
       derivedCollectionAddr
       derivedRuleModule
-      id
-      timestamp
-      transactionHash
+      collectionId
+      baseRoyalty
+      mintLimit
+      mintExpired
+      mintPrice
+      whiteListRootHash
+      collInfoURI
+      blockTimestamp
+      items
     }    
   }
 `
 
-
-export const newCollectionCreatedByIdDoc = gql`
+//get collection info by collection id
+export const queryCollectionInfoById = gql`
   query newCollectionCreateds ($collectionId: String!){
     newCollectionCreateds(where: {collectionId: $collectionId}) {
-      baseRoyalty
-      blockNumber
-      blockTimestamp
-      collInfoURI
-      collectionId
       collectionOwner
-      collectionType
       derivedCollectionAddr
       derivedRuleModule
-      id
-      timestamp
-      transactionHash
+      collectionId
+      baseRoyalty
+      mintLimit
+      mintExpired
+      mintPrice
+      whiteListRootHash
+      collInfoURI
+      blockTimestamp
+      items
     }    
   }
 `
 
-
 /* define a GraphQL query  */
-export const newAllNFTCreatedsDoc = gql`
+//get all nft from becrowd platform
+export const queryAllNFT = gql`
   query getNewNFTCreateds {
     newNFTCreateds {
       blockNumber
@@ -70,7 +71,8 @@ export const newAllNFTCreatedsDoc = gql`
   }
 `
 
-export const newNFTCreatedsDoc = gql`
+//get all nft of one collection
+export const queryAllNFTByCollectionId = gql`
   query getNewNFTCreateds ($collectionId: String!){
     newNFTCreateds(where: {collectionId: $collectionId}) {
       blockNumber
@@ -85,50 +87,30 @@ export const newNFTCreatedsDoc = gql`
   }
 `
 
-export const newCollectionMintInfosDoc = gql`
-  query newCollectionMintInfos ($collectionId: String!){
-    newCollectionMintInfos(where: {collectionId: $collectionId}) {
-      id
-      mintExpired
-      mintLimit
-      mintPrice
-      collectionId
-    }    
-  }
-`
 // filter collection
 export const filterCollectionByMintExpired = gql`
     query filterCollectionByMintExpired($mintExpired: String!) {
-      newCollectionMintInfos(where: {mintExpired_gte: $mintExpired} orderBy: mintExpired) {
-        mintExpired
+      newCollectionCreateds(where: {mintExpired_gte: $mintExpired} orderBy: mintExpired) {
+        collectionOwner
+        derivedCollectionAddr
+        derivedRuleModule
         collectionId
+        baseRoyalty
+        mintLimit
+        mintExpired
+        mintPrice
+        whiteListRootHash
+        collInfoURI
+        blockTimestamp
+        items
     }
   }
 `
 
 // filter collection
-export const queryCollections = gql`
-    query queryCollections($ids:[String!]) {
-      newCollectionCreateds(where:{collectionId_in:$ids}) {
-        baseRoyalty
-        blockNumber
-        blockTimestamp
-        collInfoURI
-        collectionId
-        collectionOwner
-        collectionType
-        derivedCollectionAddr
-        derivedRuleModule
-        id
-        timestamp
-        transactionHash
-      }
-  }
-`
-// filter collection
-export const queryCollectionFee = gql`
-    query collectionFeeAddressSets {
-  collectionFeeAddressSets(orderBy: timestamp, orderDirection: desc, first: 1) {
+export const queryStakeEthAmountForInitialCollection = gql`
+    query CreateCollectionStakeEthAmountSets {
+    CreateCollectionStakeEthAmountSets(orderBy: timestamp, orderDirection: desc, first: 1) {
     id
     transactionHash
     timestamp
@@ -148,31 +130,32 @@ export const parseCollectionDetailJson = async (collInfoURI: string) => {
   return json
 }
 
-export const getNewCollectionCreated = async (size?: number, offset?: number) => {
-  let response: { data: { newCollectionCreateds: NewCollectionCreateds[] } } = await client.query({ query: newCollectionCreatedsDoc })
-  console.log('getNewCollectionCreated response', response)
-  let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: NewCollectionCreateds) => {
+export const getAllCollectionInfo = async () => {
+  let response: { data: { newCollectionCreateds: CollectionInfo[] } } = await client.query({ query: queryAllCollectionInfo })
+  let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: CollectionInfo) => {
     let json = await parseCollectionDetailJson(collection.collInfoURI)
     return { ...collection, detailJson: json }
   }))
   return collections.filter((item) => !!item)
 }
 
-export const getNewNFTCreatedByCollectionId = async (collectionId: string) => {
-  let response: { data: { newCollectionCreateds: NewCollectionCreateds[] } } = await client.query({
-    query: newCollectionCreatedByIdDoc,
+// get collection info by collection id
+export const getCollectionInfoById = async (collectionId: string) => {
+  let response: { data: { newCollectionCreateds: CollectionInfo[] } } = await client.query({
+    query: queryCollectionInfoById,
     variables: { collectionId }
   })
-  let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: NewCollectionCreateds) => {
+  let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: CollectionInfo) => {
     let json = await parseCollectionDetailJson(collection.collInfoURI)
     return { ...collection, detailJson: json }
   }))
   return collections?.[0]
 }
 
-export const getNewNFTCreateds = async (collectionId: string) => {
+//get all nft of one colelction
+export const getAllNFTByCollectionId = async (collectionId: string) => {
   let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
-    query: newNFTCreatedsDoc,
+    query: queryAllNFTByCollectionId,
     variables: { collectionId }
   })
   console.log('getNewNFTCreateds response', response)
@@ -184,11 +167,11 @@ export const getNewNFTCreateds = async (collectionId: string) => {
   return collections
 }
 
-export const getAllNewNFTCreateds = async () => {
+//get all nft of becrowd platform
+export const getAllNFT = async () => {
   let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
-    query: newAllNFTCreatedsDoc
+    query: queryAllNFT
   })
-  console.log('getAllNewNFTCreateds response', response)
   let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {
     let json = await parseCollectionDetailJson(collection.nftInfoURI)
     return { ...collection, detailJson: json }
@@ -197,39 +180,23 @@ export const getAllNewNFTCreateds = async () => {
   return collections
 }
 
-export const getNewCollectionMintInfo = async (collectionId: string) => {
-  let response: { data: { newCollectionMintInfos: CollectionMintInfo[] } } = await client.query({
-    query: newCollectionMintInfosDoc,
-    variables: { collectionId }
-  })
-  let collectionInfo = response.data.newCollectionMintInfos
-  console.log('getNewCollectionMintInfo response', response)
-  return collectionInfo?.[0]
-}
-
-export const getUnMintExpiredCollection = async (mintExpired: string) => {
-  let unExpiredCollectionResponse: { data: { newCollectionMintInfos: CollectionMintInfo[] } } = await client.query({
+//get all unfinish collection
+export const getUnFinishCollection = async (mintExpired: string) => {
+  let unExpiredCollectionResponse: { data: { newCollectionCreateds: CollectionInfo[] } } = await client.query({
     query: filterCollectionByMintExpired,
     variables: { mintExpired }
   })
-  const collectionIds = unExpiredCollectionResponse.data.newCollectionMintInfos.map(col => col.collectionId)
-  console.log("ids", collectionIds)
-  let response: { data: { newCollectionCreateds: NewCollectionCreateds[] } } = await client.query({
-    query: queryCollections,
-    variables: { ids: collectionIds }
-  })
-  console.log('getUnMintExpiredCollection response', response)
 
-  let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: NewCollectionCreateds) => {
+  let collections = await Promise.all(unExpiredCollectionResponse.data.newCollectionCreateds.map(async (collection: CollectionInfo) => {
     let json = await parseCollectionDetailJson(collection.collInfoURI)
     return { ...collection, detailJson: json }
   }))
   return collections
 }
 
-export const getNewCollectionFee = async () => {
-  let response: { data: { collectionFeeAddressSets: CollectionFreeInfo[] } } = await client.query({
-    query: queryCollectionFee
+export const getStakeEthAmountForInitialCollection = async () => {
+  let response: { data: { collectionFeeAddressSets: StakeEthAmountForInitialCollection[] } } = await client.query({
+    query: queryStakeEthAmountForInitialCollection
   })
   let collectionInfo = response.data.collectionFeeAddressSets
   console.log('getCollectionFreeInfo response', response)

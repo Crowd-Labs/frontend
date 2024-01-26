@@ -45,7 +45,7 @@ const intros: IntroItem[] = [
         title: "Community",
         content: `Build community with 
         Linked-mined people.`,
-        icon: "/icons/icon8.png"
+        icon: "/icons/icon9.png"
     },
 ]
 
@@ -69,9 +69,6 @@ const IntroItem = (props: { data: IntroItem, className?: string }) => {
 const Intros2 = () => {
     return (
         <section className="mt-32">
-            <div className="text-center h1-heading">
-                We will share
-            </div>
             <div className="grid grid-cols-3 grid-rows-2 gap-1 justify-between mt-12 gap-y-20">
                 {intros?.map((intro, index) => <IntroItem data={intro} key={intro.title}/>)}
             </div>

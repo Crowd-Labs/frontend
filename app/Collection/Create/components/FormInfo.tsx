@@ -31,15 +31,6 @@ import {
 } from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
 
-export const categorys = [
-  { label: "Meme", value: '0' },
-  { label: "Art", value: '1' },
-  { label: "PFPs", value: '2' },
-  { label: "Photography", value: '3' },
-  { label: "Music", value: '4' },
-  { label: "Video", value: '5' },
-] as const;
-
 const accountFormSchema = z.object({
   name: z
     .string({ required_error: "Collection name is required" })
@@ -101,64 +92,6 @@ export default function AccountForm(props:{next:(info:AccountFormValues)=>void, 
               <FormControl>
                 <Textarea placeholder="description..." {...field} />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Category</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value
-                        ? categorys.find(
-                            (category) => category.value === field.value
-                          )?.label
-                        : "Select category"}
-                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                  <Command>
-                    <CommandInput placeholder="Search category..." />
-                    <CommandEmpty>No category found.</CommandEmpty>
-                    <CommandGroup>
-                      {categorys.map((category) => (
-                        <CommandItem
-                          value={category.value}
-                          key={category.value}
-                          onSelect={(value:string) => {
-                            form.setValue("category", value);
-                          }}
-                        >
-                          <CheckIcon
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              category.value === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {category.label}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
               <FormMessage />
             </FormItem>
           )}

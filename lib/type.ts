@@ -8,31 +8,26 @@ export type DetailJson = {
 }
 
 
-export type NewCollectionCreateds = {
+export type CollectionInfo = {
   id: string
+  collectionOwner: string
+  derivedCollectionAddr: string
+  derivedRuleModule: string
+  collectionId: string
   baseRoyalty: number
+  mintLimit: number
+  mintExpired: number
+  mintPrice: number
+  whiteListRootHash: string
+  collInfoURI: string
   blockNumber: number | string
   blockTimestamp: number | string
-  collInfoURI: string
-  collectionId: string
-  collectionOwner: string
-  collectionType: string
-  derivedRuleModule: string
-  derivedCollectionAddr: string
-  timestamp: string
   transactionHash: string
+  items: number
   detailJson: DetailJson
 }
 
-export type CollectionMintInfo = {
-  id: string
-  mintExpired: number
-  mintLimit: number
-  mintPrice: number
-  collectionId: string
-}
-
-export type CollectionFreeInfo = {
+export type StakeEthAmountForInitialCollection = {
   id: string
   timestamp: number
   prevMaxBaseRoyalty: number
@@ -43,12 +38,13 @@ export type CollectionFreeInfo = {
 
 export type NewNFTCreateds = {
   id: string
-  blockNumber: number | string
-  blockTimestamp: number | string
-  nftInfoURI: string
+  tokenId: string
   collectionId: string
   derivedFrom: string
-  tokenId: string
+  creator: string
+  nftInfoURI: string
+  blockNumber: number | string
+  blockTimestamp: number | string
   transactionHash: string
   detailJson: DetailJson
 }

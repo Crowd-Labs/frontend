@@ -12,14 +12,14 @@ import {
   FREE_DERIVIED_MODULE_ADDRESS,
 } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
-import { useAccount, useContractWrite, useEnsAddress } from "wagmi";
+import { useAccount, useContractWrite } from "wagmi";
 import { storeBlob, storeCar } from "@/lib/uploadToStorage";
 import { trimify } from "@/lib/utils";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
 import { postReq } from "@/api/server/abstract";
-import { getNewCollectionFee } from "@/api/thegraphApi";
-import { CollectionFreeInfo } from "@/lib/type";
+import { getStakeEthAmountForInitialCollection } from "@/api/thegraphApi";
+import { StakeEthAmountForInitialCollection } from "@/lib/type";
 
 const CreateCollection = () => {
   const abiCoder = new ethers.AbiCoder();
@@ -31,10 +31,10 @@ const CreateCollection = () => {
   });
 
   const [collectionFeeInfo, setCollectionFeeInfo] =
-    useState<CollectionFreeInfo>();
+    useState<StakeEthAmountForInitialCollection>();
   useEffect(() => {
-    getNewCollectionFee().then((res) => {
-      setCollectionFeeInfo(res as CollectionFreeInfo);
+    getStakeEthAmountForInitialCollection().then((res) => {
+      setCollectionFeeInfo(res as StakeEthAmountForInitialCollection);
     });
   }, []);
 
@@ -117,7 +117,7 @@ const CreateCollection = () => {
     },
   });
 
-  const uploadImageToIpfs = async (settingInfo) => {
+  const uploadImageToIpfs = async (settingInfo: any) => {
     if (collectionInfo.file) {
       setStatus({
         buttonText: `Uploading to IPFS`,
@@ -136,7 +136,7 @@ const CreateCollection = () => {
     }
   };
 
-  const createPublication = async (imageSource: string, settingInfo) => {
+  const createPublication = async (imageSource: string, settingInfo: { isCharge: any; limit: any; endTime: { getTime: () => any; }; price: any; currency: any; receiptAddress: any; royalty: any; }) => {
     try {
       setStatus({
         buttonText: `Storing metadata`,
