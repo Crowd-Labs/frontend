@@ -1,7 +1,6 @@
 import Image from "next/image"
 import opensealogo from "/public/images/opensealogo.png"
 import Link from "next/link"
-import { NewCollectionCreateds, NewNFTCreateds } from "@/lib/type"
 import { TESTNET_OPENSEA } from "@/constants"
 
 const BuyButton = (props: { data: any}) => { //NewNFTCreateds | NewCollectionCreateds

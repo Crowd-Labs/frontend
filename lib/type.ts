@@ -29,11 +29,9 @@ export type CollectionInfo = {
 
 export type StakeEthAmountForInitialCollection = {
   id: string
-  timestamp: number
-  prevMaxBaseRoyalty: number
-  blockNumber: number
+  prevStakeEthAmount: number
+  newStakeEthAmount: bigint
   blockTimestamp: number
-  newMaxBaseRoyalty: bigint
 }
 
 export type NewNFTCreateds = {

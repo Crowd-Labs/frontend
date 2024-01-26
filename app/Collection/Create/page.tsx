@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FormInfo from "./components/FormInfo";
 import FormSocial from "./components/FormSocial";
 import FormSetting from "./components/FormSetting";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import {
   BeCrowd_PROXY_ADDRESS,

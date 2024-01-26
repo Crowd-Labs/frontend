@@ -2,8 +2,8 @@ import { NewNFTCreateds } from "@/lib/type";
 import { Coll1, Coll2, Coll3, Coll4, Coll5, Coll6 } from "@/public/images";
 
 export const navLinks = [
-    { href: "/collections", label: "Collection" },
-    { href: "/Create", label: "Create" },
+    { href: "/Collection", label: "Collection" },
+    { href: "/Collection/Create", label: "Create" },
     { href: "/About", label: "About" },
     { href: "/doc", label: "Doc" },
 ];

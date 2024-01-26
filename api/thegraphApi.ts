@@ -110,15 +110,11 @@ export const filterCollectionByMintExpired = gql`
 // filter collection
 export const queryStakeEthAmountForInitialCollection = gql`
     query CreateCollectionStakeEthAmountSets {
-    CreateCollectionStakeEthAmountSets(orderBy: timestamp, orderDirection: desc, first: 1) {
-    id
-    transactionHash
-    timestamp
-    prevMaxBaseRoyalty
-    blockNumber
-    blockTimestamp
-    caller
-    newMaxBaseRoyalty
+      CreateCollectionStakeEthAmountSets(orderBy: blockTimestamp, orderDirection: desc, first: 1) {
+        id
+        prevStakeEthAmount
+        newStakeEthAmount
+        blockTimestamp
   }
 }
 `
@@ -195,10 +191,9 @@ export const getUnFinishCollection = async (mintExpired: string) => {
 }
 
 export const getStakeEthAmountForInitialCollection = async () => {
-  let response: { data: { collectionFeeAddressSets: StakeEthAmountForInitialCollection[] } } = await client.query({
+  let response: { data: { stakeEthAmountSets: StakeEthAmountForInitialCollection[] } } = await client.query({
     query: queryStakeEthAmountForInitialCollection
   })
-  let collectionInfo = response.data.collectionFeeAddressSets
-  console.log('getCollectionFreeInfo response', response)
-  return collectionInfo?.[0]
+  let stakeEthAmountInfos = response.data.stakeEthAmountSets
+  return stakeEthAmountInfos?.[0]
 }
