@@ -1,14 +1,13 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { CollectionProps } from "./CollectionCards";
-import { NewCollectionCreateds, NFTInfoProps } from "@/lib/type";
-import { getShortAddress } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { NewCollectionCreateds, NFTInfoProps } from '@/lib/type';
+import { getShortAddress } from '@/lib/utils';
 
-const UserAvatar = (props: {
+function UserAvatar(props: {
   data?: NFTInfoProps;
-  created?: {detailJson:{image: string}, collectionOwner?: string};
+  created?: { detailJson:{ image: string }, collectionOwner?: string };
   className?: string;
-}) => {
-  const { data, created, className = "w-10 h-10" } = props;
+}) {
+  const { data, created, className = 'w-10 h-10' } = props;
   let logo;
   // if (data){
   //     logo = data.nftName
@@ -26,6 +25,6 @@ const UserAvatar = (props: {
       <div>{getShortAddress(created?.collectionOwner || '')}</div>
     </div>
   );
-};
+}
 
 export default UserAvatar;

@@ -13,45 +13,42 @@ function _axios<T>(_axiosRequest: AxiosRequest):Promise<T> {
     })
       .then((response: any) => {
         if (response.status === 200) {
-          resolve(response.data)
-         // resolve(new Response(response.data));
+          resolve(response.data);
+          // resolve(new Response(response.data));
         } else {
-          resolve(response.data)
-         // resolve(new Response(response.data));
+          resolve(response.data);
+          // resolve(new Response(response.data));
         }
       })
       .catch((error: any) => {
-        const message =
-          error?.data?.errorMessage || error?.message || 'req failed';
+        const message = error?.data?.errorMessage || error?.message || 'req failed';
         reject({
-          message: message,
+          message,
           data: null,
         });
       });
   });
 }
-export const postReq = (_axiosRequest: AxiosRequest) => {
-  return _axios({
-    url: _axiosRequest.url,
-    headers: _axiosRequest.headers,
-    method: 'POST',
-    data: _axiosRequest.data,
-    params: _axiosRequest.params,
-  });
-};
+export const postReq = (_axiosRequest: AxiosRequest) => _axios({
+  url: _axiosRequest.url,
+  headers: _axiosRequest.headers,
+  method: 'POST',
+  data: _axiosRequest.data,
+  params: _axiosRequest.params,
+});
 
-export const getReq = <T>(_axiosRequest: AxiosRequest | string,params?:Record<string,any>):Promise<T> => {
-  if (typeof _axiosRequest === 'string') { 
+export const getReq = <T>(_axiosRequest: AxiosRequest | string, params?:Record<string, any>):Promise<T> => {
+  if (typeof _axiosRequest === 'string') {
     return _axios<T>({
       url: _axiosRequest,
       params,
-    })
+    });
   }
   return _axios<T>({
     url: _axiosRequest.url,
     headers: _axiosRequest.headers,
     method: 'GET',
     data: _axiosRequest.data,
-    params: _axiosRequest.params ,
+    params: _axiosRequest.params,
   });
 };

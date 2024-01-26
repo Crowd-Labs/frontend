@@ -9,7 +9,7 @@ interface PendingType {
 }
 
 const pending: Array<PendingType> = [];
-const CancelToken = axios.CancelToken;
+const { CancelToken } = axios;
 
 const service = axios.create({
   withCredentials: false,
@@ -21,10 +21,10 @@ const removePending = (config: AxiosRequestConfig) => {
     const item: number = +key;
     const list: PendingType = pending[key];
     if (
-      list.url === config.url &&
-      list.method === config.method &&
-      JSON.stringify(list.params) === JSON.stringify(config.params) &&
-      JSON.stringify(list.data) === JSON.stringify(config.data)
+      list.url === config.url
+      && list.method === config.method
+      && JSON.stringify(list.params) === JSON.stringify(config.params)
+      && JSON.stringify(list.data) === JSON.stringify(config.data)
     ) {
       // 从数组中移除记录
       pending.splice(item, 1);
@@ -53,14 +53,12 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     removePending(response.config);
-    if (typeof response.data === 'string') { 
+    if (typeof response.data === 'string') {
       response.data = JSON.parse(response.data);
     }
     return response;
   },
-  (error) => {
-    return error;
-  },
+  (error) => error,
 );
 
 export default service;

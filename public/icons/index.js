@@ -1,7 +1,7 @@
-import logo from './logo.svg'
-import hamburger from './hamburger.svg'
+import logo from './logo.svg';
+import hamburger from './hamburger.svg';
 
 export {
-    logo,
-    hamburger
-}
+  logo,
+  hamburger,
+};

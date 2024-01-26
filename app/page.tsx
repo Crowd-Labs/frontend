@@ -1,11 +1,11 @@
-import Home from "@/components/Home";
+import Home from '@/components/Home';
 
-const HomePage = () => {
+function HomePage() {
   return (
-    <main className='relative'>
+    <main className="relative">
       <Home />
     </main>
   );
 }
 
-export default HomePage 
+export default HomePage;

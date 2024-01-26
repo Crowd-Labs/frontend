@@ -8,7 +8,7 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
-import { Chain } from '@wagmi/core'
+import { Chain } from '@wagmi/core';
 
 export const blast = {
   id: 168587773,
@@ -27,16 +27,16 @@ export const blast = {
     etherscan: { name: 'blast', url: 'https://testnet.blastscan.io' },
     default: { name: 'blast', url: 'https://testnet.blastscan.io' },
   },
-} as const satisfies Chain
+} as const satisfies Chain;
 
 const { chains, publicClient } = configureChains(
   [
     blast,
   ],
-  [publicProvider()]
+  [publicProvider()],
 );
 
-const projectId = '746a0239f7d6fbd6e1ddd2d61c9c6358'
+const projectId = '746a0239f7d6fbd6e1ddd2d61c9c6358';
 
 const { connectors } = getDefaultWallets({
   appName: 'C Web3',

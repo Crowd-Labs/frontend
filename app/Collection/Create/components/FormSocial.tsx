@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   BsDiscord,
   BsMedium,
   BsTwitter,
   BsTelegram,
   BsFillHouseHeartFill,
-} from "react-icons/bs";
+} from 'react-icons/bs';
 
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 import {
   Form,
@@ -21,10 +21,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 
-import { toast } from "@/components/ui/use-toast";
+import { toast } from '@/components/ui/use-toast';
 
 const accountFormSchema = z
   .object({
@@ -38,8 +38,7 @@ const accountFormSchema = z
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
-
-export default function AccountForm(props:{next:(info:AccountFormValues)=>void, defaultValue: Partial<AccountFormValues>}) {
+export default function AccountForm(props:{ next:(info:AccountFormValues)=>void, defaultValue: Partial<AccountFormValues> }) {
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: props.defaultValue,
@@ -49,14 +48,14 @@ export default function AccountForm(props:{next:(info:AccountFormValues)=>void, 
     console.log(data);
 
     toast({
-      title: "You submitted the following values:",
+      title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
     });
-    props.next(data)
+    props.next(data);
   }
 
   return (

@@ -1,4 +1,4 @@
-export type DetailJson = {
+export interface DetailJson {
   description: string
   content: string
   external_link: string
@@ -7,8 +7,23 @@ export type DetailJson = {
   attributes: []
 }
 
+export interface NewCollectionCreateds {
+  id: string
+  baseRoyalty: number
+  blockNumber: number | string
+  blockTimestamp: number | string
+  collInfoURI: string
+  collectionId: string
+  collectionOwner: string
+  collectionType: string
+  derivedRuleModule: string
+  derivedCollectionAddr: string
+  timestamp: string
+  transactionHash: string
+  detailJson: DetailJson
+}
 
-export type CollectionInfo = {
+export interface CollectionInfo {
   id: string
   collectionOwner: string
   derivedCollectionAddr: string
@@ -27,14 +42,14 @@ export type CollectionInfo = {
   detailJson: DetailJson
 }
 
-export type StakeEthAmountForInitialCollection = {
+export interface StakeEthAmountForInitialCollection {
   id: string
   prevStakeEthAmount: number
   newStakeEthAmount: bigint
   blockTimestamp: number
 }
 
-export type NewNFTCreateds = {
+export interface NewNFTCreateds {
   id: string
   tokenId: string
   collectionId: string
@@ -47,12 +62,12 @@ export type NewNFTCreateds = {
   detailJson: DetailJson
 }
 
-export type CollectionIdQueryRequest = {
+export interface CollectionIdQueryRequest {
   /** The collection id */
   collectionId: string
 }
 
-export type CollectionInfoProps = {
+export interface CollectionInfoProps {
   collectionName: string,
   collectionDesc: string,
   creator: string,
@@ -75,7 +90,7 @@ export type CollectionInfoProps = {
   whitelistRootHash: string,
 }
 
-export type NFTInfoProps = {
+export interface NFTInfoProps {
   nftName: string,
   belongToCollectionId: number,
   nftCreator: string,

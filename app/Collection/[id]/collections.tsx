@@ -1,20 +1,22 @@
-"use client";
-import BuyButton from "@/components/Button/BuyBtn";
-import ForkButton from "@/components/Button/ForkBtn";
-import Link from "next/link";
-import DeleteBtn from "@/components/Button/DeleteBtn";
-import { NFTCard } from "@/components/Collection/NFTCards";
-import { cn } from "@/lib/utils";
-import { CollectionInfo, NewNFTCreateds } from "@/lib/type";
+'use client';
 
-const Collections = (props: {
+import React from "react"
+import BuyButton from '@/components/Button/BuyBtn';
+import ForkButton from '@/components/Button/ForkBtn';
+import Link from 'next/link';
+import DeleteBtn from '@/components/Button/DeleteBtn';
+import { NFTCard } from '@/components/Collection/NFTCards';
+import { cn } from '@/lib/utils';
+import { CollectionInfo, NewNFTCreateds } from '@/lib/type';
+
+function Collections(props: {
   data: NewNFTCreateds[];
   collectionItem: CollectionInfo | undefined;
   className?: string;
-}) => {
+}) {
   const { data = [], className, ...rest } = props;
   return (
-    <div className={cn("grid grid-cols-4 gap-4 py-8", className)}>
+    <div className={cn('grid grid-cols-4 gap-4 py-8', className)}>
       {data.map((card) => (
         // <Link key={card.id} href={`/NFT/${card.collectionId}/${card.tokenId}`}>
         <CollectionCard data={card} {...rest} key={card.id} />
@@ -22,14 +24,14 @@ const Collections = (props: {
       ))}
     </div>
   );
-};
+}
 
-export const CollectionCard = (props: {
+export function CollectionCard(props: {
   data: NewNFTCreateds;
   collectionItem: CollectionInfo | undefined;
   children?: React.ReactNode;
   [index: string]: any;
-}) => {
+}) {
   const { data: card, collectionItem, ...rest } = props;
 
   return (
@@ -52,6 +54,6 @@ export const CollectionCard = (props: {
       </>
     </NFTCard>
   );
-};
+}
 
 export default Collections;

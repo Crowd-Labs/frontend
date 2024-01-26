@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react"
 import type { StaticImageData } from "next/image";
 import UserAvatar from "./UserAvatar";
 import Link from "next/link";

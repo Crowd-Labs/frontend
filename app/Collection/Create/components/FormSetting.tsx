@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { format } from 'date-fns';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
 import {
   Form,
   FormControl,
@@ -24,22 +24,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { toast } from "@/components/ui/use-toast";
-import { Switch } from "@/components/ui/switch";
-import Upload from "@/components/Upload";
+} from '@/components/ui/popover';
+import { toast } from '@/components/ui/use-toast';
+import { Switch } from '@/components/ui/switch';
+import Upload from '@/components/Upload';
 
 const currencys = [
-  { label: "ETH", value: "eth" },
-  { label: "USDT", value: "usdt" },
-  { label: "USDC", value: "usdc" },
-  { label: "BNB", value: "bnb" },
+  { label: 'ETH', value: 'eth' },
+  { label: 'USDT', value: 'usdt' },
+  { label: 'USDC', value: 'usdc' },
+  { label: 'BNB', value: 'bnb' },
 ] as const;
 
 const accountFormSchema = z.object({
@@ -52,17 +52,17 @@ const accountFormSchema = z.object({
   //   message: "Name must be at least 2 characters.",
   // }),
   endTime: z.date({
-    required_error: "A date of birth is required.",
+    required_error: 'A date of birth is required.',
   }),
   isCharge: z.boolean().optional(),
   currency: z.string({
-    required_error: "Please select a currency.",
+    required_error: 'Please select a currency.',
   }).optional(),
   price: z.number().max(10000, {
-    message: "Name must be at least 2 characters.",
+    message: 'Name must be at least 2 characters.',
   }).optional(),
   receiptAddress: z.string().min(20).max(100, {
-    message: "Name must be at least 2 characters.",
+    message: 'Name must be at least 2 characters.',
   }).optional(),
   isSupportWhiteList: z.boolean().optional(),
   whiteList: z.any().optional(),
@@ -71,34 +71,34 @@ const accountFormSchema = z.object({
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
 type SettingProps = {
-  next:(info:AccountFormValues)=>void, 
-  defaultValue: Partial<AccountFormValues>|null,
+  next:(info:AccountFormValues)=>void,
+  defaultValue: Partial<AccountFormValues> | null,
   status: {
     buttonText: string,
     loading: boolean
   }
-}
+};
 
-export default function AccountForm(props:SettingProps ) {
+export default function AccountForm(props:SettingProps) {
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: props.defaultValue || {},
   });
   const [isCharge, isSupportWhiteList] = form.watch([
-    "isCharge",
-    "isSupportWhiteList",
+    'isCharge',
+    'isSupportWhiteList',
   ]);
 
   function onSubmit(data: AccountFormValues) {
     toast({
-      title: "You submitted the following values:",
+      title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
     });
-    props.next(data)
+    props.next(data);
   }
 
   return (
@@ -111,7 +111,7 @@ export default function AccountForm(props:SettingProps ) {
             <FormItem>
               <FormLabel>Mint Limit</FormLabel>
               <FormControl>
-                <Input {...field} type="number"/>
+                <Input {...field} type="number" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -140,14 +140,14 @@ export default function AccountForm(props:SettingProps ) {
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      variant={"outline"}
+                      variant="outline"
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
+                        'w-[240px] pl-3 text-left font-normal',
+                        !field.value && 'text-muted-foreground',
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(field.value, 'PPP')
                       ) : (
                         <span>Pick a date</span>
                       )}
@@ -160,7 +160,7 @@ export default function AccountForm(props:SettingProps ) {
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) =>date < new Date()}
+                    disabled={(date) => date < new Date()}
                     initialFocus
                   />
                 </PopoverContent>
@@ -218,15 +218,15 @@ export default function AccountForm(props:SettingProps ) {
                             variant="outline"
                             role="combobox"
                             className={cn(
-                              "w-[200px] justify-between",
-                              !field.value && "text-muted-foreground"
+                              'w-[200px] justify-between',
+                              !field.value && 'text-muted-foreground',
                             )}
                           >
                             {field.value
                               ? currencys.find(
-                                  (currency) => currency.value === field.value
-                                )?.label
-                              : "Select currency"}
+                                (currency) => currency.value === field.value,
+                              )?.label
+                              : 'Select currency'}
                             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </FormControl>
@@ -241,15 +241,15 @@ export default function AccountForm(props:SettingProps ) {
                                 value={currency.value}
                                 key={currency.value}
                                 onSelect={(value) => {
-                                  form.setValue("currency", value);
+                                  form.setValue('currency', value);
                                 }}
                               >
                                 <CheckIcon
                                   className={cn(
-                                    "mr-2 h-4 w-4",
+                                    'mr-2 h-4 w-4',
                                     currency.value === field.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
+                                      ? 'opacity-100'
+                                      : 'opacity-0',
                                   )}
                                 />
                                 {currency.label}

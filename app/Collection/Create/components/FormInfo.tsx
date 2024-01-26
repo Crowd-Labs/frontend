@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import Upload from "@/components/Upload";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import Upload from '@/components/Upload';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
 import {
   Form,
   FormControl,
@@ -21,24 +21,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { toast } from "@/components/ui/use-toast";
+} from '@/components/ui/popover';
+import { toast } from '@/components/ui/use-toast';
 
 const accountFormSchema = z.object({
   name: z
-    .string({ required_error: "Collection name is required" })
+    .string({ required_error: 'Collection name is required' })
     .min(2, {
-      message: "Collection name must be at least 2 characters.",
+      message: 'Collection name must be at least 2 characters.',
     })
     .max(30, {
-      message: "Collection name must not be longer than 30 characters.",
+      message: 'Collection name must not be longer than 30 characters.',
     }),
   description: z.string().optional(),
   category: z.string().optional(),
@@ -47,8 +47,7 @@ const accountFormSchema = z.object({
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
-
-export default function AccountForm(props:{next:(info:AccountFormValues)=>void, defaultValue: Partial<AccountFormValues>}) {
+export default function AccountForm(props:{ next:(info:AccountFormValues)=>void, defaultValue: Partial<AccountFormValues> }) {
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: props.defaultValue,
@@ -57,14 +56,14 @@ export default function AccountForm(props:{next:(info:AccountFormValues)=>void, 
   function onSubmit(data: AccountFormValues) {
     console.log('onSubmit', data);
     toast({
-      title: "You submitted the following values:",
+      title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
     });
-    props.next(data)
+    props.next(data);
   }
 
   return (
@@ -100,15 +99,15 @@ export default function AccountForm(props:{next:(info:AccountFormValues)=>void, 
         <FormField
           control={form.control}
           name="file"
-          render={({ field }) => {
-            return <FormItem>
+          render={({ field }) => (
+            <FormItem>
               <FormLabel>Logo Image</FormLabel>
               <FormControl>
                 <Upload {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
-          }}
+          )}
         />
         <Button type="submit">Continue</Button>
       </form>
