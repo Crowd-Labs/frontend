@@ -5,11 +5,11 @@ import Link from "next/link";
 import DeleteBtn from "@/components/Button/DeleteBtn";
 import { NFTCard } from "@/components/Collection/NFTCards";
 import { cn } from "@/lib/utils";
-import { NewCollectionCreateds, NewNFTCreateds } from "@/lib/type";
+import { CollectionInfo, NewNFTCreateds } from "@/lib/type";
 
 const Collections = (props: {
   data: NewNFTCreateds[];
-  collectionItem: NewCollectionCreateds | undefined;
+  collectionItem: CollectionInfo | undefined;
   className?: string;
 }) => {
   const { data = [], className, ...rest } = props;
@@ -26,14 +26,14 @@ const Collections = (props: {
 
 export const CollectionCard = (props: {
   data: NewNFTCreateds;
-  collectionItem: NewCollectionCreateds | undefined;
+  collectionItem: CollectionInfo | undefined;
   children?: React.ReactNode;
   [index: string]: any;
 }) => {
   const { data: card, collectionItem, ...rest } = props;
 
   return (
-    <NFTCard src={card?.src} {...rest}>
+    <NFTCard src={card?.detailJson.image} {...rest}>
       <>
         <div className="absolute right-2 top-2">
           <DeleteBtn data={card} owner={collectionItem?.collectionOwner} />
