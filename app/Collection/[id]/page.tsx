@@ -8,11 +8,9 @@ import {
   BsPlusLg,
   BsFillHouseHeartFill,
 } from 'react-icons/bs';
+import BigNumber from 'bignumber.js';
 
 import UserAvatar from '@/components/UserAvatar';
-
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
@@ -184,7 +182,7 @@ function Collection({ params }: { params: { id: string } }) {
                   <div className="text-white-rgba">Total Royalty: </div>
                   <div>
                     {`${toAmount(
-                      totalReceivedEthRoyalty || 0,
+                      (totalReceivedEthRoyalty as BigNumber.Value) || 0,
                       18,
                     )} ETH`}
                   </div>
@@ -193,7 +191,7 @@ function Collection({ params }: { params: { id: string } }) {
                   <div className="text-white-rgba">Royalty Balance: </div>
                   <div>
                     {`${toAmount(
-                      collectionBalance?.value || 0,
+                      (collectionBalance?.value as unknown as BigNumber.Value) || 0,
                       18,
                     )} ETH`}
                   </div>
@@ -204,7 +202,7 @@ function Collection({ params }: { params: { id: string } }) {
                   <div className="text-white-rgba"> Your Share: </div>
                   <div>
                     {`${toAmount(
-                      releasable || 0,
+                      (releasable as BigNumber.Value) || 0,
                       18,
                     )} ETH`}
                   </div>

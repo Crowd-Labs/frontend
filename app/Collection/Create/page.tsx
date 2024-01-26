@@ -30,11 +30,11 @@ const CreateCollection = () => {
     loading: false,
   });
 
-  const [collectionFeeInfo, setCollectionFeeInfo] =
+  const [stakeEthAmountInfo, setStakeEthAmount] =
     useState<StakeEthAmountForInitialCollection>();
   useEffect(() => {
     getStakeEthAmountForInitialCollection().then((res) => {
-      setCollectionFeeInfo(res as StakeEthAmountForInitialCollection);
+      setStakeEthAmount(res as StakeEthAmountForInitialCollection);
     });
   }, []);
 
@@ -71,8 +71,8 @@ const CreateCollection = () => {
   const { write: writeContract } = useContractWrite({
     address: BeCrowd_PROXY_ADDRESS,
     abi: BeCrowd_ABI,
-    value: collectionFeeInfo
-      ? BigInt(collectionFeeInfo.newMaxBaseRoyalty)
+    value: stakeEthAmountInfo
+      ? BigInt(stakeEthAmountInfo.newStakeEthAmount)
       : BigInt(0),
     functionName: "createNewCollection",
     // mode: 'recklesslyUnprepared',
