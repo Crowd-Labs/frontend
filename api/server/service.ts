@@ -38,7 +38,7 @@ service.interceptors.request.use(
     request.cancelToken = new CancelToken((c) => {
       pending.push({
         url: request.url,
-        method: request.method,
+        method: request.method as Method,
         params: request.params,
         data: request.data,
         cancel: c,
