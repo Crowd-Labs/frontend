@@ -2,9 +2,9 @@ import { NewNFTCreateds } from "@/lib/type";
 import { Coll1, Coll2, Coll3, Coll4, Coll5, Coll6 } from "@/public/images";
 
 export const navLinks = [
-    { href: "/Collection", label: "Collection" },
-    { href: "/Collection/Create", label: "Create" },
-    { href: "/About", label: "About" },
+    { href: "/collection", label: "Collection" },
+    { href: "/collection/create", label: "Create" },
+    { href: "/about", label: "About" },
     { href: "/doc", label: "Doc" },
 ];
 
@@ -59,33 +59,32 @@ export const LaunchPadCollections = [
     },
 ];
 
+const mockImage = "/public/images/Coll2.png"
+
 export const DefaultNFTS = [
     {
-        collName: "OrdLinks",
-        cata: "HOT COLLECTION",
-        src: Coll1,
-    },
-    {
-        collName: "GitBoy",
-        cata: "HOT COLLECTION",
-        src: Coll2,
-    },
-    {
-        collName: "Alien",
-        cata: "HOT COLLECTION",
-        src: Coll3,
-    },
-    {
-        collName: "NodeMonkey",
-        cata: "HOT COLLECTION",
-        src: Coll4,
-    },
-    {
-        collName: "BitFrog",
-        cata: "HOT COLLECTION",
-        src: Coll5,
-    },
-] as unknown as NewNFTCreateds[] ;
+        "id": "37c75442-cc65-48ee-87e4-bfd6417286c0",
+        "tokenId": "37c75442",
+        "collectionId": "37c75442",
+        "derivedFrom": "Enim eos tenetur sit nihil saepe.\nId inventore veritatis non iste neque modi aut dolor voluptas.",
+        "creator": "Rerum eum eum alias aspernatur. Facilis dolor quas et laudantium magnam. Et soluta est adipisci quasi. Suscipit distinctio quia deleniti id inventore nisi.",
+        "nftInfoURI": "debitis quia non",
+        "blockNumber": 76800,
+        "blockTimestamp": 24671,
+        "transactionHash": "sapiente",
+        "detailJson": {
+            "description": "Inventore cupiditate dolorem in et velit perferendis. Ut corporis aliquam autem illum quis voluptatum quaerat dolorum. Quos quo illum aliquid accusamus earum dignissimos nesciunt.",
+            "content": "Soluta consequatur ipsum dolorem quasi maiores nobis porro. Labore saepe non enim a voluptates at aut mollitia quo. Repellat mollitia quia nesciunt error possimus. Temporibus adipisci neque magnam veniam eum numquam quos.\n \rIpsum omnis non ullam. Accusantium dolore veniam nesciunt aliquid ut non eveniet nobis quam. Odit repellendus beatae aut.\n \rOfficia et odio atque omnis harum itaque sapiente. Nam similique eum deserunt facere eos minima laudantium eum commodi. Beatae quia alias sequi iure. Laudantium velit neque quam porro error.",
+            "external_link": "Quam dolores omnis ut. Atque sit non fuga ratione sit eos sit voluptas. Sit officia in quibusdam quia.\n \rVitae laudantium mollitia voluptatibus. Voluptatem possimus tempora aperiam iure temporibus. Nisi officia molestias ex ab ut a corporis iure. Repudiandae aperiam aut eaque omnis. Sint ipsa illum officia iure ab enim.\n \rVoluptas omnis impedit blanditiis fuga accusantium qui dolore dignissimos optio. Omnis nam commodi amet. Perspiciatis voluptatem officia est quasi quasi deleniti libero nulla. Consequatur soluta veniam illum magni vel alias reprehenderit porro. Neque et nihil quidem qui qui iure omnis accusantium itaque. Perferendis ipsum mollitia quo.",
+            "image": mockImage,
+            "name": "Sabryna Lang",
+            "attributes": [
+                {},
+                {}
+            ]
+        }
+    }
+] as NewNFTCreateds[];
 
 export const BRCROWD_DOC = 'https://docs.becrowd.xyz/'
 export const TWITTER_ADDRESS = 'https://twitter.com/BeCrowd_'

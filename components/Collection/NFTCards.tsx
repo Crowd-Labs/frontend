@@ -16,7 +16,7 @@ export function NFTCard(props: CardProps) {
       className={cn('w-[15.18125rem] h-[18.75rem] relative', className)}
       {...rest}
     >
-      <Image src={src} alt="card" className="w-full h-full object-cover" />
+      <Image src={src} alt="card" className="w-full h-full object-cover" fill/>
       {props.children}
     </div>
   );

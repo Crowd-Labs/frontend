@@ -1,11 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
 import footer_logo from '/public/icons/footer_logo.png';
+import { cn } from '@/lib/utils';
+
+
+export const Divider = (props: { className?: string }) => {
+  return <div className={cn("border-t-2 border-[#9BA885] my-4", props.className)} />
+}
 
 function Footer() {
   return (
     <footer className="py-8 w-full text-white text-xl">
-      <div className="border-t-2 border-[#9BA885] my-4" />
+      <Divider />
       <div className="flex mt-20 gap-40 items-end">
         <div className="flex-1">
           <Image src={footer_logo} width={100} height={100} alt="" />

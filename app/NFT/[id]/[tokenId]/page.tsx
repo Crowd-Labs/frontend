@@ -69,7 +69,7 @@ const Nft = ({ params }: { params: { id: string, tokenId: string } }) => {
               </Button>
             </a>
             
-            <Link href={`/NFT/Fork/${params.id}/${params.tokenId}/${nftInfo?.imageUrl?.replace('ipfs://','')}`}>
+            <Link href={`/nft/fork/${params.id}/${params.tokenId}/${nftInfo?.imageUrl?.replace('ipfs://','')}`}>
               <Button>Fork</Button>
             </Link>
           </div>

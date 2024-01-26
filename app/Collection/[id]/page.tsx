@@ -40,6 +40,7 @@ import { MongoCollection } from '@/models/createcollection';
 import { DefaultNFTS } from '@/constants';
 import Image from 'next/image';
 import CollectionCards from './collections';
+import { Divider } from '@/components/Footer';
 
 function Collection({ params }: { params: { id: string } }) {
   const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
@@ -109,7 +110,7 @@ function Collection({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="container mx-auto">
+    <div>
       <Image
         src={collectionItem?.detailJson.image!}
         alt=""
@@ -130,29 +131,29 @@ function Collection({ params }: { params: { id: string } }) {
               </div>
               <div className="flex justify-between gap-2">
                 {collectionmongo?.website && (
-                <Link target="_blank" href={collectionmongo.website}>
-                  <BsFillHouseHeartFill />
-                </Link>
+                  <Link target="_blank" href={collectionmongo.website}>
+                    <BsFillHouseHeartFill />
+                  </Link>
                 )}
                 {collectionmongo?.twitter && (
-                <Link target="_blank" href={collectionmongo.twitter}>
-                  <BsTwitter />
-                </Link>
+                  <Link target="_blank" href={collectionmongo.twitter}>
+                    <BsTwitter />
+                  </Link>
                 )}
                 {collectionmongo?.telegram && (
-                <Link target="_blank" href={collectionmongo.telegram}>
-                  <BsTelegram />
-                </Link>
+                  <Link target="_blank" href={collectionmongo.telegram}>
+                    <BsTelegram />
+                  </Link>
                 )}
                 {collectionmongo?.medium && (
-                <Link target="_blank" href={collectionmongo.medium}>
-                  <BsMedium />
-                </Link>
+                  <Link target="_blank" href={collectionmongo.medium}>
+                    <BsMedium />
+                  </Link>
                 )}
                 {collectionmongo?.discord && (
-                <Link target="_blank" href={collectionmongo.discord}>
-                  <BsDiscord />
-                </Link>
+                  <Link target="_blank" href={collectionmongo.discord}>
+                    <BsDiscord />
+                  </Link>
                 )}
               </div>
             </div>
@@ -183,18 +184,18 @@ function Collection({ params }: { params: { id: string } }) {
                   <div className="text-white-rgba">Total Royalty: </div>
                   <div>
                     {`${toAmount(
-                        totalReceivedEthRoyalty || 0,
-                        18,
-                      )} ETH`}
+                      totalReceivedEthRoyalty || 0,
+                      18,
+                    )} ETH`}
                   </div>
                 </div>
                 <div className="flex gap-2 items-center">
                   <div className="text-white-rgba">Royalty Balance: </div>
                   <div>
                     {`${toAmount(
-                        collectionBalance?.value || 0,
-                        18,
-                      )} ETH`}
+                      collectionBalance?.value || 0,
+                      18,
+                    )} ETH`}
                   </div>
                 </div>
               </div>
@@ -203,13 +204,13 @@ function Collection({ params }: { params: { id: string } }) {
                   <div className="text-white-rgba"> Your Share: </div>
                   <div>
                     {`${toAmount(
-                        releasable || 0,
-                        18,
-                      )} ETH`}
+                      releasable || 0,
+                      18,
+                    )} ETH`}
                   </div>
                 </div>
                 <div
-                  className="bg-indigo-800 p-1 rounded-sm"
+                  className="bg-[#9BA885] p-1 rounded-sm"
                   onClick={claimRelease}
                 >
                   Claim
@@ -250,8 +251,8 @@ function Collection({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-      <div className="border-b-2 border-[#D9D9D9] mt-7" />
-      <div className="flex w-full items-center justify-between mt-3 gap-4">
+      <Divider />
+      {/* <div className="flex w-full items-center justify-between mt-3 gap-4">
         <div className="flex space-x-2">
           <Input
             type="text"
@@ -262,24 +263,24 @@ function Collection({ params }: { params: { id: string } }) {
             Search
           </Button>
         </div>
-      </div>
+      </div> */}
       {nfts?.length === 0
-          && collectionItem?.collectionOwner.toLocaleLowerCase()
-            === account.address?.toLocaleLowerCase() && (
-            <Link
-              href={`/NFT/Create/${params.id}`}
-              className="flex flex-col items-center justify-center w-[15.18125rem] mt-4 h-[18.75rem] border text-white"
-            >
-              <BsPlusLg className="w-36 h-36" />
-              Initail Ancestor NFT
-            </Link>
-      )}
+        && collectionItem?.collectionOwner.toLocaleLowerCase()
+        === account.address?.toLocaleLowerCase() && (
+          <Link
+            href={`/NFT/Create/${params.id}`}
+            className="flex flex-col items-center justify-center w-[15.18125rem] mt-4 h-[18.75rem] border text-white"
+          >
+            <BsPlusLg className="w-36 h-36" />
+            Initail Ancestor NFT
+          </Link>
+        )}
       {nfts?.[0] && (
-      <CollectionCards
-        data={nfts}
-        collectionItem={collectionItem}
-        className="mt-4"
-      />
+        <CollectionCards
+          data={nfts}
+          collectionItem={collectionItem}
+          className="mt-4"
+        />
       )}
     </div>
   );

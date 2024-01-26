@@ -4,7 +4,7 @@ export interface DetailJson {
   external_link: string
   image: string
   name: string,
-  attributes: []
+  attributes: any[]
 }
 
 export interface NewCollectionCreateds {

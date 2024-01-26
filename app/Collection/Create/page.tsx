@@ -215,7 +215,7 @@ const CreateCollection = () => {
   };
 
   return (
-    <div className="container mx-auto var-dark">
+    <div>
       <Separator className="my-6" />
       <Tabs
         className="flex gap-4 mt-8"

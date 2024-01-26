@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react"
 import type { StaticImageData } from "next/image";
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "@/components/UserAvatar";
 import Link from "next/link";
 import { cn, sanitizeDStorageUrl } from "@/lib/utils";
 import {
@@ -44,7 +44,7 @@ interface NFTCardPropsGraph {
 export const CollectionRandom = (props: NFTCardProps) => {
   const { sampleData } = props;
   return (
-    <Link href={`/NFT/${sampleData.belongToCollectionId}/${sampleData.tokenId}`}>
+    <Link href={`/nft/${sampleData.belongToCollectionId}/${sampleData.tokenId}`}>
       <>
         <Image
           className="w-full h-full rounded-2xl overflow-hidden object-cover"
@@ -61,7 +61,7 @@ export const CollectionIng = (props: CollectionCardProps) => {
   const { sampleData } = props;
   const { detailJson } = sampleData;
   return (
-    <Link href={`/Collection/${sampleData.collectionId}`}>
+    <Link href={`/collection/${sampleData.collectionId}`}>
       <div className={`text-white w-64`}>
         <div className="w-64 h-[28.9375rem] relative rounded-[30px] overflow-hidden">
           <Image src={detailJson.image} alt={detailJson.name} className="w-full h-full object-cover" />
