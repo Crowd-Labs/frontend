@@ -1,6 +1,7 @@
 "use client";
 import React from 'react'
-import { hamburger, logo } from "../../public/icons";
+import hamburger from "/public/icons/hamburger.svg";
+import logo from "/public/icons/logo.svg";
 import { GITHUB_ADDRESS, TWITTER_ADDRESS, navLinks } from "@/constants";
 import Image from 'next/image';
 import Link from 'next/link';
