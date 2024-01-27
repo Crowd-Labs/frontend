@@ -14,7 +14,7 @@ import {
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { useAccount, useContractWrite } from "wagmi";
 import { storeBlob, storeCar } from "@/lib/uploadToNFTStorage";
-import { trimify } from "@/lib/utils";
+import { cn, trimify } from "@/lib/utils";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
 import { postReq } from "@/api/server/abstract";
@@ -92,7 +92,7 @@ const CreateCollection = () => {
           discord: socialInfo.discord,
           mintLimit: settingInfo?.limit,
           royalty: parseFloat(settingInfo?.royalty || "0") * 100,
-          endTime:(settingInfo?.endTime?.getTime() || (Date.now()+ 7 * 24 * 3600 * 1000))/ 1000 , 
+          endTime: (settingInfo?.endTime?.getTime() || (Date.now() + 7 * 24 * 3600 * 1000)) / 1000,
           bCharge: !!settingInfo?.isCharge,
           mintPrice: settingInfo?.price,
           currency: settingInfo?.currency,
@@ -163,24 +163,24 @@ const CreateCollection = () => {
         : FREE_DERIVIED_MODULE_ADDRESS;
       let derivedRuleModuleInitData = isFee
         ? abiCoder.encode(
-            ["uint256", "uint256", "uint256", "address", "address"],
-            [
-              settingInfo?.limit,
-              (settingInfo?.endTime?.getTime() ||
-                Date.now() + 7 * 24 * 3600 * 1000) / 1000,
-              settingInfo?.price,
-              settingInfo?.currency,
-              settingInfo?.receiptAddress,
-            ]
-          )
+          ["uint256", "uint256", "uint256", "address", "address"],
+          [
+            settingInfo?.limit,
+            (settingInfo?.endTime?.getTime() ||
+              Date.now() + 7 * 24 * 3600 * 1000) / 1000,
+            settingInfo?.price,
+            settingInfo?.currency,
+            settingInfo?.receiptAddress,
+          ]
+        )
         : abiCoder.encode(
-            ["uint256", "uint256"],
-            [
-              settingInfo?.limit,
-              (settingInfo?.endTime?.getTime() ||
-                Date.now() + 7 * 24 * 3600 * 1000) / 1000,
-            ]
-          );
+          ["uint256", "uint256"],
+          [
+            settingInfo?.limit,
+            (settingInfo?.endTime?.getTime() ||
+              Date.now() + 7 * 24 * 3600 * 1000) / 1000,
+          ]
+        );
       const args = [
         parseFloat(settingInfo?.royalty || "0") * 100,
         metadataUri,
@@ -221,11 +221,15 @@ const CreateCollection = () => {
         onValueChange={setTabValue}
       >
         <TabsList className="flex-col justify-start bg-transparent text-xl">
-          <TabsTrigger value="Collections" className="text-white">Collection Info</TabsTrigger>
+          <TabsTrigger
+            value="Collections"
+            className={cn("text-white")}
+          >Collection Info
+          </TabsTrigger>
           <TabsTrigger
             value="Social"
             disabled={tabValue == "Collections" ? true : false}
-            className="text-white"
+            className={cn("text-white")}
           >
             Social Link
           </TabsTrigger>
@@ -234,7 +238,7 @@ const CreateCollection = () => {
             disabled={
               tabValue == "Collections" || tabValue == "Social" ? true : false
             }
-            className="text-white"
+            className={cn("text-white")}
           >
             Config Setting
           </TabsTrigger>

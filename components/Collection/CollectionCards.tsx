@@ -26,7 +26,7 @@ interface CollectionCardProps {
   className?: string;
 }
 
-interface NFTCardProps {
+export interface NFTCardProps {
   data?: NFTInfoProps;
   sampleData: NFTInfoProps;
   children?: React.ReactNode;

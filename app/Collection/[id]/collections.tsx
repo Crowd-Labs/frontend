@@ -18,9 +18,9 @@ function Collections(props: {
   return (
     <div className={cn('grid grid-cols-4 gap-4 py-8', className)}>
       {data.map((card) => (
-        // <Link key={card.id} href={`/NFT/${card.collectionId}/${card.tokenId}`}>
-        <CollectionCard data={card} {...rest} key={card.id} />
-        // </Link>
+        <Link key={card.id} href={`/nft/${card.collectionId}/${card.tokenId}`}>
+          <CollectionCard data={card} {...rest} key={card.id} />
+        </Link>
       ))}
     </div>
   );
@@ -28,7 +28,7 @@ function Collections(props: {
 
 export function CollectionCard(props: {
   data: NewNFTCreateds;
-  collectionItem: CollectionInfo | undefined;
+  collectionItem?: CollectionInfo;
   children?: React.ReactNode;
   [index: string]: any;
 }) {

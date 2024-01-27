@@ -7,15 +7,12 @@ import UserAvatar from "@/components/UserAvatar";
 const Profile = () => {
     return (
         <div>
-            <div>
-                <UserAvatar />
-            </div>
+            <UserAvatar className="rounded-sm w-28 h-28"/>
             <Tabs defaultValue="collections" className="mt-12">
                 <TabsList className="bg-transparent text-xl text-white">
                     <TabsTrigger value="collections">My Collection</TabsTrigger>
                     <TabsTrigger value="nft">My NFT</TabsTrigger>
                 </TabsList>
-                <Divider />
                 <Divider />
                 <TabsContent value="collections">
                     <CollectionCards />

@@ -266,7 +266,7 @@ function Collection({ params }: { params: { id: string } }) {
         && collectionItem?.collectionOwner.toLocaleLowerCase()
         === account.address?.toLocaleLowerCase() && (
           <Link
-            href={`/NFT/Create/${params.id}`}
+            href={`/nft/Create/${params.id}`}
             className="flex flex-col items-center justify-center w-[15.18125rem] mt-4 h-[18.75rem] border text-white"
           >
             <BsPlusLg className="w-36 h-36" />
