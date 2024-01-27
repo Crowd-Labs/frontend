@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import footer_logo from '/public/icons/footer_logo.png';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { BRCROWD_DOC, TWITTER_ADDRESS } from '@/constants';
 
 
 export const Divider = (props: { className?: string }) => {
@@ -28,13 +30,17 @@ function Footer() {
             <div className="flex flex-col gap-2 mt-4">
               <div>Blog</div>
               <div>Learn</div>
-              <div>Doc</div>
+              <Link target="_blank" href={BRCROWD_DOC!}>
+                Doc
+              </Link>
             </div>
           </div>
           <div className="flex-1">
             <div className="text-2xl font-bold">Community</div>
             <div className="flex flex-col gap-2 mt-4">
-              <div>Twitter</div>
+              <Link target="_blank" href={TWITTER_ADDRESS!}>
+                Twitter
+              </Link>
               <div>Discord</div>
               <div>Telegram</div>
             </div>

@@ -29,7 +29,7 @@ function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className=" nav-link"
+                  className="nav-link"
                 >
                   {item.label}
                 </Link>

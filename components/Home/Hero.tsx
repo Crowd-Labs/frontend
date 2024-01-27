@@ -16,7 +16,7 @@ function Hero() {
           asChild
           variant="yellow"
         >
-          <Link href="/create">Get Started</Link>
+          <Link href="/Collection/Create">Get Started</Link>
         </Button>
         <Button
           asChild
