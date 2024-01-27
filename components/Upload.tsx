@@ -26,12 +26,7 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
       const file = event.target.files?.[0];
       onChange?.(file);
     };
-    const [base64, setBase64] = React.useState('');
-    React.useEffect(() => {
-      if (value && accept === defaultAccept) {
-        getBase64(value).then(setBase64);
-      }
-    }, [value, accept]);
+    
 
     return (
       <div className="flex flex-row items-center">
@@ -47,8 +42,8 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
             accept={accept}
             onChange={handleFileOnChange}
           />
-          {base64 ? (
-            <Image className=" w-full h-full" src={base64} alt="" />
+          {value ? (
+            <img className=" w-full h-full" src={ URL.createObjectURL(value)} alt="" />
           ) : (
             <PlusIcon className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 text-gray-500" />
           )}

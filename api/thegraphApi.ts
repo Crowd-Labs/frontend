@@ -193,6 +193,6 @@ export const getStakeEthAmountForInitialCollection = async () => {
   let response: { data: { createCollectionStakeEthAmountSets: StakeEthAmountForInitialCollection[] } } = await client.query({
     query: queryStakeEthAmountForInitialCollection
   })
-  let stakeEthAmountInfos = response.data.createCollectionStakeEthAmountSets
+  let stakeEthAmountInfos = response?.data?.createCollectionStakeEthAmountSets
   return stakeEthAmountInfos?.[0]
 }

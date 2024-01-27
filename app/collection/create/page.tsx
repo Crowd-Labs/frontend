@@ -76,35 +76,37 @@ const CreateCollection = () => {
     functionName: "createNewCollection",
     // mode: 'recklesslyUnprepared',
     onSuccess: async (data) => {
-      console.log("onSuccess data", data);
-      await postReq({
+      let request = {
+        collectionName: collectionInfo.name,
+        collectionDesc: collectionInfo.description,
+        creator: account.address,
+        logoImage: imageSource,
+        website: socialInfo.website,
+        twitter: socialInfo.twitter,
+        telegram: socialInfo.telegram,
+        medium: socialInfo.medium,
+        discord: socialInfo.discord,
+        mintLimit: settingInfo?.limit,
+        royalty: parseFloat(settingInfo?.royalty || "0") * 100,
+        endTime: (settingInfo?.endTime?.getTime() || (Date.now() + 7 * 24 * 3600 * 1000)) / 1000,
+        bCharge: !!settingInfo?.isCharge,
+        mintPrice: settingInfo?.price,
+        currency: settingInfo?.currency,
+        receiptAddress: settingInfo?.receiptAddress,
+        bWhitelist: false,
+        whitelistRootHash: "",
+      }
+      console.log("onSuccess data", data, request);
+      let res:any = await postReq({
         url: "/api/collection/create",
-        data: {
-          collectionName: collectionInfo.name,
-          collectionDesc: collectionInfo.description,
-          creator: account.address,
-          logoImage: imageSource,
-          website: socialInfo.website,
-          twitter: socialInfo.twitter,
-          telegram: socialInfo.telegram,
-          medium: socialInfo.medium,
-          discord: socialInfo.discord,
-          mintLimit: settingInfo?.limit,
-          royalty: parseFloat(settingInfo?.royalty || "0") * 100,
-          endTime: (settingInfo?.endTime?.getTime() || (Date.now() + 7 * 24 * 3600 * 1000)) / 1000,
-          bCharge: !!settingInfo?.isCharge,
-          mintPrice: settingInfo?.price,
-          currency: settingInfo?.currency,
-          receiptAddress: settingInfo?.receiptAddress,
-          bWhitelist: false,
-          whitelistRootHash: "",
-        },
+        data: request,
       });
       setStatus({
         buttonText: "Create collection",
         loading: false,
       });
-      router.push("/collection");
+      console.log('collectionAddress', res)
+      router.push(`/collection/${res? res.message?.collectionAddress:""}`);
     },
     onError: (error) => {
       console.log("onError error", error);
@@ -133,6 +135,7 @@ const CreateCollection = () => {
       reader.readAsArrayBuffer(collectionInfo.file);
     }
   };
+
 
   const createPublication = async (imageSource: string, settingInfo: { isCharge: any; limit: any; endTime: { getTime: () => any; }; price: any; currency: any; receiptAddress: any; royalty: any; }) => {
     try {
