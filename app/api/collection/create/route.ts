@@ -1,7 +1,7 @@
 import CreateCollection from "@/models/createcollection";
 import { connectToDB } from "@/lib/mongodb";
 import { calNextCollectionContractAddr } from "@/lib/utils";
-import { DERIVED_NFTIMPL_ADDRESS } from "@/constants";
+import { BECROWD_PROXY_ADDRESS, DERIVED_NFTIMPL_ADDRESS } from "@/constants";
 import { ethers } from "ethers";
 
 
@@ -10,7 +10,7 @@ export const POST = async (request) => {
     try {
         await connectToDB();
         const collectionId = await CreateCollection.countDocuments({})
-        const collectionAddress = calNextCollectionContractAddr(DERIVED_NFTIMPL_ADDRESS, ethers.solidityPackedKeccak256(["uint256"], [collectionId]));
+        const collectionAddress = calNextCollectionContractAddr(DERIVED_NFTIMPL_ADDRESS, ethers.solidityPackedKeccak256(["uint256"], [collectionId]), BECROWD_PROXY_ADDRESS);
         const newCollection = new CreateCollection({ collectionId: collectionId, collectionAddress, collectionName, collectionDesc, creator, logoImage, website, twitter, telegram, medium, discord, mintLimit, royalty, endTime, bCharge, mintPrice, currency, receiptAddress, bWhitelist, whitelistRootHash });
 
         await newCollection.save();
