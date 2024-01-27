@@ -1,6 +1,6 @@
 import { Tabs, TabsContent} from "@/components/ui/tabs"
 import CollectionCards from "./collections";
-const AiWork = () => {
+const Collection = () => {
   return (
     <div>
       <div className="border-b-2 border-[#D9D9D9] mt-7"></div>
@@ -18,4 +18,4 @@ const AiWork = () => {
   )
 }
 
-export default AiWork
+export default Collection

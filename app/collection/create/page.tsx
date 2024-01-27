@@ -105,7 +105,7 @@ const CreateCollection = () => {
         buttonText: "Create collection",
         loading: false,
       });
-      router.push("/AIWork");
+      router.push("/collection");
     },
     onError: (error) => {
       console.log("onError error", error);
