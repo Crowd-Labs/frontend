@@ -39,8 +39,9 @@ const ShapePanel: React.FC<ShapePanelProps> = (props) => {
                 <div className="shape-content">
                     <ShapeTypeContext.Consumer>
                         {
-                            ({type, setType}) => shapes.map((shape) => (
-                                <div key={type} 
+                            ({type, setType}) => shapes.map((shape, index) => (
+                                <div 
+                                    key={index}
                                     className={type === shape.type && toolTypeContex.type === ToolType.SHAPE ? `mt-4 bg-gray-400 w-8 h-8` : "mt-4"} 
                                     onClick={() => setType(shape.type)}>
                                     {shape.img}
