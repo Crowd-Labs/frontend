@@ -45,7 +45,7 @@ export interface CollectionInfo {
 export interface StakeEthAmountForInitialCollection {
   id: string
   prevStakeEthAmount: number
-  newStakeEthAmount: bigint
+  newStakeEthAmount: number
   blockTimestamp: number
 }
 

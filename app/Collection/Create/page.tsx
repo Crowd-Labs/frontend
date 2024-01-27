@@ -13,7 +13,7 @@ import {
 } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { useAccount, useContractWrite } from "wagmi";
-import { storeBlob, storeCar } from "@/lib/uploadToStorage";
+import { storeBlob, storeCar } from "@/lib/uploadToNFTStorage";
 import { trimify } from "@/lib/utils";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";

@@ -2,7 +2,7 @@
 import { NFTStorage } from 'nft.storage';
 
 // Paste your NFT.Storage API key into the quotes:
-const NFT_STORAGE_KEY = process.env.NFTSTORAGE_KEY || '';
+const NFT_STORAGE_KEY = process.env.NEXT_PUBLIC_NFTSTORAGE_KEY || '';
 const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY });
 
 /**

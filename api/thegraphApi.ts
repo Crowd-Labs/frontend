@@ -3,7 +3,7 @@ import { getReq } from './server/abstract';
 import { sanitizeDStorageUrl } from '@/lib/utils';
 import { CollectionInfo, NewNFTCreateds, StakeEthAmountForInitialCollection } from '@/lib/type';
 
-const API_URL = process.env.SUBGRAPH_URL || ""
+const API_URL = process.env.NEXT_PUBLIC_SUBGRAPH_URL || ""
 
 /* create the API client */
 export const client = new ApolloClient({
@@ -191,9 +191,9 @@ export const getUnFinishCollection = async (mintExpired: string) => {
 }
 
 export const getStakeEthAmountForInitialCollection = async () => {
-  let response: { data: { stakeEthAmountSets: StakeEthAmountForInitialCollection[] } } = await client.query({
+  let response: { data: { createCollectionStakeEthAmountSets: StakeEthAmountForInitialCollection[] } } = await client.query({
     query: queryStakeEthAmountForInitialCollection
   })
-  let stakeEthAmountInfos = response.data.stakeEthAmountSets
+  let stakeEthAmountInfos = response.data.createCollectionStakeEthAmountSets
   return stakeEthAmountInfos?.[0]
 }
