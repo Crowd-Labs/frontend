@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { NFTInfoProps, NewCollectionCreateds } from "@/lib/type";
 import { getMongoNFTById } from "@/api/mongodbApi";
 import { sanitizeDStorageUrl } from "@/lib/utils";
-import { TESTNET_OPENSEA } from "@/constants";
+import { ELEMENT_MARKET } from "@/constants";
 
 const Nft = ({ params }: { params: { id: string, tokenId: string } }) => {
 
@@ -63,7 +63,7 @@ const Nft = ({ params }: { params: { id: string, tokenId: string } }) => {
             {nftInfo?.nagativePrompt}
           </div>
           <div className="flex gap-8 mt-24">
-            <a href={`${TESTNET_OPENSEA}/assets/base-goerli/${collectionItem?.derivedCollectionAddr}/${params.tokenId}`} target="_blank" rel="noopener noreferrer">
+            <a href={`${ELEMENT_MARKET}/assets/blast_testnet/${collectionItem?.derivedCollectionAddr}/${params.tokenId}`} target="_blank" rel="noopener noreferrer">
               <Button className="bg-yellow-rgba text-black">
                 View on OpenSea
               </Button>

@@ -92,7 +92,7 @@ export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'
 
 export const IPFS_GATEWAY_URL = 'https://ipfs.io/ipfs'
 
-export const TESTNET_OPENSEA = 'https://testnets.opensea.io'
+export const ELEMENT_MARKET = 'https://element.market/'
 export const BeCrowd_PROXY_ADDRESS = '0x4308526523E349633068B22b062A4Ad5b5fb7989'
 
 export const BeCrowdHubProxy = 'BeCrowdHubProxy'
