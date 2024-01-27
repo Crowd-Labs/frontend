@@ -30,7 +30,7 @@ import { Point } from "./tool";
 export function line(p1: Point, p2: Point) {
   /* this function calculates the points of the line with endpoints p1 &p2
    */
-  let points = [];
+  let points: Array<Point> = [];
   let dx = Math.abs(p2.x - p1.x);
   let sx = p1.x < p2.x ? 1 : -1;
   let dy = -Math.abs(p2.y - p1.y);
@@ -61,7 +61,7 @@ export function line(p1: Point, p2: Point) {
 export function rect(p1: Point, p2: Point) {
   /* this function calculates the rect points of the line with endpoints p1 &p2
    */
-  let points = [];
+  let points: Array<Point> = [];
   for(let i = 0; i <= Math.abs(p2.x - p1.x); i ++){
     for(let j = 0; j <= Math.abs(p2.y - p1.y); j ++){
       let x = p1.x + i * (p2.x - p1.x)/Math.abs(p2.x - p1.x);
@@ -80,7 +80,7 @@ export function rect(p1: Point, p2: Point) {
 export function circle(r: number, pc: Point) {
   /* This function returns points of Circle with radius r and center as pc*/
 
-  let points = [];
+  let points: Array<Point> = [];
   let x = 0;
   let y = r;
   points.push(new Point(x, y));
@@ -148,7 +148,7 @@ export function ellipse(start: Point, end: Point) {
   let cy = start.y + ry * (end.y - start.y > 0 ? 1: -1 )
   let pc: Point = new Point(cx, cy);
   console.log('rx', rx, ry, pc, start, end)
-  let points = [];
+  let points: Array<Point> = [];
   let x = 0;
   let y = ry;
   points.push(new Point(x, y));
