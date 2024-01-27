@@ -20,7 +20,7 @@ export const WHITELIST_FEE_DERIVIED_MODULE_ADDRESS = '0xAdDD20eE135CeeDf90339999
 export const navLinks = [
     { href: "/collection", label: "Collection", target: "_self" },
     { href: "/collection/create", label: "Create", target: "_self" },
-    { href: "/about", label: "About", target: "_self" },
+    { href: "/", label: "About", target: "_self" },
     { href: BRCROWD_DOC, label: "Doc", target: "_blank" },
 ];
 

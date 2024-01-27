@@ -172,7 +172,6 @@ export const getAllNFT = async () => {
     let json = await parseCollectionDetailJson(collection.nftInfoURI)
     return { ...collection, detailJson: json }
   }))
-  console.log('getAllNewNFTCreateds response', collections)
   return collections
 }
 

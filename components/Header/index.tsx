@@ -93,7 +93,7 @@ function Header() {
                         >
                           {account.displayName}
                         </Button>
-                        <Link href="/user">
+                        <Link href="/profile">
                           <BsFillPersonLinesFill className="text-3xl cursor-pointer" />
                         </Link>
                       </div>

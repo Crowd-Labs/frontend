@@ -4,7 +4,6 @@ import FormInfo from "./components/FormInfo";
 import FormSocial from "./components/FormSocial";
 import FormSetting from "./components/FormSetting";
 import { useEffect, useState } from "react";
-import { Separator } from "@/components/ui/separator";
 import {
   BeCrowd_PROXY_ADDRESS,
   BeCrowd_WEBSITE,

@@ -55,10 +55,10 @@ function IntroItem(props: { data: IntroItemType, className?: string }) {
     <div className={cn('flex gap-2 text-white text-2xl', className)}>
       <Image src={data.icon} width={45} height={45} alt="" className="self-start" />
       <div className="flex-1">
-        <div className="text-3xl text-yellow">
+        <div className="text-2xl text-yellow">
           {data.title}
         </div>
-        <div className="mt-8">
+        <div className="mt-8 text-xl">
           {data.content}
         </div>
       </div>
