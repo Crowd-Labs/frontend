@@ -109,14 +109,14 @@ function Collection({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <Image
+      <img
         src={collectionItem?.detailJson.image!}
         alt=""
         style={{ objectFit: 'cover' }}
         className="w-full h-56 -mb-32"
       />
       <div className="px-10 ">
-        <Image
+        <img
           src={collectionItem?.detailJson.image!}
           alt=""
           className="w-40 h-40"

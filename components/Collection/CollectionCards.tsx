@@ -19,7 +19,7 @@ export interface CollectionProps {
   logo: string | StaticImageData;
 }
 
-interface CollectionCardProps {
+export interface CollectionCardProps {
   data?: CollectionInfo;
   sampleData: CollectionInfo;
   children?: React.ReactNode;
