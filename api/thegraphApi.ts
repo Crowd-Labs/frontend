@@ -89,32 +89,32 @@ export const queryAllNFTByCollectionId = gql`
 
 // filter collection
 export const filterCollectionByMintExpired = gql`
-    query filterCollectionByMintExpired($mintExpired: String!) {
-      newCollectionCreateds(where: {mintExpired_gte: $mintExpired} orderBy: mintExpired) {
-        collectionOwner
-        derivedCollectionAddr
-        derivedRuleModule
-        collectionId
-        baseRoyalty
-        mintLimit
-        mintExpired
-        mintPrice
-        whiteListRootHash
-        collInfoURI
-        blockTimestamp
-        items
-    }
+  query filterCollectionByMintExpired($mintExpired: String!) {
+    newCollectionCreateds(where: {mintExpired_gte: $mintExpired} orderBy: mintExpired) {
+      collectionOwner
+      derivedCollectionAddr
+      derivedRuleModule
+      collectionId
+      baseRoyalty
+      mintLimit
+      mintExpired
+      mintPrice
+      whiteListRootHash
+      collInfoURI
+      blockTimestamp
+      items
   }
+}
 `
 
 // filter collection
 export const queryStakeEthAmountForInitialCollection = gql`
-    query CreateCollectionStakeEthAmountSets {
-      CreateCollectionStakeEthAmountSets(orderBy: blockTimestamp, orderDirection: desc, first: 1) {
-        id
-        prevStakeEthAmount
-        newStakeEthAmount
-        blockTimestamp
+  query getStakeEthAmountSets {
+    createCollectionStakeEthAmountSets(orderBy: blockTimestamp, orderDirection: desc, first: 1) {
+      id
+      prevStakeEthAmount
+      newStakeEthAmount
+      blockTimestamp
   }
 }
 `
