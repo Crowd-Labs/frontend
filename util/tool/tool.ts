@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const GridWidth = 20
 export const CanvasBgColor = "#ffffff"
-
+export const SVGToolColor = "#ffffff"
 export class Point {
     x: number;
     y: number;

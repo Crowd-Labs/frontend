@@ -6,6 +6,7 @@ import Picker from 'react-color';
 import {useState} from "react";
 import {useEffect} from "react";
 import { Tool } from "@/util/tool";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface ColorPanelProps {
     className?: string;
@@ -16,7 +17,6 @@ const ColorPanel: React.FC<ColorPanelProps> = (props) => {
     const {className} = props;
     const [pickerColor, setPickerColor] = useState({hex: Tool.mainColor});
     const colorContext = useContext(ColorContext);
-    const [colorPickerShow, setPickerColorShow] = useState(false)
 
     useEffect(() => {
         colorContext.setColor(pickerColor.hex);
@@ -25,17 +25,21 @@ const ColorPanel: React.FC<ColorPanelProps> = (props) => {
     return (
         <div className={className ? `colorpanel ${className}` : "colorpanel"}>
             <div className="content">
-                <span>Color</span>
-                <div className='w-6 h-6 mt-4 mb-4'style={{background: colorContext.mainColor}}onClick={() => setPickerColorShow(!colorPickerShow)} >
-                    </div>
+                <span className="span-title">Color</span>
                 <div className="color-picker">
-                    {colorPickerShow && 
-                    <Picker
-                        color={pickerColor}
-                        onChangeComplete={setPickerColor}
-                        onClose={()=>setPickerColorShow(false)}
-                        type="sketch"
-                    />}
+                    <Popover>
+                        <PopoverTrigger>
+                            <div className='w-6 h-6 mt-4 mb-4'style={{background: colorContext.mainColor}}>
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <Picker
+                                color={pickerColor}
+                                onChangeComplete={setPickerColor}
+                                type="sketch"
+                            />
+                        </PopoverContent>
+                    </Popover>
                  </div>
             </div>
         </div>
