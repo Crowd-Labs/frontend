@@ -1,6 +1,16 @@
 import mongoose, { InferSchemaType, Schema } from 'mongoose';
 
 const collectionSchema = new Schema({
+
+  collectionId: {
+    type: Number,
+  },
+
+  collectionAddress: {
+    type: String,
+    maxLength: [60, 'collectionAddress must be lesser than 60 characters'],
+  },
+
   collectionName: {
     type: String,
     required: [true, 'Name is required.'],
@@ -16,10 +26,6 @@ const collectionSchema = new Schema({
   creator: {
     type: String,
     maxLength: [60, 'receiptAddress must be lesser than 60 characters'],
-  },
-
-  collectionId: {
-    type: Number,
   },
 
   logoImage: {
