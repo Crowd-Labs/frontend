@@ -134,7 +134,9 @@ export default function AccountForm(props:{ next:(info:AccountFormValues)=>void,
             </FormItem>
           )}
         />
-        <Button type="submit">Continue</Button>
+         <div className='flex justify-end'>
+          <Button type="submit" variant="green">Continue</Button>
+        </div>
       </form>
     </Form>
   );

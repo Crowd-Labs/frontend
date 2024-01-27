@@ -32,7 +32,7 @@ const accountFormSchema = z.object({
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
-export default function AccountForm(props:{ next:(info:AccountFormValues)=>void, defaultValue: Partial<AccountFormValues> }) {
+export default function AccountForm(props: { next: (info: AccountFormValues) => void, defaultValue: Partial<AccountFormValues> }) {
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: props.defaultValue,
@@ -59,7 +59,7 @@ export default function AccountForm(props:{ next:(info:AccountFormValues)=>void,
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Name<span className='text-red-500'>*</span></FormLabel>
               <FormControl>
                 <Input placeholder="Collection name" {...field} />
               </FormControl>
@@ -86,7 +86,7 @@ export default function AccountForm(props:{ next:(info:AccountFormValues)=>void,
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Logo Image</FormLabel>
+              <FormLabel>Logo Image<span className='text-red-500'>*</span></FormLabel>
               <FormControl>
                 <Upload {...field} />
               </FormControl>
@@ -94,7 +94,9 @@ export default function AccountForm(props:{ next:(info:AccountFormValues)=>void,
             </FormItem>
           )}
         />
-        <Button type="submit">Continue</Button>
+        <div className='flex justify-end'>
+          <Button type="submit" variant="green">Continue</Button>
+        </div>
       </form>
     </Form>
   );

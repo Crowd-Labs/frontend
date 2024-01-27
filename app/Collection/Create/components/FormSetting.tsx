@@ -71,7 +71,7 @@ const accountFormSchema = z.object({
 type AccountFormValues = z.infer<typeof accountFormSchema>;
 
 type SettingProps = {
-  next:(info:AccountFormValues)=>void,
+  next: (info: AccountFormValues) => void,
   defaultValue: Partial<AccountFormValues> | null,
   status: {
     buttonText: string,
@@ -79,7 +79,7 @@ type SettingProps = {
   }
 };
 
-export default function AccountForm(props:SettingProps) {
+export default function AccountForm(props: SettingProps) {
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: props.defaultValue || {},
@@ -317,7 +317,9 @@ export default function AccountForm(props:SettingProps) {
             )}
           </>
         )}
-        <Button type="submit">{props.status.buttonText}</Button>
+        <div className='flex justify-end'>
+          <Button type="submit" variant="green">props.status.buttonText</Button>
+        </div>
       </form>
     </Form>
   );

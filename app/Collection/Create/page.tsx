@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { postReq } from "@/api/server/abstract";
 import { getStakeEthAmountForInitialCollection } from "@/api/thegraphApi";
 import { StakeEthAmountForInitialCollection } from "@/lib/type";
+import { Divider } from "@/components/Footer";
 
 const CreateCollection = () => {
   const abiCoder = new ethers.AbiCoder();
@@ -213,17 +214,18 @@ const CreateCollection = () => {
 
   return (
     <div>
-      <Separator className="my-6" />
+      <Divider className="mt-0" />
       <Tabs
         className="flex gap-4 mt-8"
         value={tabValue}
         onValueChange={setTabValue}
       >
-        <TabsList className="flex-col justify-start bg-transparent text-xl text-white">
-          <TabsTrigger value="Collections">Collection Info</TabsTrigger>
+        <TabsList className="flex-col justify-start bg-transparent text-xl">
+          <TabsTrigger value="Collections" className="text-white">Collection Info</TabsTrigger>
           <TabsTrigger
             value="Social"
             disabled={tabValue == "Collections" ? true : false}
+            className="text-white"
           >
             Social Link
           </TabsTrigger>
@@ -232,11 +234,12 @@ const CreateCollection = () => {
             disabled={
               tabValue == "Collections" || tabValue == "Social" ? true : false
             }
+            className="text-white"
           >
             Config Setting
           </TabsTrigger>
         </TabsList>
-        <div className="flex-1 text-white text-2xl p-3 rounded-2xl ">
+        <div className="text-white text-2xl p-3 rounded-2xl w-[580px]">
           <TabsContent value="Collections">
             <FormInfo next={next} defaultValue={collectionInfo} />
           </TabsContent>

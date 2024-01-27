@@ -2,6 +2,7 @@
 import { getAllCollectionInfo } from '@/api/thegraphApi';
 import BuyButton from '@/components/Button/BuyBtn';
 import { CollectionDone } from '@/components/Collection/CollectionCards';
+import { CollectionInfoData } from '@/constants';
 import { CollectionInfo } from '@/lib/type';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -11,7 +12,7 @@ const Collections = () => {
     const [collections, setCollections] = useState<CollectionInfo[]>([])
     useEffect(()=>{
         getAllCollectionInfo().then(res=>{
-            setCollections(res as CollectionInfo[])
+            setCollections([CollectionInfoData] as CollectionInfo[])
         })
     }, [])
     return (

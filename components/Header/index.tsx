@@ -30,6 +30,7 @@ function Header() {
                   key={item.label}
                   href={item.href}
                   className="nav-link"
+                  {...item?.target === "_blank" && { target: "_blank" }}
                 >
                   {item.label}
                 </Link>
