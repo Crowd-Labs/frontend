@@ -2,6 +2,7 @@ import { IPFS_GATEWAY_URL } from '@/constants';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import BigNumber from 'bignumber.js';
+import ethers from 'ethers';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -91,3 +92,17 @@ export const getShortAddress = (address: string): string => {
   const shortAddress = address.slice(-4);
   return `0x${shortAddress}`;
 };
+
+export const calNextCollectionContractAddr = (implementationAddress: string, salt: string): string => {
+  // Concatenate the bytecode, deploying address, and salt
+  const abiCoder = new ethers.AbiCoder()
+  const data = abiCoder.encode(
+    ['bytes', 'address', 'bytes32'],
+    ['0x3d602d80600a3d3981f3363d3d373d3d3d363d73', implementationAddress, salt]
+  );
+
+  // Take the last 20 bytes of the hash to get the contract address
+  const contractAddress = '0x' + data.substring(26);
+
+  return contractAddress;
+}
