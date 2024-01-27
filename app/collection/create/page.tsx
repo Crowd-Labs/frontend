@@ -5,7 +5,7 @@ import FormSocial from "./components/FormSocial";
 import FormSetting from "./components/FormSetting";
 import { useEffect, useState } from "react";
 import {
-  BeCrowd_PROXY_ADDRESS,
+  BECROWD_PROXY_ADDRESS,
   BeCrowd_WEBSITE,
   FEE_DERIVIED_MODULE_ADDRESS,
   FREE_DERIVIED_MODULE_ADDRESS,
@@ -68,7 +68,7 @@ const CreateCollection = () => {
   } | null>(null);
 
   const { write: writeContract } = useContractWrite({
-    address: BeCrowd_PROXY_ADDRESS,
+    address: BECROWD_PROXY_ADDRESS,
     abi: BeCrowd_ABI,
     value: stakeEthAmountInfo
       ? BigInt(stakeEthAmountInfo.newStakeEthAmount)
