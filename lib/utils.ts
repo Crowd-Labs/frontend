@@ -2,7 +2,7 @@ import { IPFS_GATEWAY_URL } from '@/constants';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import BigNumber from 'bignumber.js';
-import ethers from 'ethers';
+import { ethers } from "ethers";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
