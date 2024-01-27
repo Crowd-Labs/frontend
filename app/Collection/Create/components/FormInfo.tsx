@@ -1,19 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import Upload from '@/components/Upload';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command';
 import {
   Form,
   FormControl,
@@ -24,11 +15,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { toast } from '@/components/ui/use-toast';
 
 const accountFormSchema = z.object({
@@ -41,7 +27,6 @@ const accountFormSchema = z.object({
       message: 'Collection name must not be longer than 30 characters.',
     }),
   description: z.string().optional(),
-  category: z.string().optional(),
   file: z.any(),
 });
 

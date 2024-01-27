@@ -72,7 +72,6 @@ export interface CollectionInfoProps {
   collectionDesc: string,
   creator: string,
   collectionId: number,
-  category: number,
   logoImage: string,
   website: string,
   twitter: string,

@@ -46,7 +46,6 @@ const CreateCollection = () => {
   const [collectionInfo, setCollectionInfo] = useState<{
     name: string | undefined;
     description?: string | undefined;
-    category?: string | undefined;
     file?: File | undefined;
   }>({ name: "" });
   const [socialInfo, setSocialInfo] = useState<{
@@ -84,7 +83,6 @@ const CreateCollection = () => {
           collectionName: collectionInfo.name,
           collectionDesc: collectionInfo.description,
           creator: account.address,
-          category: collectionInfo.category,
           logoImage: imageSource,
           website: socialInfo.website,
           twitter: socialInfo.twitter,
@@ -184,7 +182,6 @@ const CreateCollection = () => {
           );
       const args = [
         parseFloat(settingInfo?.royalty || "0") * 100,
-        parseInt(collectionInfo.category || "0"),
         metadataUri,
         collectionInfo.name,
         collectionInfo.name,
