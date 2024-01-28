@@ -12,7 +12,7 @@ import {DispatcherContext} from "@/context";
 import {CLEAR_EVENT, REDO_EVENT, UNDO_EVENT} from "@/util/dispatcher/event";
 import SnapShot from "@/util/snapshot";
 import Snapshot from "@/util/snapshot";
-import { CanvasBgColor, GridWidth } from "@/util/tool/tool";
+import { CanvasBgColor, CanvasGridCount, GridWidth } from "@/util/tool/tool";
 
 interface CanvasProps {
     toolType: ToolType;
@@ -220,7 +220,7 @@ const drawGrid = (context: CanvasRenderingContext2D, color: string, stepX: numbe
 
 
     return (
-        <canvas width={640} height={640} ref={canvasRef} />
+        <canvas width={CanvasGridCount* GridWidth} height={CanvasGridCount* GridWidth} ref={canvasRef} />
     )
 };
 

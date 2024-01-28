@@ -147,7 +147,6 @@ export function ellipse(start: Point, end: Point) {
   let cx = start.x + rx * (end.x - start.x > 0 ? 1: -1 );
   let cy = start.y + ry * (end.y - start.y > 0 ? 1: -1 )
   let pc: Point = new Point(cx, cy);
-  console.log('rx', rx, ry, pc, start, end)
   let points: Array<Point> = [];
   let x = 0;
   let y = ry;

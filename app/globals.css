@@ -107,7 +107,7 @@ body {
     @apply text-2xl text-yellow font-semibold
   }
 
-  .span-title {
+  .title {
     @apply text-xl text-white font-normal
   }
   .p-content {

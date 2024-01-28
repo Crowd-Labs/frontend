@@ -122,7 +122,7 @@ export const queryStakeEthAmountForInitialCollection = gql`
 export const parseCollectionDetailJson = async (collInfoURI: string) => {
   let url = sanitizeDStorageUrl(collInfoURI);
   let json: any = await getReq(url)
-  if (json.image) json.image = sanitizeDStorageUrl(json.image);
+  if (json?.image) json.image = sanitizeDStorageUrl(json.image);
   return json
 }
 
@@ -132,6 +132,7 @@ export const getAllCollectionInfo = async () => {
     let json = await parseCollectionDetailJson(collection.collInfoURI)
     return { ...collection, detailJson: json }
   }))
+ 
   return collections.filter((item) => !!item)
 }
 

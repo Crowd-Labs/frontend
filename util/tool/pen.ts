@@ -22,7 +22,6 @@ class Pen extends Tool {
         // Tool.ctx.lineJoin = "round";
         // Tool.ctx.lineCap = "round";
         Tool.ctx.fillStyle = this.getDrawColor();
-        console.log('down pos', pos)
         // Tool.ctx.beginPath();
         this.previousPos = pos;
     }
