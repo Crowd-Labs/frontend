@@ -4,6 +4,10 @@
 class Snapshot {
     private imageData1: ImageData[] = [];
     private imageData2: ImageData[] = [];
+    public clear() {
+        this.imageData1 = [];
+        this.imageData2 = [];
+    }
     public add(imageData: ImageData) {
         this.imageData1.push(imageData);
     }

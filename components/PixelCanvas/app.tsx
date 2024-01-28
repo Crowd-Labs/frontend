@@ -1,5 +1,5 @@
 "use client"
-import React, {FC, useState}  from "react";
+import React, {FC, useEffect, useState}  from "react";
 import {ToolTypeContext, ShapeTypeContext, ColorContext, DispatcherContext} from "@/context";
 import {ColorType, ShapeToolType, ToolType} from "@/util/toolType";
 import Dispatcher from "@/util/dispatcher";
@@ -19,14 +19,16 @@ import { CanvasGridCount, GridWidth } from "@/util/tool/tool";
 interface PixelCanvasProps {
     collectionId: number;
     nftId?: number;
+    sourceImage?: string
 }
 
 
-const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0}) => {
+const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage}) => {
     const [toolType, setToolType] = useState<ToolType>(ToolType.PEN);
     const [shapeType, setShapeType] = useState<ShapeToolType>(ShapeToolType.LINE);
-     const [activeColorType, setActiveColorType] = useState<ColorType>(ColorType.MAIN);
+    const [activeColorType, setActiveColorType] = useState<ColorType>(ColorType.MAIN);
     const [mainColor, setMainColor] = useState<string>("black");
+    const [sourceImageData, setSourceImageData] = useState<ImageData|undefined>()
     const [dispatcher] = useState(new Dispatcher());
     const abiCoder = new ethers.AbiCoder();
     const router = useRouter();
@@ -37,7 +39,50 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0}) => {
     const setColor = (value: string) => {
         setMainColor(value);
     };
-
+    useEffect(()=>{
+      if (sourceImage){
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+        console.log('sourceimageimage', sourceImage)
+        if (ctx){
+          let img = new Image();
+          img.crossOrigin = 'Anonymous'; 
+          img.onload = function() {
+              console.log('onload img',img)
+              canvas.width = CanvasGridCount ;
+              canvas.height = CanvasGridCount ;
+              let sx = img.width > CanvasGridCount ? Math.floor((img.width - CanvasGridCount) / 2) : 0
+              let sy = img.height > CanvasGridCount ? Math.floor((img.height - CanvasGridCount) / 2) : 0
+              let dx = CanvasGridCount > img.width ? Math.floor((CanvasGridCount -img.width) / 2)  : 0
+              let dy = CanvasGridCount > img.height ? Math.floor((CanvasGridCount -img.height) / 2) : 0
+              let sWidth = Math.min(img.width, CanvasGridCount) 
+              let sHeight = Math.min(img.height, CanvasGridCount) 
+              let dWidth = sWidth 
+              let dHeight = sHeight 
+              if (ctx){
+                ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+                var imageData = ctx.getImageData(0, 0, CanvasGridCount, CanvasGridCount);
+                const tempImageData = ctx.createImageData(CanvasGridCount*GridWidth, CanvasGridCount*GridWidth);
+                for (let y = 0; y < CanvasGridCount*GridWidth; y++) {
+                  for (let x = 0; x < CanvasGridCount*GridWidth; x++) {
+                    const srcX = Math.floor(x / GridWidth);
+                    const srcY = Math.floor(y / GridWidth);
+                    const srcOffset = (srcY * imageData.width + srcX) * 4;
+                    const destOffset = (y * CanvasGridCount*GridWidth + x) * 4;
+                    tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
+                  }
+                }
+                setSourceImageData(tempImageData)
+              }
+          };
+          img.onerror = (err) => {
+            console.log("error", err)
+          }
+          img.src = sourceImage;
+        }
+        
+      }
+    }, [sourceImage])
     const { write: writePostContract } = useContractWrite({
         address: BECROWD_PROXY_ADDRESS,
         abi: BeCrowd_ABI,
@@ -72,44 +117,45 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0}) => {
         },
       });
     
-      const createNFT = async (imageSource: string) => {
-        try {
+    const createNFT = async (imageSource: string) => {
+      try {
+      setStatus({
+          buttonText: `Storing metadata`,
+          loading: true,
+        });
+        const attributes = [];
+        const metadata = {
+          external_link: `${BeCrowd_WEBSITE}`,
+          image: imageSource,
+          attributes,
+        };
+        console.log("metadata", metadata);
+        let metadataUri = await storeBlob(JSON.stringify(metadata));
+        metadataUri = "ipfs://" + metadataUri;
+        console.log("metadataUri", metadataUri);
         setStatus({
-            buttonText: `Storing metadata`,
-            loading: true,
-          });
-          const attributes = [];
-          const metadata = {
-            external_link: `${BeCrowd_WEBSITE}`,
-            image: imageSource,
-            attributes,
-          };
-          console.log("metadata", metadata);
-          let metadataUri = await storeBlob(JSON.stringify(metadata));
-          metadataUri = "ipfs://" + metadataUri;
-          console.log("metadataUri", metadataUri);
-          setStatus({
-            buttonText: `Posting image`,
-            loading: true,
-          });
+          buttonText: `Posting image`,
+          loading: true,
+        });
+  
+        const args = [
+          collectionId,
+          metadataUri,
+          nftId ,
+          abiCoder.encode(["bool"], [false]),
+          [],
+        ];
+        console.log("writePostContract args", args);
+        return writePostContract?.({ args: [args] });
+      } catch (e) {
+        console.error("e", e);
+        setStatus({
+          buttonText: `Post image`,
+          loading: false,
+        });
+      }
+    };
     
-          const args = [
-            collectionId,
-            metadataUri,
-            nftId ,
-            abiCoder.encode(["bool"], [false]),
-            [],
-          ];
-          console.log("writePostContract args", args);
-          return writePostContract?.({ args: [args] });
-        } catch (e) {
-          console.error("e", e);
-          setStatus({
-            buttonText: `Post image`,
-            loading: false,
-          });
-        }
-      };
     
     const uploadImageToIpfs =  () => {
         setStatus({
@@ -170,6 +216,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0}) => {
                                                     shapeType={shapeType}
                                                     mainColor={mainColor}
                                                     setColor={setColor}
+                                                    sourceImageData={sourceImageData}
                                                 />
                                             </div>
                                         </div>

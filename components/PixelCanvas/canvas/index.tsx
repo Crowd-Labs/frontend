@@ -15,6 +15,7 @@ import Snapshot from "@/util/snapshot";
 import { CanvasBgColor, CanvasGridCount, GridWidth } from "@/util/tool/tool";
 
 interface CanvasProps {
+    sourceImageData?: ImageData;
     toolType: ToolType;
     shapeType: ShapeToolType;
     mainColor: string;
@@ -22,7 +23,7 @@ interface CanvasProps {
 }
 
 const Canvas: FC<CanvasProps> = (props) => {
-    const {toolType, mainColor, setColor, shapeType} = props;
+    const {sourceImageData, toolType, mainColor, setColor, shapeType} = props;
     const [tool, setTool] = useState<Tool>();
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const dispatcherContext = useContext(DispatcherContext);
@@ -51,62 +52,42 @@ const Canvas: FC<CanvasProps> = (props) => {
     }, [toolType, shapeType]);
 
 
-
-    useEffect(() => {
-        Tool.mainColor = mainColor;
-    }, [mainColor]);
-    
-       
-
-const drawGrid = (context: CanvasRenderingContext2D, color: string, stepX: number, stepY: number)=> {
-    
-    context.save();
-    context.strokeStyle = color;
-    context.lineWidth = 0.5;
-    for (var i = stepX + 0.5;
-         i < context.canvas.width; i += stepX) {
-        context.beginPath();
-        context.moveTo(i, 0);
-        context.lineTo(i, context.canvas.height);
-        context.stroke();
-    }
-
-    for (var i = stepY + 0.5;
-         i < context.canvas.height; i += stepY) {
-        context.beginPath();
-        context.moveTo(0, i);
-        context.lineTo(context.canvas.width, i);
-        context.stroke();
-    }
-
-    context.restore();
-}
-
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (canvas) {
+        if (canvas){
             canvas.height = canvas.clientHeight;
             canvas.width = canvas.clientWidth;
-
             Tool.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-
-            // initial
-            const ctx = canvas.getContext("2d");
-            if (ctx) {
-                ctx.fillStyle = CanvasBgColor;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                // drawGrid(ctx, "#000000", GridWidth, GridWidth);
+            if (sourceImageData ){
+                canvas.height = canvas.clientHeight;
+                canvas.width = canvas.clientWidth;
+                let ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+                ctx.putImageData(sourceImageData, 0, 0);
+                snapshot.clear();
                 snapshot.add(ctx.getImageData(0, 0, canvas.width, canvas.height));
+                
+            }else  {
+                // initial
+                const ctx = canvas.getContext("2d");
+                if (ctx) {
+                    ctx.fillStyle = CanvasBgColor;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    // drawGrid(ctx, "#000000", GridWidth, GridWidth);
+                    snapshot.clear();
+                    snapshot.add(ctx.getImageData(0, 0, canvas.width, canvas.height));
+                }
             }
-
             // clear
             const dispatcher = dispatcherContext.dispatcher;
             const callback = () => {
                 const ctx = canvas.getContext("2d");
                 if (ctx) {
-                    ctx.fillStyle = CanvasBgColor;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    if (sourceImageData){
+                        ctx.putImageData(sourceImageData, 0, 0)
+                    } else{
+                        ctx.fillStyle = CanvasBgColor;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }                    
                     // drawGrid(ctx, "#000000", GridWidth, GridWidth);
                 }
             };
@@ -152,6 +133,15 @@ const drawGrid = (context: CanvasRenderingContext2D, color: string, stepX: numbe
                 dispatcher.off(CLEAR_EVENT, callback);
             };
         }
+    },[sourceImageData, canvasRef]);
+
+    useEffect(() => {
+        Tool.mainColor = mainColor;
+    }, [mainColor]);
+    
+    useEffect(() => {
+        const canvas = canvasRef.current;
+       
     }, [canvasRef]);
 
     const onMouseDown = (event: MouseEvent) => {
