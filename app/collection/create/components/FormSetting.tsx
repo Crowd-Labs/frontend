@@ -318,7 +318,7 @@ export default function AccountForm(props: SettingProps) {
           </>
         )}
         <div className='flex justify-end'>
-          <Button type="submit" variant="green">props.status.buttonText</Button>
+          <Button type="submit" variant="green">Create Collection</Button>
         </div>
       </form>
     </Form>
