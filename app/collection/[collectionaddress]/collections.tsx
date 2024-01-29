@@ -18,7 +18,7 @@ function Collections(props: {
   return (
     <div className={cn('grid grid-cols-4 gap-4 py-8', className)}>
       {data.map((card) => (
-        <Link key={card.id} href={`/nft/${card.collectionId}/${card.tokenId}`}>
+        <Link key={card.id} href={`/nft/${card.collectionAddr}/${card.tokenId}`}>
           <CollectionCard data={card} {...rest} key={card.id} />
         </Link>
       ))}

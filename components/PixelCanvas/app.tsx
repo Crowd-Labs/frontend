@@ -15,15 +15,16 @@ import { storeBlob, storeCar } from "@/lib/uploadToNFTStorage";
 import { ethers } from "ethers";
 import { Tool } from "@/util/tool";
 import { CanvasGridCount, GridWidth } from "@/util/tool/tool";
+import { getCollectionInfoById } from "@/api/thegraphApi";
+import { CollectionInfo } from "@/lib/type";
 
 interface PixelCanvasProps {
-    collectionId: number;
+    collectionAddress: string;
     nftId?: number;
     sourceImage?: string
 }
 
-
-const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage}) => {
+const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceImage}) => {
     const [toolType, setToolType] = useState<ToolType>(ToolType.PEN);
     const [shapeType, setShapeType] = useState<ShapeToolType>(ShapeToolType.LINE);
     const [activeColorType, setActiveColorType] = useState<ColorType>(ColorType.MAIN);
@@ -88,6 +89,12 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
         
       }
     }, [sourceImage])
+
+    const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
+    useEffect(() => {
+      getCollectionInfoById(collectionAddress).then((res) => setCollectionItem(res));
+    }, [collectionAddress]);
+
     const { write: writePostContract } = useContractWrite({
         address: BECROWD_PROXY_ADDRESS,
         abi: BeCrowd_ABI,
@@ -98,7 +105,8 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
             url: "/api/nft/fork",
             data: {
               nftName: "",
-              belongToCollectionId: collectionId,
+              belongToCollectionId: collectionItem?.collectionId,
+              collectionAddress: collectionAddress,
               nftCreator: account?.address,
               forkFrom: nftId || 0,
               imageUrl: imageSource,
@@ -108,7 +116,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
             buttonText: `Save & CreateNFT`,
             loading: false,
           });
-          router.push(`/collection/${collectionId}`);
+          router.push(`/collection/${collectionAddress}`);
         },
         onError: (error) => {
           console.log("onError error", error);
@@ -141,7 +149,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
         });
   
         const args = [
-          collectionId,
+          collectionItem?.collectionId,
           metadataUri,
           nftId ,
           abiCoder.encode(["bool"], [false]),

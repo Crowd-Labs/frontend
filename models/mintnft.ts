@@ -10,6 +10,11 @@ const nftSchema = new Schema({
     type: Number,
   },
 
+  collectionAddress: {
+    type: String,
+    maxLength: [60, 'receiptAddress must be lesser than 30 characters'],
+  },
+
   tokenId: {
     type: Number,
   },

@@ -3,7 +3,7 @@ import { getAllNFT } from '@/api/thegraphApi';
 import {  NewNFTCreateds } from '@/lib/type';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { CollectionCard } from '../collection/[id]/collections';
+import { CollectionCard } from '../collection/[collectionaddress]/collections';
 
 const Collections = () => {
 
@@ -18,7 +18,7 @@ const Collections = () => {
     return (
         <div className='grid grid-cols-4 gap-4 py-8'>
             {nfts?.map(card => (
-                <Link key={card.id} href={`/collection/${card?.collectionId}`}>
+                <Link key={card.id} href={`/collection/${card?.collectionAddr}`}>
                     <CollectionCard
                         data={card}
                         className="mt-4"

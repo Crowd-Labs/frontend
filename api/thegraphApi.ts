@@ -36,9 +36,9 @@ export const queryAllCollectionInfo = gql`
 `
 
 //get collection info by collection id
-export const queryCollectionInfoById = gql`
-  query newCollectionCreateds ($collectionId: String!){
-    newCollectionCreateds(where: {collectionId: $collectionId}) {
+export const queryCollectionInfoByCollectionAddress = gql`
+  query newCollectionCreateds ($derivedCollectionAddr: String!){
+    newCollectionCreateds(where: {derivedCollectionAddr: $derivedCollectionAddr}) {
       collectionOwner
       derivedCollectionAddr
       derivedRuleModule
@@ -75,9 +75,9 @@ export const queryAllNFT = gql`
 `
 
 //get all nft of one collection
-export const queryAllNFTByCollectionId = gql`
-  query getNewNFTCreateds ($collectionId: String!){
-    newNFTCreateds(where: {collectionId: $collectionId}) {
+export const queryAllNFTByCollectionAddress = gql`
+  query getNewNFTCreateds ($collectionAddr: String!){
+    newNFTCreateds(where: {collectionAddr: $collectionAddr}) {
       id
       blockNumber
       blockTimestamp
@@ -142,10 +142,10 @@ export const getAllCollectionInfo = async () => {
 }
 
 // get collection info by collection id
-export const getCollectionInfoById = async (collectionId: string) => {
+export const getCollectionInfoById = async (collectionAddress: string) => {
   let response: { data: { newCollectionCreateds: CollectionInfo[] } } = await client.query({
-    query: queryCollectionInfoById,
-    variables: { collectionId }
+    query: queryCollectionInfoByCollectionAddress,
+    variables: { collectionAddress }
   })
   let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: CollectionInfo) => {
     let json = await parseCollectionDetailJson(collection.collInfoURI)
@@ -155,10 +155,10 @@ export const getCollectionInfoById = async (collectionId: string) => {
 }
 
 //get all nft of one colelction
-export const getAllNFTByCollectionId = async (collectionId: string) => {
+export const getAllNFTByCollectionId = async (collectionAddress: string) => {
   let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
-    query: queryAllNFTByCollectionId,
-    variables: { collectionId }
+    query: queryAllNFTByCollectionAddress,
+    variables: { collectionAddress }
   })
   console.log('getNewNFTCreateds response', response)
   let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {

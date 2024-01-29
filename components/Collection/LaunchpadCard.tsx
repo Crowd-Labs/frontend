@@ -9,7 +9,7 @@ function LaunchpadCard(props: CollectionCardProps) {
   const { detailJson } = sampleData;
 
   return (
-    <Link href={`/collection/${sampleData.collectionId}`}>
+    <Link href={`/collection/${sampleData.derivedCollectionAddr}`}>
       <div className="rounded-lg overflow-hidden relative xl:h-[370px]">
         <img src={detailJson.image} alt={detailJson.name} className="w-full h-full object-cover" />
         <div className="absolute bottom-0 w-full z-10 bg-[#404833] text-white px-2 pb-2">

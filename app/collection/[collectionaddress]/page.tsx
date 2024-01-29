@@ -38,23 +38,23 @@ import { MongoCollection } from '@/models/createcollection';
 import CollectionCards from './collections';
 import { Divider } from '@/components/Footer';
 
-function Collection({ params }: { params: { id: string } }) {
+function Collection({ params }: { params: { collectionAddress: string } }) {
   const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
   const [collectionmongo, setCollection] = useState<MongoCollection>();
 
   const [nfts, setNFTs] = useState<NewNFTCreateds[]>();
   useEffect(() => {
-    getCollectionInfoById(params.id).then((res) => setCollectionItem(res));
+    getCollectionInfoById(params.collectionAddress).then((res) => setCollectionItem(res));
 
-    getAllNFTByCollectionId(params.id).then((res) => {
+    getAllNFTByCollectionId(params.collectionAddress).then((res) => {
       console.log('res', res);
       setNFTs(res);
     });
 
-    getCollectionCreated<MongoCollection[]>({ collectionId: params.id }).then(
+    getCollectionCreated<MongoCollection[]>({ collectionId: params.collectionAddress }).then(
       (res) => setCollection(res?.[0]),
     );
-  }, [params.id]);
+  }, [params.collectionAddress]);
 
   const account = useAccount({
     onConnect: (data) => console.log('connected', data),
@@ -264,7 +264,7 @@ function Collection({ params }: { params: { id: string } }) {
         && collectionItem?.collectionOwner.toLocaleLowerCase()
         === account.address?.toLocaleLowerCase() && (
           <Link
-            href={`/nft/create/${params.id}`}
+            href={`/nft/create/${params.collectionAddress}`}
             className="flex flex-col items-center justify-center w-[15.18125rem] mt-4 h-[18.75rem] border text-white"
           >
             <BsPlusLg className="w-36 h-36" />
