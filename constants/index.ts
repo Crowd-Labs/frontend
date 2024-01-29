@@ -5,7 +5,7 @@ export const BRCROWD_DOC = 'https://docs.becrowd.xyz/'
 export const TWITTER_ADDRESS = 'https://twitter.com/BeCrowd_'
 export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'
 
-export const IPFS_GATEWAY_URL = 'https://ipfs.io/ipfs'
+export const IPFS_GATEWAY_URL = 'https://gateway.ipfs.io/' //'https://ipfs.io/ipfs'
 
 export const BECROWD_PROXY_ADDRESS = '0xa5c075bDB92eAD4DB870b1009ED475578B765433'
 export const DERIVED_NFTIMPL_ADDRESS = '0x504e23ae92bB96cdcF814E1C57121F718A194c55'
