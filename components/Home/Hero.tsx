@@ -44,7 +44,7 @@ function Hero() {
     abi: YIELD_AND_GASREWARD_ABI,
     functionName: 'totalYieldAndGasReward',
   });
-  console.log(currentTVL, currentYield, creatorsNum);
+  // console.log(currentTVL, currentYield, creatorsNum);
 
   return (
     <section className="w-full flex flex-col justify-center gap-10">
