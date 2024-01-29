@@ -24,7 +24,6 @@ export interface NewCollectionCreateds {
 }
 
 export interface CollectionInfo {
-  id: string
   collectionOwner: string
   derivedCollectionAddr: string
   derivedRuleModule: string
@@ -35,6 +34,7 @@ export interface CollectionInfo {
   mintPrice: number
   whiteListRootHash: string
   collInfoURI: string
+  name: string
   blockNumber: number | string
   blockTimestamp: number | string
   transactionHash: string
@@ -54,6 +54,7 @@ export interface NewNFTCreateds {
   tokenId: string
   collectionId: string
   derivedFrom: string
+  collectionAddr: string
   creator: string
   nftInfoURI: string
   blockNumber: number | string

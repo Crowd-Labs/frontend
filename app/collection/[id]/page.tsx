@@ -35,8 +35,6 @@ import { toAmount } from '@/lib/utils';
 
 import { getCollectionCreated } from '@/api/mongodbApi';
 import { MongoCollection } from '@/models/createcollection';
-import { DefaultNFTS } from '@/constants';
-import Image from 'next/image';
 import CollectionCards from './collections';
 import { Divider } from '@/components/Footer';
 
@@ -44,7 +42,7 @@ function Collection({ params }: { params: { id: string } }) {
   const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
   const [collectionmongo, setCollection] = useState<MongoCollection>();
 
-  const [nfts, setNFTs] = useState<NewNFTCreateds[]>(DefaultNFTS);
+  const [nfts, setNFTs] = useState<NewNFTCreateds[]>();
   useEffect(() => {
     getCollectionInfoById(params.id).then((res) => setCollectionItem(res));
 

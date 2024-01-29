@@ -1,12 +1,9 @@
 'use client'
 import { getAllNFT } from '@/api/thegraphApi';
-import { CollectionInfoData, DefaultNFTS } from '@/constants';
 import {  NewNFTCreateds } from '@/lib/type';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CollectionCard } from '../collection/[id]/collections';
-
-// const fakeData=Array.from({length:5}).fill(1).map(i=>CollectionInfoData)
 
 const Collections = () => {
 

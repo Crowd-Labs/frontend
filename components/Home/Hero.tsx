@@ -1,9 +1,27 @@
 import Link from 'next/link';
-import { HotCollections, BRCROWD_DOC } from '@/constants';
+import { BRCROWD_DOC } from '@/constants';
 import { Button } from '../ui/button';
 import HotCollectionCard from '../HotCollectionCard';
+import { CollectionInfo } from '@/lib/type';
+import { useEffect, useState } from 'react';
+import { getAllCollectionInfo } from '@/api/thegraphApi';
+import { shuffleArray } from '@/lib/utils';
 
 function Hero() {
+
+  const [collections, setCollections] = useState<CollectionInfo[]>([]);
+  useEffect(() => {
+    getAllCollectionInfo().then((res) => {
+      console.log("res", res);
+      setCollections(res);
+    });
+  }, []);
+  
+  let randomCollections = shuffleArray<CollectionInfo>(collections);
+  if(randomCollections.length > 5){
+    randomCollections = randomCollections.slice(0, 5)
+  }
+
   return (
     <section className="w-full flex flex-col justify-center gap-10">
       <div className=" relative flex-center flex-col w-full pt-32 gap-2">
@@ -26,8 +44,8 @@ function Hero() {
         </Button>
       </div>
       <div className=" mt-16 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between">
-        {HotCollections.map((coll) => (
-          <HotCollectionCard key={coll.collName} {...coll} />
+        {randomCollections.map((coll) => (
+          <HotCollectionCard key={coll.collectionId} {...coll} />
         ))}
       </div>
     </section>

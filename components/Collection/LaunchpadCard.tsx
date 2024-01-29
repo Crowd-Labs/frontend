@@ -13,7 +13,7 @@ function LaunchpadCard(props: CollectionCardProps) {
       <div className="rounded-lg overflow-hidden relative xl:h-[370px]">
         <img src={detailJson.image} alt={detailJson.name} className="w-full h-full object-cover" />
         <div className="absolute bottom-0 w-full z-10 bg-[#404833] text-white px-2 pb-2">
-          <div className="text-sm mt-1">CryptoPunk</div>
+          <div className="text-sm mt-1">{detailJson.name}</div>
           <div className="flex justify-between text-xs font-thin mt-2">
             <div>
               <div>PRICE</div>

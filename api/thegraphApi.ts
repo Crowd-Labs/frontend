@@ -28,6 +28,7 @@ export const queryAllCollectionInfo = gql`
       mintPrice
       whiteListRootHash
       collInfoURI
+      name
       blockTimestamp
       items
     }    
@@ -48,6 +49,7 @@ export const queryCollectionInfoById = gql`
       mintPrice
       whiteListRootHash
       collInfoURI
+      name
       blockTimestamp
       items
     }    
@@ -59,11 +61,12 @@ export const queryCollectionInfoById = gql`
 export const queryAllNFT = gql`
   query getNewNFTCreateds {
     newNFTCreateds {
+      id
       blockNumber
       blockTimestamp
       collectionId
       derivedFrom
-      id
+      collectionAddr
       nftInfoURI
       tokenId
       transactionHash
@@ -75,11 +78,12 @@ export const queryAllNFT = gql`
 export const queryAllNFTByCollectionId = gql`
   query getNewNFTCreateds ($collectionId: String!){
     newNFTCreateds(where: {collectionId: $collectionId}) {
+      id
       blockNumber
       blockTimestamp
       collectionId
       derivedFrom
-      id
+      collectionAddr
       nftInfoURI
       tokenId
       transactionHash
@@ -101,6 +105,7 @@ export const filterCollectionByMintExpired = gql`
       mintPrice
       whiteListRootHash
       collInfoURI
+      name
       blockTimestamp
       items
   }

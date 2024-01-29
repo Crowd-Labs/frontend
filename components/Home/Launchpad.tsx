@@ -1,4 +1,3 @@
-import { LaunchPadCollections } from '@/constants';
 import LaunchpadCard from '../Collection/LaunchpadCard';
 import { getUnFinishCollection } from '@/api/thegraphApi';
 import { CollectionInfo } from '@/lib/type';
@@ -19,7 +18,7 @@ function Launchpad() {
       </div>
       <div className="mt-12 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
         {collections.map((card) => (
-          <LaunchpadCard sampleData={card} key={card.id} />
+          <LaunchpadCard sampleData={card} key={card.collectionId} />
         ))}
       </div>
     </section>

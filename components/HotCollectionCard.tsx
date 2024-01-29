@@ -1,14 +1,9 @@
+import { CollectionInfo } from '@/lib/type';
 import Image, { StaticImageData } from 'next/image';
 
-type HotColltionProps = {
-  collName: string,
-  pic: StaticImageData,
-  cata: string
-};
-
-function HotCollectionCard({ collName, pic, cata }: HotColltionProps) {
+function HotCollectionCard(collectionInfo: CollectionInfo) {
   return (
-    <Image src={pic} alt={collName} className="object-fit w-full" />
+    <Image src={collectionInfo.detailJson.image} alt={collectionInfo.name} className="object-fit w-full" />
   );
 }
 
