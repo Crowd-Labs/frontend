@@ -1699,3 +1699,263 @@ export const DERIVED_NFT_ABI = [
     "type": "receive"
   }
 ];
+
+export const YIELD_AND_GASREWARD_ABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "hubAddr",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyClaimed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyFinish",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EmptyMerkleRoot",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MerkleProofVerifyFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotArriveClaimTime",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotCollectionOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotEnoughEth",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotHub",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SendETHFailed",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "HUBADDR",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "_feeReceiver",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "_nextRewardId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "claimMaxGas",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "rewardId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "claimAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "merkleProof",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "claimRedEnvelope",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimStakeEth",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "currentStakeEthAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "collectionInitiator",
+        "type": "address"
+      }
+    ],
+    "name": "sendStakeEth",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "rewardAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "merkleRoot",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setNewRoundReward",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalYieldAndGasReward",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

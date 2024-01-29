@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { getReq } from './server/abstract';
 import { sanitizeDStorageUrl } from '@/lib/utils';
-import { CollectionInfo, NewNFTCreateds, StakeEthAmountForInitialCollection } from '@/lib/type';
+import { CollectionInfo, Creator, NewNFTCreateds, StakeEthAmountForInitialCollection } from '@/lib/type';
 
 const API_URL = process.env.NEXT_PUBLIC_SUBGRAPH_URL || ""
 
@@ -31,6 +31,16 @@ export const queryAllCollectionInfo = gql`
       name
       blockTimestamp
       items
+    }    
+  }
+`
+
+//get all collection info
+export const queryAllCreators = gql`
+  query creators {
+    creators {
+      address
+      itemsNFT
     }    
   }
 `
@@ -139,6 +149,12 @@ export const getAllCollectionInfo = async () => {
   }))
  
   return collections.filter((item) => !!item)
+}
+
+export const getAllCreators = async () => {
+  let response: { data: { creators: Creator[] } } = await client.query({ query: queryAllCreators })
+  let creators = response?.data?.creators
+  return creators.length
 }
 
 // get collection info by collection id

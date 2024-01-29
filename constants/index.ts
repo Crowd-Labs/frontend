@@ -6,6 +6,7 @@ export const IPFS_GATEWAY_URL = 'https://gateway.ipfs.io/' //'https://ipfs.io/ip
 
 export const BECROWD_PROXY_ADDRESS = '0x39cB46115d52Bc0D8bf7494E3D5A2b436c9aD63f'
 export const DERIVED_NFTIMPL_ADDRESS = '0x1BA462520a17715A9c081f9F053d6578BAE87ac6'
+export const YIELD_AND_GASREWARD = '0xCd1A7Fc7A3AA4da340dc7c96F3f573cd66399381'
 export const ELEMENT_MARKET = 'https://element.market/'
 
 export const BeCrowdHubProxy = 'BeCrowdHubProxy'

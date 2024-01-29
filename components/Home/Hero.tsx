@@ -1,11 +1,13 @@
 import Link from 'next/link';
-import { BRCROWD_DOC } from '@/constants';
+import { BRCROWD_DOC, YIELD_AND_GASREWARD } from '@/constants';
 import { Button } from '../ui/button';
 import HotCollectionCard from '../HotCollectionCard';
 import { CollectionInfo } from '@/lib/type';
 import { useEffect, useState } from 'react';
-import { getAllCollectionInfo } from '@/api/thegraphApi';
+import { getAllCollectionInfo, getAllCreators } from '@/api/thegraphApi';
 import { shuffleArray } from '@/lib/utils';
+import { Address, useContractRead } from 'wagmi';
+import { YIELD_AND_GASREWARD_ABI } from '@/abis/BeCrowdProxy';
 
 function Hero() {
 
@@ -21,6 +23,25 @@ function Hero() {
   if(randomCollections.length > 5){
     randomCollections = randomCollections.slice(0, 5)
   }
+
+  const [creatorsNum, setCreatorsNum] = useState<number>()
+  useEffect(()=>{
+      getAllCreators().then(res=>{
+        setCreatorsNum(res)
+      })
+  }, [])
+  
+  const { data: currentTVL } = useContractRead({
+    address: YIELD_AND_GASREWARD as Address,
+    abi: YIELD_AND_GASREWARD_ABI,
+    functionName: 'currentStakeEthAmount',
+  });
+
+  const { data: currentYield } = useContractRead({
+    address: YIELD_AND_GASREWARD as Address,
+    abi: YIELD_AND_GASREWARD_ABI,
+    functionName: 'totalYieldAndGasReward',
+  });
 
   return (
     <section className="w-full flex flex-col justify-center gap-10">

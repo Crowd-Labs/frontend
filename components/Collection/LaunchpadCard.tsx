@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { CollectionCardProps } from './CollectionCards';
 import { toAmount } from '@/lib/utils';

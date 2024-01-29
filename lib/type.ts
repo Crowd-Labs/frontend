@@ -42,6 +42,11 @@ export interface CollectionInfo {
   detailJson: DetailJson
 }
 
+export interface Creator {
+  address: string
+  itemsNFT: number
+}
+
 export interface StakeEthAmountForInitialCollection {
   id: string
   prevStakeEthAmount: number
