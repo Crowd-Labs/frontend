@@ -49,7 +49,7 @@ function IntroItem(props: { data: IntroItemType, className?: string }) {
 function Intros() {
   return (
     <section>
-      <div className="text-center h1-heading">
+      <div className="text-center h1-heading mt-10">
         We will share
       </div>
       <div className="grid grid-cols-2 grid-rows-2 gap-10 justify-between mt-12 [&>*:nth-child(2n)]:justify-self-end">

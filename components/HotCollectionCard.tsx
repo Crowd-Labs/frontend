@@ -5,7 +5,7 @@ import Link from 'next/link';
 function HotCollectionCard(collectionInfo: CollectionInfo) {
   return (
     <Link href={`/collection/${collectionInfo.derivedCollectionAddr}`}>
-      <Image src={collectionInfo.detailJson?.image} alt={collectionInfo.name} className="object-fit w-full" />
+      <Image src={collectionInfo.detailJson?.image} alt={collectionInfo.name} className=" object-fit w-full h-full" fill={true} />
     </Link>
   );
 }
