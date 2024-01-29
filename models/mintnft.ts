@@ -29,7 +29,7 @@ const nftSchema = new Schema({
     maxLength: [200, 'imageUrl must be lesser than 200 characters'],
   },
 
-  ipfsUrl: {
+  awsUrl: {
     type: String,
     maxLength: [200, 'imageUrl must be lesser than 200 characters'],
   },

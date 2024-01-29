@@ -29,6 +29,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
     const [activeColorType, setActiveColorType] = useState<ColorType>(ColorType.MAIN);
     const [mainColor, setMainColor] = useState<string>("black");
     const [sourceImageData, setSourceImageData] = useState<ImageData|undefined>()
+    const [imageSource, setImageSource] = useState<string | undefined>();
     const [dispatcher] = useState(new Dispatcher());
     const abiCoder = new ethers.AbiCoder();
     const router = useRouter();
@@ -93,16 +94,16 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
         functionName: "commitNewNFTIntoCollection",
         onSuccess: async (data) => {
           console.log("onSuccess data", data);
-          // await postReq({
-          //   url: "/api/nft/fork",
-          //   data: {
-          //     nftName: "",
-          //     belongToCollectionId: collectionId,
-          //     nftCreator: account?.address,
-          //     forkFrom: nftId || 0,
-          //     imageUrl: imageSource,
-          //   },
-          // });
+          await postReq({
+            url: "/api/nft/fork",
+            data: {
+              nftName: "",
+              belongToCollectionId: collectionId,
+              nftCreator: account?.address,
+              forkFrom: nftId || 0,
+              imageUrl: imageSource,
+            },
+          });
           setStatus({
             buttonText: `Save & CreateNFT`,
             loading: false,
@@ -191,6 +192,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
                 if (res){
                     const result = await storeCar(res);
                     const url = "ipfs://" + result;
+                    setImageSource(url);
                     return await createNFT(url);
                 } 
             });
