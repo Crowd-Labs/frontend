@@ -6,7 +6,7 @@ import Dispatcher from "@/util/dispatcher";
 import Toolbar from "./toolBar";
 import Canvas from "./canvas";
 import { Button } from '@/components/ui/button';
-import { useContractWrite } from "wagmi";
+import { useAccount, useContractWrite } from "wagmi";
 import { BECROWD_PROXY_ADDRESS, BeCrowd_WEBSITE } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { postReq } from "@/api/server/abstract";
@@ -32,6 +32,10 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
     const [dispatcher] = useState(new Dispatcher());
     const abiCoder = new ethers.AbiCoder();
     const router = useRouter();
+    const account = useAccount({
+      onConnect: (data) => console.log("connected", data),
+      onDisconnect: () => console.log("disconnected"),
+    });
     const [status, setStatus] = useState({
         buttonText: "Save & CreateNFT",
         loading: false,
@@ -89,19 +93,16 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
         functionName: "commitNewNFTIntoCollection",
         onSuccess: async (data) => {
           console.log("onSuccess data", data);
-        //   await postReq({
-        //     url: "/api/nft/fork",
-        //     data: {
-        //       nftName: "",
-        //       belongToCollectionId: collectionId,
-        //       nftCreator: account?.address,
-        //       nftOwner: account?.address,
-        //       forkFrom: nftId || 0,
-        //       prompt: prompt,
-        //       nagativePrompt: nprompt,
-        //       imageUrl: imageSource,
-        //     },
-        //   });
+          // await postReq({
+          //   url: "/api/nft/fork",
+          //   data: {
+          //     nftName: "",
+          //     belongToCollectionId: collectionId,
+          //     nftCreator: account?.address,
+          //     forkFrom: nftId || 0,
+          //     imageUrl: imageSource,
+          //   },
+          // });
           setStatus({
             buttonText: `Save & CreateNFT`,
             loading: false,
@@ -162,7 +163,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionId, nftId=0, sourceImage})
             buttonText: `Uploading Image to IPFS`,
             loading: true,
         });
-        const imageData = Tool.ctx.getImageData(0, 0, CanvasGridCount*GridWidth, CanvasGridCount*GridWidth); // 假设已经有了一个context并获取了原始ImageData
+        const imageData = Tool.ctx.getImageData(0, 0, CanvasGridCount*GridWidth, CanvasGridCount*GridWidth);
         resizeImageData(imageData);
        
     };

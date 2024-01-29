@@ -19,11 +19,6 @@ const nftSchema = new Schema({
     maxLength: [60, 'receiptAddress must be lesser than 30 characters'],
   },
 
-  nftOwner: {
-    type: String,
-    maxLength: [60, 'receiptAddress must be lesser than 30 characters'],
-  },
-
   forkFrom: {
     type: Number,
     required: [true, 'forkFrom is required.'],
@@ -42,6 +37,6 @@ const nftSchema = new Schema({
 
 export type MongoNFT = InferSchemaType<typeof nftSchema>;
 
-const ForkNFT = mongoose.models.NFT || mongoose.model('NFT', nftSchema);
+const ForkNFT = mongoose.models.ForkNFT || mongoose.model('ForkNFT', nftSchema);
 
 export default ForkNFT;
