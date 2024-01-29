@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { CollectionCardProps } from './CollectionCards';
-import { toAmount } from '@/lib/utils';
+import { getDateDiffFromNow, toAmount } from '@/lib/utils';
 import BigNumber from 'bignumber.js';
-import { getDateDiffFromNow } from './util';
 
 function LaunchpadCard(props: CollectionCardProps) {
   const { sampleData } = props;

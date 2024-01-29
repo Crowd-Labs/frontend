@@ -5,9 +5,11 @@ import HotCollectionCard from '../HotCollectionCard';
 import { CollectionInfo } from '@/lib/type';
 import { useEffect, useState } from 'react';
 import { getAllCollectionInfo, getAllCreators } from '@/api/thegraphApi';
-import { shuffleArray } from '@/lib/utils';
+import { formatNumber, shuffleArray } from '@/lib/utils';
 import { Address, useContractRead } from 'wagmi';
 import { YIELD_AND_GASREWARD_ABI } from '@/abis/BeCrowdProxy';
+import { toAmount } from '@/lib/utils';
+import BigNumber from 'bignumber.js';
 
 function Hero() {
 
@@ -18,19 +20,19 @@ function Hero() {
       setCollections(res);
     });
   }, []);
-  
+
   let randomCollections = shuffleArray<CollectionInfo>(collections);
-  if(randomCollections.length > 5){
+  if (randomCollections.length > 5) {
     randomCollections = randomCollections.slice(0, 5)
   }
 
   const [creatorsNum, setCreatorsNum] = useState<number>()
-  useEffect(()=>{
-      getAllCreators().then(res=>{
-        setCreatorsNum(res)
-      })
+  useEffect(() => {
+    getAllCreators().then(res => {
+      setCreatorsNum(res)
+    })
   }, [])
-  
+
   const { data: currentTVL } = useContractRead({
     address: YIELD_AND_GASREWARD as Address,
     abi: YIELD_AND_GASREWARD_ABI,
@@ -42,6 +44,7 @@ function Hero() {
     abi: YIELD_AND_GASREWARD_ABI,
     functionName: 'totalYieldAndGasReward',
   });
+  console.log(currentTVL, currentYield, creatorsNum);
 
   return (
     <section className="w-full flex flex-col justify-center gap-10">
@@ -64,7 +67,18 @@ function Hero() {
           <Link target="_blank" href={BRCROWD_DOC}>Read the doc</Link>
         </Button>
       </div>
-      <div className=" mt-16 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between">
+      <div className="flex-center gap-20 text-white text-2xl">
+        <div>Current Yield:<span className='text-[#FCFC03]'> {`${toAmount(
+          (currentYield as BigNumber.Value) || 0,
+          18,
+        )} ETH`}</span></div>
+        <div>TVL:<span className='text-[#FCFC03]'>{`${toAmount(
+          (currentTVL as BigNumber.Value) || 0,
+          18,
+        )} ETH`}</span></div>
+        <div>Creators:<span className='text-[#FCFC03]'>{formatNumber(creatorsNum)}</span></div>
+      </div>
+      <div className="mt-16 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between">
         {randomCollections.map((coll) => (
           <HotCollectionCard key={coll.collectionId} {...coll} />
         ))}

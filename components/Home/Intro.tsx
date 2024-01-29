@@ -48,7 +48,7 @@ function IntroItem(props: { data: IntroItemType, className?: string }) {
 
 function Intros() {
   return (
-    <section className="mt-32">
+    <section>
       <div className="text-center h1-heading">
         We will share
       </div>

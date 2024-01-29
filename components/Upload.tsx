@@ -28,7 +28,7 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
 
     return (
       <div className="flex flex-row items-center">
-        <div className="border border-gray-500 w-full h-40 relative rounded-sm ">
+        <div className="flex border border-gray-500 w-full h-48 relative rounded-sm justify-center p-2">
           <Input
             type="file"
             className={cn(
@@ -41,7 +41,7 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
             onChange={handleFileOnChange}
           />
           {value ? (
-            <img className="w-full h-full pointer-events-none" src={URL.createObjectURL(value)} alt="" />
+            <img className="h-full pointer-events-none aspect-auto" src={URL.createObjectURL(value)} alt="" />
           ) : (
             <img src={"/images/holder.png"} className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 pointer-events-none" />
           )}

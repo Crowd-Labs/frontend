@@ -3,6 +3,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import BigNumber from 'bignumber.js';
 import { ethers, keccak256, BytesLike, concat, dataSlice } from "ethers";
+import { intervalToDuration } from 'date-fns';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -109,4 +110,25 @@ export const calNextCollectionContractAddr = (implementationAddress: string, sal
   const contractAddress = '0x' + finalHash.substring(26);
 
   return contractAddress;
+}
+
+export const getDateDiffFromNow = (timestamp: number) => {
+    const startDate = new Date(); // 开始日期
+    const endDate = new Date(timestamp * 1000); // 结束日期
+    const duration = intervalToDuration({ start: startDate, end: endDate });
+    return `${duration.days}d ${duration.hours}h ${duration.minutes}m`
+}
+
+export const formatNumber = (num: number = 0) => {
+    if (num < 1000) {
+        return num;
+    } else if (num >= 1000 && num < 1000000) {
+        return (num / 1000).toFixed(1) + 'K';
+    } else if (num >= 1000000 && num < 1000000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000000000 && num < 1000000000000) {
+        return (num / 1000000000).toFixed(1) + 'B';
+    } else if (num >= 1000000000000) {
+        return (num / 1000000000000).toFixed(1) + 'T';
+    }
 }
