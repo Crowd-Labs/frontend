@@ -65,7 +65,7 @@ const Nft = ({ params }: { params: { id: string, tokenId: string } }) => {
           <div className="flex gap-8 mt-24">
             <a href={`${ELEMENT_MARKET}/assets/blast_testnet/${collectionItem?.derivedCollectionAddr}/${params.tokenId}`} target="_blank" rel="noopener noreferrer">
               <Button className="bg-yellow-rgba text-black">
-                View on OpenSea
+                View on Element
               </Button>
             </a>
             
