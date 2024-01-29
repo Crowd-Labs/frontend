@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { PlusIcon } from '@radix-ui/react-icons';
-import { Input, InputProps } from '@/components/ui/input';
-import { cn, getBase64 } from '@/lib/utils';
 
-import Image from 'next/image';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 export type UploadProps = React.HTMLAttributes<HTMLDivElement> & {
   onChange?: (value?: File) => void;
@@ -26,7 +24,7 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
       const file = event.target.files?.[0];
       onChange?.(file);
     };
-    
+
 
     return (
       <div className="flex flex-row items-center">
@@ -43,9 +41,9 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
             onChange={handleFileOnChange}
           />
           {value ? (
-            <img className=" w-full h-full" src={ URL.createObjectURL(value)} alt="" />
+            <img className="w-full h-full pointer-events-none" src={URL.createObjectURL(value)} alt="" />
           ) : (
-            <PlusIcon className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 text-gray-500" />
+            <img src={"/images/holder.png"} className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 pointer-events-none" />
           )}
         </div>
         {accept !== defaultAccept && value ? value.name : ''}
