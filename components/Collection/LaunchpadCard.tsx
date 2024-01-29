@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { CollectionCardProps } from './CollectionCards';
+import { toAmount } from '@/lib/utils';
+import BigNumber from 'bignumber.js';
 
 function LaunchpadCard(props: CollectionCardProps) {
   const { sampleData } = props;
@@ -15,15 +17,22 @@ function LaunchpadCard(props: CollectionCardProps) {
           <div className="flex justify-between text-xs font-thin mt-2">
             <div>
               <div>PRICE</div>
-              <div className="mt-1 text-[#9BA885]">0.1 ETH</div>
+              <div className="mt-1 text-[#9BA885]">
+              {`${toAmount(
+                      (sampleData.mintPrice as BigNumber.Value) || 0,
+                      18,
+                    )} ETH`}
+              </div>
             </div>
             <div>
               <div>MAX ITEMS</div>
-              <div className="mt-1">2.2 K</div>
+              <div className="mt-1">{sampleData.mintLimit}</div>
             </div>
             <div>
               <div>MINTED</div>
-              <div className="text-[#F7EB7F] mt-1">75%</div>
+              <div className="text-[#F7EB7F] mt-1"> 
+                {`${(sampleData.items * 1.0 / sampleData.mintLimit * 100).toFixed(2)}%`} 
+              </div>
             </div>
           </div>
           <div className="flex bg-[#414040] justify-center gap-6 mt-1">
