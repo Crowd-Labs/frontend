@@ -105,7 +105,7 @@ export default function AccountForm(props: SettingProps) {
     onOpenChange(true)
   }
 
-  const onConfirm = () => {    
+  const onConfirm = () => {
     props.next(form.getValues());
     onOpenChange(false)
   }
@@ -328,7 +328,7 @@ export default function AccountForm(props: SettingProps) {
             </>
           )}
           <div className='flex justify-end'>
-            <Button type="submit" variant="green">{props.status.buttonText}</Button>
+            <Button type="submit" variant="green" loading={true}>{props.status.buttonText}</Button>
           </div>
         </form>
       </Form>

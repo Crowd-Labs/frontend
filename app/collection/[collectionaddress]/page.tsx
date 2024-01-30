@@ -109,14 +109,14 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
   return (
     <div>
       <img
-        src={collectionItem?.detailJson.image!}
+        src={collectionItem?.detailJson?.image!}
         alt=""
         style={{ objectFit: 'cover' }}
         className="w-full h-56 -mb-32"
       />
       <div className="px-10 ">
         <img
-          src={collectionItem?.detailJson.image!}
+          src={collectionItem?.detailJson?.image!}
           alt=""
           className="w-40 h-40"
         />
@@ -124,7 +124,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           <div className="col-span-2">
             <div className="flex justify-between items-center mt-4">
               <div className="text-2xl font-medium">
-                {collectionItem?.detailJson.name}
+                {collectionItem?.detailJson?.name}
               </div>
               <div className="flex justify-between gap-2">
                 {collectionmongo?.website && (
@@ -173,7 +173,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
               </div>
             </div>
             <div className="mt-4">
-              {collectionItem?.detailJson.description}
+              {collectionItem?.detailJson?.description}
             </div>
             <div className="py-4 px-2">
               <div className="flex gap-6">
