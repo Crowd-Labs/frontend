@@ -13,6 +13,7 @@
     "@aws-sdk/client-s3": "^3.499.0",
     "@aws-sdk/s3-request-presigner": "^3.499.0",
     "@hookform/resolvers": "^3.1.1",
+    "@pinata/sdk": "^2.1.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.5",
