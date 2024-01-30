@@ -35,9 +35,7 @@ export interface CollectionInfo {
   whiteListRootHash: string
   collInfoURI: string
   name: string
-  blockNumber: number | string
   blockTimestamp: number | string
-  transactionHash: string
   items: number
   detailJson: DetailJson
 }
