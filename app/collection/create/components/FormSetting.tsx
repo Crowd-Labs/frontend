@@ -89,7 +89,7 @@ export default function AccountForm(props: SettingProps) {
     'isSupportWhiteList',
   ]);
 
-  function onSubmit(data: AccountFormValues) {
+  function onSubmit(data: AccountFormValues) {    
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -318,7 +318,7 @@ export default function AccountForm(props: SettingProps) {
           </>
         )}
         <div className='flex justify-end'>
-          <Button type="submit" variant="green">Create Collection</Button>
+          <Button type="submit" variant="green">{props.status.buttonText}</Button>
         </div>
       </form>
     </Form>
