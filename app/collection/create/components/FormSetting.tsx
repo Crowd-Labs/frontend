@@ -34,6 +34,8 @@ import {
 import { toast } from '@/components/ui/use-toast';
 import { Switch } from '@/components/ui/switch';
 import Upload from '@/components/Upload';
+import DialogConfirm from './dialog';
+import { useState } from 'react';
 
 const currencys = [
   { label: 'ETH', value: 'eth' },
@@ -89,7 +91,9 @@ export default function AccountForm(props: SettingProps) {
     'isSupportWhiteList',
   ]);
 
-  function onSubmit(data: AccountFormValues) {    
+  const [open, onOpenChange] = useState(false)
+
+  function onSubmit(data: AccountFormValues) {
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -98,106 +102,185 @@ export default function AccountForm(props: SettingProps) {
         </pre>
       ),
     });
-    props.next(data);
+    onOpenChange(true)
+  }
+
+  const onConfirm = () => {    
+    props.next(form.getValues());
+    onOpenChange(false)
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="limit"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Mint Limit</FormLabel>
-              <FormControl>
-                <Input {...field} type="number" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="royalty"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Royalty</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="endTime"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>End Time</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        'w-[240px] pl-3 text-left font-normal text-black',
-                        // !field.value && 'text-muted-foreground',
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, 'PPP')
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) => date < new Date()}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="limit"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mint Limit</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="royalty"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Royalty</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="endTime"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>End Time</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          'w-[240px] pl-3 text-left font-normal text-black',
+                          // !field.value && 'text-muted-foreground',
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, 'PPP')
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) => date < new Date()}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="isCharge"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Charge for minting</FormLabel>
-              <FormDescription>
-                Charge for mintingCharge for mintingCharge for minting
-              </FormDescription>
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
+          <FormField
+            control={form.control}
+            name="isCharge"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Charge for minting</FormLabel>
+                <FormDescription>
+                  Charge for mintingCharge for mintingCharge for minting
+                </FormDescription>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {isCharge && (
+            <>
+              <div className="flex gap-8">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Mint Price</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {isCharge && (
-          <>
-            <div className="flex gap-8">
+                <FormField
+                  control={form.control}
+                  name="currency"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>currency</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              className={cn(
+                                'w-[200px] justify-between',
+                                !field.value && 'text-muted-foreground',
+                              )}
+                            >
+                              {field.value
+                                ? currencys.find(
+                                  (currency) => currency.value === field.value,
+                                )?.label
+                                : 'Select currency'}
+                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput placeholder="Search currency..." />
+                            <CommandEmpty>No currency found.</CommandEmpty>
+                            <CommandGroup>
+                              {currencys.map((currency) => (
+                                <CommandItem
+                                  value={currency.value}
+                                  key={currency.value}
+                                  onSelect={(value) => {
+                                    form.setValue('currency', value);
+                                  }}
+                                >
+                                  <CheckIcon
+                                    className={cn(
+                                      'mr-2 h-4 w-4',
+                                      currency.value === field.value
+                                        ? 'opacity-100'
+                                        : 'opacity-0',
+                                    )}
+                                  />
+                                  {currency.label}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
-                name="price"
+                name="receiptAddress"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Mint Price</FormLabel>
+                    <FormLabel>Receipt Address</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -207,120 +290,49 @@ export default function AccountForm(props: SettingProps) {
               />
               <FormField
                 control={form.control}
-                name="currency"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>currency</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            className={cn(
-                              'w-[200px] justify-between',
-                              !field.value && 'text-muted-foreground',
-                            )}
-                          >
-                            {field.value
-                              ? currencys.find(
-                                (currency) => currency.value === field.value,
-                              )?.label
-                              : 'Select currency'}
-                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
-                        <Command>
-                          <CommandInput placeholder="Search currency..." />
-                          <CommandEmpty>No currency found.</CommandEmpty>
-                          <CommandGroup>
-                            {currencys.map((currency) => (
-                              <CommandItem
-                                value={currency.value}
-                                key={currency.value}
-                                onSelect={(value) => {
-                                  form.setValue('currency', value);
-                                }}
-                              >
-                                <CheckIcon
-                                  className={cn(
-                                    'mr-2 h-4 w-4',
-                                    currency.value === field.value
-                                      ? 'opacity-100'
-                                      : 'opacity-0',
-                                  )}
-                                />
-                                {currency.label}
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <FormField
-              control={form.control}
-              name="receiptAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Receipt Address</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="isSupportWhiteList"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Support WhiteList</FormLabel>
-                  <FormDescription>Only whitelist can mint</FormDescription>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {isSupportWhiteList && (
-              <FormField
-                control={form.control}
-                name="whiteList"
+                name="isSupportWhiteList"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Support WhiteList</FormLabel>
+                    <FormDescription>Only whitelist can mint</FormDescription>
                     <FormControl>
-                      <Upload
-                        accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        {...field}
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormDescription>
-                      Upload excel/csv whitelist file
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            )}
-          </>
-        )}
-        <div className='flex justify-end'>
-          <Button type="submit" variant="green">{props.status.buttonText}</Button>
-        </div>
-      </form>
-    </Form>
+              {isSupportWhiteList && (
+                <FormField
+                  control={form.control}
+                  name="whiteList"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Upload
+                          accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Upload excel/csv whitelist file
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+            </>
+          )}
+          <div className='flex justify-end'>
+            <Button type="submit" variant="green">{props.status.buttonText}</Button>
+          </div>
+        </form>
+      </Form>
+      <DialogConfirm open={open} onOpenChange={onOpenChange} onConfirm={onConfirm} />
+    </>
   );
 }

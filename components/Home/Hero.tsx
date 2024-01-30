@@ -70,15 +70,15 @@ function Hero() {
         </Button>
       </div>
       <div className="flex-center mt-10 gap-32 text-white text-2xl">
-        <div>Current Yield:<span className='text-[#FCFC03]'> {`${toAmount(
+        <div>Current Yield:<span className='text-egg'> {`${toAmount(
           (currentYield as BigNumber.Value) || 0,
           18,
         )} ETH`}</span></div>
-        <div>TVL:<span className='text-[#FCFC03]'>{`${toAmount(
+        <div>TVL:<span className='text-egg'>{`${toAmount(
           (currentTVL as BigNumber.Value) || 0,
           18,
         )} ETH`}</span></div>
-        <div>Creators: <span className='text-[#FCFC03]'>{formatNumber(creatorsNum)}</span></div>
+        <div>Creators: <span className='text-egg'>{formatNumber(creatorsNum)}</span></div>
       </div>
       <div className="mt-16 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between relative">
         <div className="h-64">
