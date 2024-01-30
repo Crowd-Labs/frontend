@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { NewCollectionCreateds, NFTInfoProps } from '@/lib/type';
+import { NFTInfoProps } from '@/lib/type';
 import { getShortAddress } from '@/lib/utils';
 
 function UserAvatar(props: {

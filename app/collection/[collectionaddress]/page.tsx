@@ -124,7 +124,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           <div className="col-span-2">
             <div className="flex justify-between items-center mt-4">
               <div className="text-2xl font-medium">
-                {collectionItem?.detailJson?.name}
+                {collectionItem?.name}
               </div>
               <div className="flex justify-between gap-2">
                 {collectionmongo?.website && (

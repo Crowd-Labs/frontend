@@ -61,7 +61,7 @@ export const CollectionIng = (props: CollectionCardProps) => {
   const { sampleData } = props;
   const { detailJson } = sampleData;
   return (
-    <Link href={`/collection/${sampleData.collectionId}`}>
+    <Link href={`/collection/${sampleData.derivedCollectionAddr}`}>
       <div className={`text-white w-64`}>
         <div className="w-64 h-[28.9375rem] relative rounded-[30px] overflow-hidden">
           <Image src={detailJson.image} alt={detailJson.name} className="w-full h-full object-cover" />

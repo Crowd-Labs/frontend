@@ -3,17 +3,20 @@ import { Share2 } from "lucide-react";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { NFTInfoProps, NewCollectionCreateds } from "@/lib/type";
+import { NFTInfoProps, CollectionInfo } from "@/lib/type";
 import { getMongoNFTById } from "@/api/mongodbApi";
 import { sanitizeDStorageUrl } from "@/lib/utils";
 import { ELEMENT_MARKET } from "@/constants";
+import { getCollectionInfoByCollectionAddress } from "@/api/thegraphApi";
 
 const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string } }) => {
 
-  const [collectionItem, setCollectionItem] = useState<NewCollectionCreateds|undefined>()
+  const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
   const [nftInfo, setNFTInfo] = useState<NFTInfoProps|undefined>()
 
   useEffect(()=>{
+    getCollectionInfoByCollectionAddress(params.collectionaddress).then((res) => setCollectionItem(res));
+    
     getMongoNFTById(params.collectionaddress, params.tokenId).then((res)=>setNFTInfo(res as NFTInfoProps))
   },[])
 
@@ -34,7 +37,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
         </div>
         <div>
           <div className="flex justify-between items-center mt-6">
-            <div className="text-[#4DA4B0]">{collectionItem?.detailJson.name}</div>
+            <div className="text-[#4DA4B0]">{collectionItem?.name}</div>
             <Share2 />
           </div>
           <div className="flex justify-between items-center mt-6">
@@ -45,10 +48,10 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
             </div>
           </div>
           <div className="flex justify-between items-center mt-6">
-            <div className="flex justify-between gap-2">
+            {/* <div className="flex justify-between gap-2">
               <div className="text-white-rgba">Owned by</div>
               <div className="text-green-700">{`0x${nftInfo?.nftCreator?.slice(-4).toLocaleLowerCase()}`}</div>
-            </div>
+            </div> */}
             <div className="flex justify-between gap-2">
               <div className="text-white-rgba">Fork from</div>
               <div className="text-green-700">{nftInfo?.forkFrom}</div>

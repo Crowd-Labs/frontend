@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ELEMENT_MARKET } from "@/constants"
 
-const BuyButton = (props: { data: any }) => { //NewNFTCreateds | NewCollectionCreateds
+const BuyButton = (props: { data: any }) => {
     const { data } = props
     return (
         // nested Link will cause some warn

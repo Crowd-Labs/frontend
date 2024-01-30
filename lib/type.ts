@@ -7,22 +7,6 @@ export interface DetailJson {
   attributes: any[]
 }
 
-export interface NewCollectionCreateds {
-  id: string
-  baseRoyalty: number
-  blockNumber: number | string
-  blockTimestamp: number | string
-  collInfoURI: string
-  collectionId: string
-  collectionOwner: string
-  collectionType: string
-  derivedRuleModule: string
-  derivedCollectionAddr: string
-  timestamp: string
-  transactionHash: string
-  detailJson: DetailJson
-}
-
 export interface CollectionInfo {
   collectionOwner: string
   derivedCollectionAddr: string

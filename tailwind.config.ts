@@ -69,14 +69,14 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
-        "overlayShow": {
-          from: { "opacity": 0 },
-          to: { "opacity": 1 },
-        },
-        "contentShow": {
-          from: { "opacity": 0, "transform": 'translate(-50%, -48%) scale(0.96)' },
-          to: { "opacity": 1, "transform": 'translate(-50%, -50%) scale(1)' },
-        },
+        // "overlayShow": {
+        //   from: { opacity: 0 },
+        //   to: { opacity: 1 },
+        // },
+        // "contentShow": {
+        //   from: { opacity: 0, "transform": 'translate(-50%, -48%) scale(0.96)' },
+        //   to: { opacity: 1, "transform": 'translate(-50%, -50%) scale(1)' },
+        // },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
