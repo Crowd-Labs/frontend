@@ -47,8 +47,8 @@ export const queryAllCreators = gql`
 
 //get collection info by collection id
 export const queryCollectionInfoByCollectionAddress = gql`
-  query newCollectionCreateds ($derivedCollectionAddr: String!){
-    newCollectionCreateds(where: {derivedCollectionAddr: $derivedCollectionAddr}) {
+  query newCollectionCreateds ($collectionAddress: String!){
+    newCollectionCreateds(where: {derivedCollectionAddr: $collectionAddress}) {
       collectionOwner
       derivedCollectionAddr
       derivedRuleModule
@@ -158,7 +158,8 @@ export const getAllCreators = async () => {
 }
 
 // get collection info by collection id
-export const getCollectionInfoById = async (collectionAddress: string) => {
+export const getCollectionInfoByCollectionAddress = async (collectionAddress: string) => {
+
   let response: { data: { newCollectionCreateds: CollectionInfo[] } } = await client.query({
     query: queryCollectionInfoByCollectionAddress,
     variables: { collectionAddress }
@@ -171,10 +172,10 @@ export const getCollectionInfoById = async (collectionAddress: string) => {
 }
 
 //get all nft of one colelction
-export const getAllNFTByCollectionId = async (collectionAddress: string) => {
+export const getAllNFTByCollectionAddress = async (collectionAddr: string) => {
   let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
     query: queryAllNFTByCollectionAddress,
-    variables: { collectionAddress }
+    variables: { collectionAddr }
   })
   console.log('getNewNFTCreateds response', response)
   let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {

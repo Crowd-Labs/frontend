@@ -8,13 +8,13 @@ import { getMongoNFTById } from "@/api/mongodbApi";
 import { sanitizeDStorageUrl } from "@/lib/utils";
 import { ELEMENT_MARKET } from "@/constants";
 
-const Nft = ({ params }: { params: { id: string, tokenId: string } }) => {
+const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string } }) => {
 
   const [collectionItem, setCollectionItem] = useState<NewCollectionCreateds|undefined>()
   const [nftInfo, setNFTInfo] = useState<NFTInfoProps|undefined>()
 
   useEffect(()=>{
-    getMongoNFTById(params.id, params.tokenId).then((res)=>setNFTInfo(res as NFTInfoProps))
+    getMongoNFTById(params.collectionaddress, params.tokenId).then((res)=>setNFTInfo(res as NFTInfoProps))
   },[])
 
   return (
@@ -69,7 +69,7 @@ const Nft = ({ params }: { params: { id: string, tokenId: string } }) => {
               </Button>
             </a>
             
-            <Link href={`/nft/fork/${params.id}/${params.tokenId}/${nftInfo?.imageUrl?.replace('ipfs://','')}`}>
+            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.imageUrl?.replace('ipfs://','')}`}>
               <Button>Fork</Button>
             </Link>
           </div>

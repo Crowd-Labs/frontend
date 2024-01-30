@@ -15,7 +15,7 @@ import { storeBlob, storeCar } from "@/lib/uploadToNFTStorage";
 import { ethers } from "ethers";
 import { Tool } from "@/util/tool";
 import { CanvasGridCount, GridWidth } from "@/util/tool/tool";
-import { getCollectionInfoById } from "@/api/thegraphApi";
+import { getCollectionInfoByCollectionAddress } from "@/api/thegraphApi";
 import { CollectionInfo } from "@/lib/type";
 
 interface PixelCanvasProps {
@@ -92,7 +92,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
 
     const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
     useEffect(() => {
-      getCollectionInfoById(collectionAddress).then((res) => setCollectionItem(res));
+      getCollectionInfoByCollectionAddress(collectionAddress).then((res) => setCollectionItem(res));
     }, [collectionAddress]);
 
     const { write: writePostContract } = useContractWrite({

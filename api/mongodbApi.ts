@@ -5,10 +5,10 @@ export const getCollectionCreated = async <T>(params = {}): Promise<T> => {
   return response;
 };
 
-export const getMongoNFTById = async (collectionId: string, tokenId: string) => {
+export const getMongoNFTById = async (collectionaddress: string, tokenId: string) => {
   const response: Array<any> = await getReq('/api/nft');
   const item = response?.filter((item) => {
-    if (item.belongToCollectionId == collectionId && item.tokenId == tokenId) {
+    if (item.collectionAddress == collectionaddress && item.tokenId == tokenId) {
       return true;
     }
     return false;
