@@ -27,7 +27,7 @@ const accountFormSchema = z.object({
       message: 'Collection name must not be longer than 30 characters.',
     }),
   description: z.string().optional(),
-  file: z.any(),
+  file:z.any().refine((files) => files?.length == 1, "please uplaod your collection logo")
 });
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;

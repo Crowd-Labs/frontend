@@ -10,13 +10,14 @@ import { useAccount, useContractWrite } from "wagmi";
 import { BECROWD_PROXY_ADDRESS, BeCrowd_WEBSITE } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { postReq } from "@/api/server/abstract";
-import { useRouter } from "next/navigation";
+import { useRouter,useSearchParams } from "next/navigation";
 import { ethers } from "ethers";
 import { Tool } from "@/util/tool";
 import { CanvasGridCount, GridWidth } from "@/util/tool/tool";
 import { getCollectionInfoByCollectionAddress } from "@/api/thegraphApi";
 import { CollectionInfo } from "@/lib/type";
 import axios from "axios";
+import { DEFAULT_PIX_GRID_NUMBER } from "@/app/collection/[collectionaddress]/dialog";
 
 interface PixelCanvasProps {
     collectionAddress: string;
@@ -34,6 +35,10 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
     const [dispatcher] = useState(new Dispatcher());
     const abiCoder = new ethers.AbiCoder();
     const router = useRouter();
+
+    const searchParams = useSearchParams()
+    const width = searchParams.get('w')??DEFAULT_PIX_GRID_NUMBER
+
     const account = useAccount({
       onConnect: (data) => console.log("connected", data),
       onDisconnect: () => console.log("disconnected"),

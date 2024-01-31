@@ -37,11 +37,13 @@ import { getCollectionCreated } from '@/api/mongodbApi';
 import { MongoCollection } from '@/models/createcollection';
 import CollectionCards from './collections';
 import { Divider } from '@/components/Footer';
+import PixDialogForm from './dialog';
+import { useRouter } from 'next/navigation';
 
 function Collection({ params }: { params: { collectionaddress: string } }) {
   const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
   const [collectionmongo, setCollection] = useState<MongoCollection>();
-
+  const router = useRouter()
   const [nfts, setNFTs] = useState<NewNFTCreateds[]>();
   useEffect(() => {
 
@@ -264,13 +266,9 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
       {nfts?.length === 0
         && collectionItem?.collectionOwner.toLocaleLowerCase()
         === account.address?.toLocaleLowerCase() && (
-          <Link
-            href={`/nft/create/${params.collectionaddress}`}
-            className="flex flex-col items-center justify-center w-[15.18125rem] mt-4 h-[18.75rem] border text-white"
-          >
-            <BsPlusLg className="w-36 h-36" />
-            Initail Ancestor NFT
-          </Link>
+          <PixDialogForm onConfirm={(value) => {
+            router.push(`/nft/create/${params.collectionaddress}?w=${value}`)
+          }} />
         )}
       {nfts?.[0] && (
         <CollectionCards
