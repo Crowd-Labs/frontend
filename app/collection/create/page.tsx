@@ -12,7 +12,6 @@ import {
 } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { useAccount, useContractWrite } from "wagmi";
-import { storeBlob, storeCar } from "@/lib/uploadToNFTStorage";
 import { cn, trimify } from "@/lib/utils";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
@@ -20,6 +19,7 @@ import { postReq } from "@/api/server/abstract";
 import { getStakeEthAmountForInitialCollection } from "@/api/thegraphApi";
 import { StakeEthAmountForInitialCollection } from "@/lib/type";
 import { Divider } from "@/components/Footer";
+import axios from "axios";
 
 const CreateCollection = () => {
   const abiCoder = new ethers.AbiCoder();
@@ -123,16 +123,22 @@ const CreateCollection = () => {
         buttonText: `Uploading to IPFS`,
         loading: true,
       });
-      const reader = new FileReader();
-      reader.addEventListener("load", async () => {
-        if (reader.result) {
-          const result = await storeCar(new Blob([reader.result]));
-          const url = "ipfs://" + result;
-          setImageSource(url);
-          return await createPublication(url, settingInfo);
-        }
-      });
-      reader.readAsArrayBuffer(collectionInfo.file);
+      const formData = new FormData();
+      formData.append('nft', collectionInfo.file)
+      try{
+        const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+          'maxBodyLength': Infinity,
+          headers: {
+            'Content-Type': `multipart/form-data;`,
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT_KEY}`
+          }
+        });
+        const url = "ipfs://" + res.data.IpfsHash;
+        setImageSource(url);
+        return await createPublication(url, settingInfo);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -151,8 +157,16 @@ const CreateCollection = () => {
       };
 
       console.log("metadata", metadata);
-      let metadataUri = await storeBlob(JSON.stringify(metadata));
-      metadataUri = "ipfs://" + metadataUri;
+      const formData = new FormData();
+      formData.append('metadata', JSON.stringify(metadata))
+      const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+        'maxBodyLength': Infinity,
+        headers: {
+          'Content-Type': `multipart/form-data;`,
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT_KEY}`
+        }
+      });
+      const metadataUri = "ipfs://" + res.data.IpfsHash;
       console.log("metadataUri", metadataUri);
       setStatus({
         buttonText: `Posting image`,

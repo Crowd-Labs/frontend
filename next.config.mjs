@@ -5,7 +5,7 @@ const nextConfig = {
         return config;
     },
     images: {
-        domains: ['ipfs.io'],
+        domains: ['ipfs.io', 'orange-real-wildfowl-609.mypinata.cloud'],
       },
 };
 

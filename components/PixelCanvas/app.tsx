@@ -11,12 +11,12 @@ import { BECROWD_PROXY_ADDRESS, BeCrowd_WEBSITE } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { postReq } from "@/api/server/abstract";
 import { useRouter } from "next/navigation";
-import { storeBlob, storeCar } from "@/lib/uploadToNFTStorage";
 import { ethers } from "ethers";
 import { Tool } from "@/util/tool";
 import { CanvasGridCount, GridWidth } from "@/util/tool/tool";
 import { getCollectionInfoByCollectionAddress } from "@/api/thegraphApi";
 import { CollectionInfo } from "@/lib/type";
+import axios from "axios";
 
 interface PixelCanvasProps {
     collectionAddress: string;
@@ -140,8 +140,16 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           attributes,
         };
         console.log("metadata", metadata);
-        let metadataUri = await storeBlob(JSON.stringify(metadata));
-        metadataUri = "ipfs://" + metadataUri;
+        const formData = new FormData();
+        formData.append('metadata', JSON.stringify(metadata))
+        const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+          'maxBodyLength': Infinity,
+          headers: {
+            'Content-Type': `multipart/form-data;`,
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT_KEY}`
+          }
+        });
+        const metadataUri = "ipfs://" + res.data.IpfsHash;
         console.log("metadataUri", metadataUri);
         setStatus({
           buttonText: `Posting image`,
@@ -198,10 +206,18 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
             ctx.putImageData(tempImageData, 0, 0);
             return canvas.toBlob(async (res)=>{
                 if (res){
-                    const result = await storeCar(res);
-                    const url = "ipfs://" + result;
-                    setImageSource(url);
-                    return await createNFT(url);
+                  const formData = new FormData();
+                  formData.append('nft', res)
+                  const response = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+                    'maxBodyLength': Infinity,
+                    headers: {
+                      'Content-Type': `multipart/form-data;`,
+                      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT_KEY}`
+                    }
+                  });
+                  const url = "ipfs://" + response.data.IpfsHash;
+                  setImageSource(url);
+                  return await createNFT(url);
                 } 
             });
         }

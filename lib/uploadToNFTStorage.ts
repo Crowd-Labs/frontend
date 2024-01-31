@@ -26,10 +26,7 @@ export async function storeBlob(data: string) {
 }
 
 export async function storeCar(someData: Blob) {
-  // console.log('storeCar', data)
-  // const someData = new Blob([data])
   const { car } = await NFTStorage.encodeBlob(someData);
   const cid = await nftstorage.storeCar(car);
-  console.log('storeCar', cid);
   return cid;
 }
