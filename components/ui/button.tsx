@@ -54,10 +54,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
-      //   {loading && <Loader2 className='animate-spin mr-2 h-5 w-5' />}
-      //   {props.children}
-      // </Comp>
+      >
+        {loading && <Loader2 className='animate-spin mr-2 h-5 w-5' />}
+        {props.children}
+      </Comp>
     );
   },
 );
