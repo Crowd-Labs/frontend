@@ -228,6 +228,19 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
         }
     }
        
+    const drawGrid = ()=>{
+      let divs: Array<React.JSX.Element> = []
+      for (let i = 1; i < CanvasGridCount; i++){
+        divs.push(<div key={i} className="absolute w-px bg-gray-300" style={{left: `${i* GridWidth}px`, top: 0, bottom: 0}}></div>)
+      }
+      for (let i = 1; i < CanvasGridCount; i++){
+        divs.push(<div key={i} className="absolute h-px bg-gray-300" style={{top: `${i* GridWidth}px`, left: 0, right: 0}}></div>)
+      }
+      return divs;
+    }
+
+   
+
     return (
         <ToolTypeContext.Provider value={{type: toolType, setType: setToolType}}>
             <ShapeTypeContext.Provider value={{type: shapeType, setType: (type: ShapeToolType) => {setToolType(ToolType.SHAPE); setShapeType(type);}}}>
@@ -240,17 +253,25 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
                             }}>
                                 <div className="flex justify-center">
                                     <div className="flex-col w-fit">
-                                        <div className="flex justify-center gap-x-8"> 
+                                        <div className="flex justify-center gap-x-8" style={{height: `${CanvasGridCount * GridWidth}px`}}> 
                                             <Toolbar />
-                                            <div className="border-black border border-solid w-fit h-fit">
-                                                <Canvas
-                                                    toolType={toolType}
-                                                    shapeType={shapeType}
-                                                    mainColor={mainColor}
-                                                    setColor={setColor}
-                                                    sourceImageData={sourceImageData}
-                                                />
+                                            <div className="relative" style={{width: `${CanvasGridCount * GridWidth}px`}} >
+                                              <div className="absolute left-0 top-0 w-fit h-fit">
+                                                  <Canvas
+                                                      toolType={toolType}
+                                                      shapeType={shapeType}
+                                                      mainColor={mainColor}
+                                                      setColor={setColor}
+                                                      sourceImageData={sourceImageData}
+                                                  />
+                                              </div>
+                                              <div className="pointer-events-none absolute left-0 top-0"
+                                                  style={{width: `${CanvasGridCount * GridWidth}px`,height: `${CanvasGridCount* GridWidth}px`}}
+                                               >
+                                                  { drawGrid() }
+                                              </div>
                                             </div>
+                                            
                                         </div>
                                         <Button className="mt-8" variant="green" onClick={uploadImageToIpfs} loading={status.loading}>{status.buttonText}</Button>
                                     </div>

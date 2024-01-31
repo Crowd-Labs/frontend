@@ -102,7 +102,7 @@ export default class Tool {
     
     public static lineWidthFactor = 20;
     
-    public static mainColor = "black";
+    public static mainColor = "#fdfb54";
 
     public static PixelBoxs:any[] = [];
 

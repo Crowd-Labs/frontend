@@ -17,7 +17,7 @@ class Pen extends Tool {
         this.saveImageData = Tool.ctx.getImageData(0, 0, Tool.ctx.canvas.width, Tool.ctx.canvas.height);
 
         this.mouseDown = true;
-        Tool.ctx.lineWidth = Tool.lineWidthFactor * this.lineWidthBase;
+        // Tool.ctx.lineWidth = Tool.lineWidthFactor * this.lineWidthBase;
         // Tool.ctx.strokeStyle = Tool.mainColor;
         // Tool.ctx.lineJoin = "round";
         // Tool.ctx.lineCap = "round";
