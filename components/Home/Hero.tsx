@@ -80,11 +80,9 @@ function Hero() {
         <div>Creators: <span className='text-egg'>{formatNumber(creatorsNum)}</span></div>
       </div>
       <div className="mt-16 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between relative">
-        <div className="h-64">
-          {randomCollections.map((coll) => (
-            <HotCollectionCard key={coll.collectionId} {...coll} />
-          ))}
-        </div>
+        {randomCollections.map((coll) => (
+          <HotCollectionCard key={coll.collectionId} {...coll} />
+        ))}
       </div>
     </section>
   );
