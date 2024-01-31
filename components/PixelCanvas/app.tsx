@@ -247,7 +247,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
                                                 />
                                             </div>
                                         </div>
-                                        <Button className="mt-8" variant="green" onClick={uploadImageToIpfs}>{status.buttonText}</Button>
+                                        <Button className="mt-8" variant="green" onClick={uploadImageToIpfs} loading={status.loading}>{status.buttonText}</Button>
                                     </div>
                                 </div>
                                 
