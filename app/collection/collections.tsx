@@ -19,7 +19,7 @@ const Collections = () => {
             {collections?.map(card => (
                 <Link key={card.collectionId} href={`/collection/${card?.derivedCollectionAddr}`}>
                     <CollectionDone sampleData={card} >
-                        <div className="absolute w-full bottom-0 h-11 flex items-center justify-between bg-[#404833] px-2 text-white gap-2">
+                        <div className="absolute w-full bottom-0 h-11 flex items-center justify-between bg-green px-2 text-white gap-2">
                             <div>{card.name}</div>
                             <BuyButton data={card as any} />
                         </div>

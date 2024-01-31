@@ -54,6 +54,7 @@ const config = {
         },
         yellow: '#FCFDC7',
         egg: '#FCFC03',
+        green: '#373A33',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -86,6 +87,7 @@ const config = {
       },
       backgroundImage: {
         'element': "url('/icons/ele.svg')",
+        'inscribe': "url('/icons/inscribe.png')",
       }
     },
   },

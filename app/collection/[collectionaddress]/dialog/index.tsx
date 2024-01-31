@@ -8,6 +8,11 @@ import { BsPlusLg, } from 'react-icons/bs';
 export const DEFAULT_PIX_GRID_NUMBER = 32;
 const MIN = 16;
 const MAX = 128;
+const options = [1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 64]
+const getClosetNumerDivdBy640 = (number: number) => {
+  const cloest = options.filter(num => num >= number)[0]
+  return cloest
+}
 
 export default function PixDialogForm(props: { onConfirm: (info: number) => void }) {
 
@@ -52,7 +57,8 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
             </div>
             <div className='my-10 flex justify-center gap-20'>
               <Button variant="green" onClick={() => {
-                props.onConfirm(value);
+                const newValue = getClosetNumerDivdBy640(value)
+                props.onConfirm(newValue);
               }} className='text-2xl'>Confirm</Button>
               <Dialog.Close asChild>
                 <Button variant="green" className='text-2xl'>Cancel</Button>

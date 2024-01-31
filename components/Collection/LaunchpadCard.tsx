@@ -14,7 +14,7 @@ function LaunchpadCard(props: CollectionCardProps) {
         <div className='relative flex-1'>
           <Image src={detailJson.image} alt={sampleData.name} className="w-full h-full object-cover" width={200} height={370} />
         </div>
-        <div className="bg-[#404833] text-white px-2 pb-2">
+        <div className="bg-green text-white px-2 pb-2">
           <div className="text-sm mt-1">{sampleData.name}</div>
           <div className="flex justify-between text-xs font-thin mt-2">
             <div>

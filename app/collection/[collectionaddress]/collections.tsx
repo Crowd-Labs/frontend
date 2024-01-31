@@ -40,7 +40,7 @@ export function CollectionCard(props: {
         <div className="absolute right-2 top-2">
           <DeleteBtn data={card} owner={collectionItem?.collectionOwner} />
         </div>
-        <div className="absolute w-full bottom-0 h-11 flex items-center justify-between px-2 gap-2 text-white bg-[#404833]">
+        <div className="h-11 flex items-center justify-between px-2 gap-2 text-white bg-green">
           {card.tokenId && <div>{`#${card.tokenId}`}</div>}
           <ForkButton data={card} />
           <BuyButton

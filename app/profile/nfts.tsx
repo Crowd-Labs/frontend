@@ -1,9 +1,10 @@
 'use client'
 import { getAllNFT } from '@/api/thegraphApi';
-import {  NewNFTCreateds } from '@/lib/type';
+import { NewNFTCreateds } from '@/lib/type';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { CollectionCard } from '../collection/[collectionaddress]/collections';
+import { NFTCard } from '@/components/Collection/NFTCards';
+import InscribeBtn from '@/components/Button/InscribeBtn';
 
 const Collections = () => {
 
@@ -19,10 +20,15 @@ const Collections = () => {
         <div className='grid grid-cols-4 gap-4 py-8'>
             {nfts?.map(card => (
                 <Link key={card.id} href={`/collection/${card?.collectionAddr}`}>
-                    <CollectionCard
-                        data={card}
+                    <NFTCard
+                        src={card?.detailJson.image}
                         className="mt-4"
-                    />
+                    >
+                        <div className="h-11 flex items-center justify-between px-2 gap-2 text-white bg-green">
+                            {card.detailJson.name && <div>{card.detailJson.name}</div>}
+                            <InscribeBtn data={card} />
+                        </div>
+                    </NFTCard>
                 </Link>
             ))}
         </div>
