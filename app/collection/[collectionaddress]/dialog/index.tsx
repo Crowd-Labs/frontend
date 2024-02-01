@@ -10,7 +10,7 @@ const MIN = 16;
 const MAX = 128;
 const options = [1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 64]
 const getClosetNumerDivdBy640 = (number: number) => {
-  const cloest = options.filter(num => num >= number)[0]
+  const cloest = options.find(num => num >= number) ?? DEFAULT_PIX_GRID_NUMBER
   return cloest
 }
 

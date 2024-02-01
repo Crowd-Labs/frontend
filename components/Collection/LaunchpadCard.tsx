@@ -10,9 +10,9 @@ function LaunchpadCard(props: CollectionCardProps) {
 
   return (
     <Link href={`/collection/${sampleData.derivedCollectionAddr}`}>
-      <div className="flex flex-col rounded-lg overflow-hidden xl:h-[370px]">
-        <div className='relative flex-1'>
-          <Image src={detailJson.image} alt={sampleData.name} className="w-full h-full object-cover" width={200} height={370} />
+      <div className="rounded-lg">
+        <div className='xl:h-[280px]'>
+          <Image src={detailJson.image} alt={sampleData.name} className="w-full h-full object-cover" width={200} height={280} />
         </div>
         <div className="bg-green text-white px-2 pb-2">
           <div className="text-sm mt-1">{sampleData.name}</div>

@@ -121,7 +121,7 @@ export default function AccountForm(props: SettingProps) {
               <FormItem>
                 <FormLabel>Mint Limit</FormLabel>
                 <FormControl>
-                  <Input {...field} type="number" />
+                  <Input {...field} type="number" max={10000} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -134,7 +134,7 @@ export default function AccountForm(props: SettingProps) {
               <FormItem>
                 <FormLabel>Royalty</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} max={10} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
