@@ -29,7 +29,7 @@ function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="nav-link"
+                  className="nav-link hover:text-white"
                   {...item?.target === "_blank" && { target: "_blank" }}
                 >
                   {item.label}
@@ -40,10 +40,10 @@ function Header() {
         </div>
         <div className="flex gap-6 items-center">
           <Link target="_blank" href={TWITTER_ADDRESS}>
-            <BsTwitter size={26} color="grey" />
+            <BsTwitter size={26} className='text-gray-500 hover:text-white'/>
           </Link>
           <Link target="_blank" href={GITHUB_ADDRESS}>
-            <BsGithub size={26} color="grey" />
+            <BsGithub size={26} className='text-gray-500 hover:text-white'/>
           </Link>
           <ConnectButton.Custom>
             {({
@@ -73,7 +73,7 @@ function Header() {
                       return (
                         <Button
                           onClick={openConnectModal}
-                          className="bg-[#FCFC03] font-bold text-[#9BA885]"
+                          variant={"yellow"}
                         >
                           Connect Web3
                         </Button>

@@ -56,13 +56,11 @@ function Hero() {
       </div>
       <div className="relative flex-center gap-20">
         <Button
-          asChild
           variant="yellow"
         >
           <Link href="/collection/create">Get Started</Link>
         </Button>
         <Button
-          asChild
           variant="yellow"
         >
           <Link target="_blank" href={BRCROWD_DOC}>Read the doc</Link>

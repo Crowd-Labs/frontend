@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
-import { Loader2, LoaderIcon } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -19,8 +19,8 @@ const buttonVariants = cva(
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
-        yellow: 'bg-[#FCFC03] font-bold text-lg text-[#11140C]',
-        green: 'bg-green text-white',
+        yellow: 'bg-[#FCFC03] font-bold text-lg text-[#11140C] hover:bg-[#FCFC03]/90',
+        green: 'bg-[#373A33] text-white hover:bg-[#373A33]/90',
       },
       size: {
         default: 'h-10 px-4 py-2',
