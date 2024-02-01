@@ -45,14 +45,14 @@ const currencys = [
 ] as const;
 
 const accountFormSchema = z.object({
-  limit: z.string(),
-  royalty: z.string(),
-  // limit: z.number().max(10000, {
-  //   message: "Name must be at least 2 characters.",
-  // }),
-  // royalty: z.number().max(100, {
-  //   message: "Name must be at least 2 characters.",
-  // }),
+  // limit: z.string(),
+  // royalty: z.string(),
+  limit: z.coerce.number().max(10000, {
+    message: "Mint Limit should be lower than 10000.",
+  }),
+  royalty: z.coerce.number().max(10, {
+    message: "Royalty should be lower than 10.",
+  }),
   endTime: z.date({
     required_error: 'A date of birth is required.',
   }),
@@ -60,7 +60,7 @@ const accountFormSchema = z.object({
   currency: z.string({
     required_error: 'Please select a currency.',
   }).optional(),
-  price: z.number().max(10000, {
+  price: z.coerce.number().max(10000, {
     message: 'Name must be at least 2 characters.',
   }).optional(),
   receiptAddress: z.string().min(20).max(100, {
@@ -94,14 +94,14 @@ export default function AccountForm(props: SettingProps) {
   const [open, onOpenChange] = useState(false)
 
   function onSubmit(data: AccountFormValues) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    // toast({
+    //   title: 'You submitted the following values:',
+    //   description: (
+    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+    //     </pre>
+    //   ),
+    // });
     onOpenChange(true)
   }
 
@@ -134,7 +134,7 @@ export default function AccountForm(props: SettingProps) {
               <FormItem>
                 <FormLabel>Royalty</FormLabel>
                 <FormControl>
-                  <Input {...field} max={10} />
+                  <Input {...field} type="number" max={10} step={"0.1"}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>

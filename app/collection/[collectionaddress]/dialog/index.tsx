@@ -57,8 +57,8 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
             </div>
             <div className='my-10 flex justify-center gap-20'>
               <Button variant="green" onClick={() => {
-                const newValue = getClosetNumerDivdBy640(value)
-                props.onConfirm(newValue);
+                // const newValue = getClosetNumerDivdBy640(value)
+                props.onConfirm(value);
               }} className='text-2xl'>Confirm</Button>
               <Dialog.Close asChild>
                 <Button variant="green" className='text-2xl'>Cancel</Button>

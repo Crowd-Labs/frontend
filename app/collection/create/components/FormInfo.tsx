@@ -27,7 +27,7 @@ const accountFormSchema = z.object({
       message: 'Collection name must not be longer than 30 characters.',
     }),
   description: z.string().optional(),
-  file:z.any().refine((files) => files?.length == 1, "please uplaod your collection logo")
+  file: z.any().refine((file) => file?.size > 0, "please uplaod your collection logo")
 });
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
@@ -40,14 +40,14 @@ export default function AccountForm(props: { next: (info: AccountFormValues) => 
 
   function onSubmit(data: AccountFormValues) {
     console.log('onSubmit', data);
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    // toast({
+    //   title: 'You submitted the following values:',
+    //   description: (
+    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+    //     </pre>
+    //   ),
+    // });
     props.next(data);
   }
 

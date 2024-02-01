@@ -20,6 +20,7 @@ import { getStakeEthAmountForInitialCollection } from "@/api/thegraphApi";
 import { StakeEthAmountForInitialCollection } from "@/lib/type";
 import { Divider } from "@/components/Footer";
 import axios from "axios";
+import BigNumber from "bignumber.js";
 
 const CreateCollection = () => {
   const abiCoder = new ethers.AbiCoder();
@@ -56,8 +57,8 @@ const CreateCollection = () => {
     discord?: string | undefined;
   }>({});
   const [settingInfo, setSettingInfo] = useState<{
-    limit: string | undefined;
-    royalty: string | undefined;
+    limit: number | undefined;
+    royalty: number | undefined;
     endTime: Date | undefined;
     isCharge: boolean | undefined;
     currency: string | undefined;
@@ -87,7 +88,7 @@ const CreateCollection = () => {
         medium: socialInfo.medium,
         discord: socialInfo.discord,
         mintLimit: settingInfo?.limit,
-        royalty: parseFloat(settingInfo?.royalty || "0") * 100,
+        royalty: parseFloat((BigNumber(settingInfo?.royalty || 0).toFixed(1))) * 100,
         endTime: (settingInfo?.endTime?.getTime() || (Date.now() + 7 * 24 * 3600 * 1000)) / 1000,
         bCharge: !!settingInfo?.isCharge,
         mintPrice: settingInfo?.price,
@@ -97,7 +98,7 @@ const CreateCollection = () => {
         whitelistRootHash: "",
       }
       console.log("onSuccess data", data, request);
-      let res:any = await postReq({
+      let res: any = await postReq({
         url: "/api/collection/create",
         data: request,
       });
@@ -106,7 +107,7 @@ const CreateCollection = () => {
         loading: false,
       });
       console.log('collectionAddress', res)
-      router.push(`/collection/${res? res.message?.collectionAddress:""}`);
+      router.push(`/collection/${res ? res.message?.collectionAddress : ""}`);
     },
     onError: (error) => {
       console.log("onError error", error);
@@ -125,7 +126,7 @@ const CreateCollection = () => {
       });
       const formData = new FormData();
       formData.append('nft', collectionInfo.file)
-      try{
+      try {
         const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
           'maxBodyLength': Infinity,
           headers: {
@@ -198,7 +199,7 @@ const CreateCollection = () => {
           ]
         );
       const args = [
-        parseFloat(settingInfo?.royalty || "0") * 100,
+        parseFloat((BigNumber(settingInfo?.royalty || 0).toFixed(1))) * 100,
         metadataUri,
         collectionInfo.name,
         collectionInfo.name,
