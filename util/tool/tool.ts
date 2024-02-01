@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export const CanvasGridCount = 32;
-export const GridWidth = 20;
-export const CanvasBgColor = "#ffffff";
+export const CanvasMinWidth = 640
+export const CanvasBgColor = "#eeeeee";
 export const SVGToolColor = "#ffffff";
 export class Point {
     x: number;
@@ -24,8 +23,8 @@ export const getMousePosOriginal = (canvas: HTMLCanvasElement, event: MouseEvent
 export const getMousePos = (canvas: HTMLCanvasElement, event: MouseEvent): Point => {
     const rect = canvas.getBoundingClientRect();
     return {
-        x: Math.floor((event.clientX - rect.left) / GridWidth) * GridWidth,
-        y: Math.floor((event.clientY - rect.top) / GridWidth) * GridWidth
+        x: Math.floor((event.clientX - rect.left) / Tool.GridWidth) * Tool.GridWidth,
+        y: Math.floor((event.clientY - rect.top) / Tool.GridWidth) * Tool.GridWidth
     };
 };
 
@@ -38,8 +37,8 @@ export const getTouchPosOriginal = (canvas: HTMLCanvasElement, event: TouchEvent
 
 export const getTouchPos = (canvas: HTMLCanvasElement, event: TouchEvent): Point => {
     return {
-        x: Math.floor((event.touches[0].pageX - canvas.offsetLeft) / GridWidth) * GridWidth,
-        y: Math.floor((event.touches[0].pageY - canvas.offsetTop) / GridWidth)* GridWidth
+        x: Math.floor((event.touches[0].pageX - canvas.offsetLeft) / Tool.GridWidth) * Tool.GridWidth,
+        y: Math.floor((event.touches[0].pageY - canvas.offsetTop) / Tool.GridWidth)* Tool.GridWidth
     }
 };
 export const rgbToHex = (r: number, g: number, b: number, a?: number) => {
@@ -106,6 +105,8 @@ export default class Tool {
 
     public static PixelBoxs:any[] = [];
 
+    public static GridWidth = 1;
+    
     public static OptPixel = {
         stepX: 2,
         stepY: 2,

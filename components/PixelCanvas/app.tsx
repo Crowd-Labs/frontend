@@ -13,16 +13,16 @@ import { postReq } from "@/api/server/abstract";
 import { useRouter,useSearchParams } from "next/navigation";
 import { ethers } from "ethers";
 import { Tool } from "@/util/tool";
-import { CanvasGridCount, GridWidth } from "@/util/tool/tool";
+import { CanvasMinWidth } from "@/util/tool/tool";
 import { getCollectionInfoByCollectionAddress } from "@/api/thegraphApi";
 import { CollectionInfo } from "@/lib/type";
 import axios from "axios";
-import { DEFAULT_PIX_GRID_NUMBER } from "@/app/collection/[collectionaddress]/dialog";
+import { Loader2 } from "lucide-react";
 
 interface PixelCanvasProps {
     collectionAddress: string;
     nftId?: number;
-    sourceImage?: string
+    sourceImage?: string;
 }
 
 const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceImage}) => {
@@ -35,14 +35,18 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
     const [dispatcher] = useState(new Dispatcher());
     const abiCoder = new ethers.AbiCoder();
     const router = useRouter();
-
     const searchParams = useSearchParams()
-    const width = searchParams.get('w')??DEFAULT_PIX_GRID_NUMBER
+    const width = searchParams.get('w')
+    const [gridCountH, setCanvasGridCountH] = useState<number|undefined>(width?parseInt(width):undefined)
+    const [gridCountV, setCanvasGridCountV] = useState<number|undefined>(gridCountH)
+    const [gridWidth, setGridWidth] = useState<number>()
 
+    
     const account = useAccount({
       onConnect: (data) => console.log("connected", data),
       onDisconnect: () => console.log("disconnected"),
     });
+
     const [status, setStatus] = useState({
         buttonText: "Save & CreateNFT",
         loading: false,
@@ -50,6 +54,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
     const setColor = (value: string) => {
         setMainColor(value);
     };
+
     useEffect(()=>{
       if (sourceImage){
         let canvas = document.createElement('canvas');
@@ -60,30 +65,27 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           img.crossOrigin = 'Anonymous'; 
           img.onload = function() {
               console.log('onload img',img)
-              canvas.width = CanvasGridCount ;
-              canvas.height = CanvasGridCount ;
-              let sx = img.width > CanvasGridCount ? Math.floor((img.width - CanvasGridCount) / 2) : 0
-              let sy = img.height > CanvasGridCount ? Math.floor((img.height - CanvasGridCount) / 2) : 0
-              let dx = CanvasGridCount > img.width ? Math.floor((CanvasGridCount -img.width) / 2)  : 0
-              let dy = CanvasGridCount > img.height ? Math.floor((CanvasGridCount -img.height) / 2) : 0
-              let sWidth = Math.min(img.width, CanvasGridCount) 
-              let sHeight = Math.min(img.height, CanvasGridCount) 
-              let dWidth = sWidth 
-              let dHeight = sHeight 
+              canvas.width = img.width ;
+              canvas.height = img.height;
+              let countH = img.width
+              let countV = img.height
+              let gw = Math.ceil(CanvasMinWidth / countH)
               if (ctx){
-                ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-                var imageData = ctx.getImageData(0, 0, CanvasGridCount, CanvasGridCount);
-                const tempImageData = ctx.createImageData(CanvasGridCount*GridWidth, CanvasGridCount*GridWidth);
-                for (let y = 0; y < CanvasGridCount*GridWidth; y++) {
-                  for (let x = 0; x < CanvasGridCount*GridWidth; x++) {
-                    const srcX = Math.floor(x / GridWidth);
-                    const srcY = Math.floor(y / GridWidth);
+                ctx.drawImage(img, 0, 0);
+                var imageData = ctx.getImageData(0, 0, img.width, img.height);
+                const tempImageData = ctx.createImageData(countH*gw, countV*gw);
+                for (let y = 0; y < countH*gw; y++) {
+                  for (let x = 0; x < countV*gw; x++) {
+                    const srcX = Math.floor(x / gw);
+                    const srcY = Math.floor(y / gw);
                     const srcOffset = (srcY * imageData.width + srcX) * 4;
-                    const destOffset = (y * CanvasGridCount*GridWidth + x) * 4;
+                    const destOffset = (y * countH*gw + x) * 4;
                     tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
                   }
                 }
                 setSourceImageData(tempImageData)
+                setCanvasGridCountH(img.width)
+                setCanvasGridCountV(img.height)
               }
           };
           img.onerror = (err) => {
@@ -94,6 +96,14 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
         
       }
     }, [sourceImage])
+
+    useEffect(()=>{
+      if (gridCountH && gridCountH > 0){
+        let w = Math.ceil(CanvasMinWidth / gridCountH)
+        setGridWidth(w)
+        Tool.GridWidth = w;
+      }
+    },[gridCountH])
 
     const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
     useEffect(() => {
@@ -181,18 +191,20 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
     
     
     const uploadImageToIpfs =  () => {
+      if (gridCountH && gridWidth  && gridCountV ){
         setStatus({
-            buttonText: `Uploading Image to IPFS`,
-            loading: true,
+          buttonText: `Uploading Image to IPFS`,
+          loading: true,
         });
-        const imageData = Tool.ctx.getImageData(0, 0, CanvasGridCount*GridWidth, CanvasGridCount*GridWidth);
+        const imageData = Tool.ctx.getImageData(0, 0, gridCountH*gridWidth, gridCountV*gridWidth);
         resizeImageData(imageData);
-       
+      }
     };
 
     const resizeImageData = (imageData: ImageData )=> {
-        const newWidth = CanvasGridCount;
-        const newHeight = CanvasGridCount;
+      if (gridCountH && gridCountV && gridWidth){
+        const newWidth = gridCountH;
+        const newHeight = gridCountV;
         const canvas = document.createElement('canvas');
         const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
         canvas.width = newWidth;
@@ -201,8 +213,8 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
             const tempImageData = ctx.createImageData(newWidth, newHeight);
             for (let y = 0; y < newHeight; y++) {
               for (let x = 0; x < newWidth; x++) {
-                const srcX = x * GridWidth;
-                const srcY = y * GridWidth;
+                const srcX = x * gridWidth;
+                const srcY = y * gridWidth;
                 const srcOffset = (srcY * imageData.width + srcX) * 4;
                 const destOffset = (y * newWidth + x) * 4;
                 tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
@@ -226,17 +238,22 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
                 } 
             });
         }
+      }
+        
     }
        
     const drawGrid = ()=>{
-      let divs: Array<React.JSX.Element> = []
-      for (let i = 1; i < CanvasGridCount; i++){
-        divs.push(<div key={i} className="absolute w-px bg-gray-300" style={{left: `${i* GridWidth}px`, top: 0, bottom: 0}}></div>)
+      if (gridCountH && gridCountV && gridWidth && gridWidth >= 5){
+        let divs: Array<React.JSX.Element> = []
+        for (let i = 1; i < gridCountH; i++){
+          divs.push(<div key={'h-'+ i} className="absolute w-px bg-gray-300" style={{left: `${i* gridWidth}px`, top: 0, bottom: 0}}></div>)
+        }
+        for (let i = 1; i < gridCountV; i++){
+          divs.push(<div key={'v-'+i} className="absolute h-px bg-gray-300" style={{top: `${i* gridWidth}px`, left: 0, right: 0}}></div>)
+        }
+        return divs;
       }
-      for (let i = 1; i < CanvasGridCount; i++){
-        divs.push(<div key={i} className="absolute h-px bg-gray-300" style={{top: `${i* GridWidth}px`, left: 0, right: 0}}></div>)
-      }
-      return divs;
+      
     }
 
    
@@ -251,11 +268,11 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
                                 setColor,
                                 setActiveColor: setActiveColorType
                             }}>
-                                <div className="flex justify-center">
+                                {gridCountH && gridCountV && gridWidth ? <div className="flex justify-center">
                                     <div className="flex-col w-fit">
-                                        <div className="flex justify-center gap-x-8" style={{height: `${CanvasGridCount * GridWidth}px`}}> 
+                                        <div className="flex justify-center gap-x-8" style={{height: `${gridCountV * gridWidth}px`}}> 
                                             <Toolbar />
-                                            <div className="relative" style={{width: `${CanvasGridCount * GridWidth}px`}} >
+                                            <div className="relative" style={{width: `${gridCountH * gridWidth}px`}} >
                                               <div className="absolute left-0 top-0 w-fit h-fit">
                                                   <Canvas
                                                       toolType={toolType}
@@ -263,10 +280,12 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
                                                       mainColor={mainColor}
                                                       setColor={setColor}
                                                       sourceImageData={sourceImageData}
+                                                      canvasWidth={gridCountH * gridWidth}
+                                                      canvasHeight={gridCountV * gridWidth}
                                                   />
                                               </div>
                                               <div className="pointer-events-none absolute left-0 top-0"
-                                                  style={{width: `${CanvasGridCount * GridWidth}px`,height: `${CanvasGridCount* GridWidth}px`}}
+                                                  style={{width: `${gridCountH * gridWidth}px`,height: `${gridCountV* gridWidth}px`}}
                                                >
                                                   { drawGrid() }
                                               </div>
@@ -275,7 +294,8 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
                                         </div>
                                         <Button className="mt-8" variant="green" onClick={uploadImageToIpfs} loading={status.loading}>{status.buttonText}</Button>
                                     </div>
-                                </div>
+                                </div> : <Loader2 className='animate-spin mr-2 h-5 w-5' />
+                                }
                                 
                             </ColorContext.Provider>
                         </DispatcherContext.Provider>

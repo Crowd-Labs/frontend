@@ -12,18 +12,20 @@ import {DispatcherContext} from "@/context";
 import {CLEAR_EVENT, REDO_EVENT, UNDO_EVENT} from "@/util/dispatcher/event";
 import SnapShot from "@/util/snapshot";
 import Snapshot from "@/util/snapshot";
-import { CanvasBgColor, CanvasGridCount, GridWidth } from "@/util/tool/tool";
+import { CanvasBgColor } from "@/util/tool/tool";
 
 interface CanvasProps {
     sourceImageData?: ImageData;
     toolType: ToolType;
     shapeType: ShapeToolType;
     mainColor: string;
+    canvasWidth: number;
+    canvasHeight: number;
     setColor: (value: string) => void;
 }
 
 const Canvas: FC<CanvasProps> = (props) => {
-    const {sourceImageData, toolType, mainColor, setColor, shapeType} = props;
+    const {sourceImageData, toolType, mainColor, setColor, shapeType, canvasWidth, canvasHeight} = props;
     const [tool, setTool] = useState<Tool>();
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const dispatcherContext = useContext(DispatcherContext);
@@ -72,7 +74,6 @@ const Canvas: FC<CanvasProps> = (props) => {
                 if (ctx) {
                     ctx.fillStyle = CanvasBgColor;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    // drawGrid(ctx, "#000000", GridWidth, GridWidth);
                     snapshot.clear();
                     snapshot.add(ctx.getImageData(0, 0, canvas.width, canvas.height));
                 }
@@ -88,7 +89,6 @@ const Canvas: FC<CanvasProps> = (props) => {
                         ctx.fillStyle = CanvasBgColor;
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
                     }                    
-                    // drawGrid(ctx, "#000000", GridWidth, GridWidth);
                 }
             };
             dispatcher.on(CLEAR_EVENT, callback);
@@ -210,7 +210,7 @@ const Canvas: FC<CanvasProps> = (props) => {
 
 
     return (
-        <canvas width={CanvasGridCount* GridWidth} height={CanvasGridCount* GridWidth} ref={canvasRef} />
+        <canvas width={canvasWidth} height={canvasHeight} ref={canvasRef} />
     )
 };
 

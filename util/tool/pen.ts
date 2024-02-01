@@ -1,4 +1,4 @@
-import Tool, {GridWidth, Point, getMousePos, getTouchPos, hexToRgb, updateImageData} from "./tool";
+import Tool, {Point, getMousePos, getTouchPos, hexToRgb, updateImageData} from "./tool";
 class Pen extends Tool {
     protected lineWidthBase = 1;
     private mouseDown = false;
@@ -33,7 +33,7 @@ class Pen extends Tool {
             // const d = 0.5 * (this.previousPos.y + pos.y);
             // Tool.ctx.quadraticCurveTo(this.previousPos.x, this.previousPos.y, pos.x - this.previousPos.x, pos.y - this.previousPos.y);
             // Tool.ctx.stroke();
-            Tool.ctx.fillRect(pos.x, pos.y, GridWidth, GridWidth)
+            Tool.ctx.fillRect(pos.x, pos.y, Tool.GridWidth, Tool.GridWidth)
             this.previousPos = pos;
         }
     }

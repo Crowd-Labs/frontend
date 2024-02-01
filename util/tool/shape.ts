@@ -1,6 +1,6 @@
 import {ShapeToolType} from "../toolType";
 import { ellipse, line, rect } from "./calshapes";
-import Tool, {GridWidth, Point, getMousePos, getTouchPos, hexToRgb, updateImageData} from "./tool";
+import Tool, {Point, getMousePos, getTouchPos, hexToRgb, updateImageData} from "./tool";
 
 /**
  * @param type shape type
@@ -65,14 +65,14 @@ class Shape extends Tool {
 
             ctx.putImageData(this.saveImageData, 0, 0);
             if (this.type === ShapeToolType.LINE){
-                var lp = line(new Point(this.mouseDownPos.x/ GridWidth, this.mouseDownPos.y / GridWidth), new Point(pos.x/ GridWidth, pos.y / GridWidth));
-                for (let p of lp) ctx.fillRect(p.x * GridWidth, p.y * GridWidth, GridWidth, GridWidth);
+                var lp = line(new Point(this.mouseDownPos.x/ Tool.GridWidth, this.mouseDownPos.y / Tool.GridWidth), new Point(pos.x/ Tool.GridWidth, pos.y / Tool.GridWidth));
+                for (let p of lp) ctx.fillRect(p.x * Tool.GridWidth, p.y * Tool.GridWidth, Tool.GridWidth, Tool.GridWidth);
             } else if (this.type === ShapeToolType.RECT){
-                var lp = rect(new Point(this.mouseDownPos.x/ GridWidth, this.mouseDownPos.y / GridWidth), new Point(pos.x/ GridWidth, pos.y / GridWidth));
-                for (let p of lp) ctx.fillRect(p.x * GridWidth, p.y * GridWidth, GridWidth, GridWidth);
+                var lp = rect(new Point(this.mouseDownPos.x/ Tool.GridWidth, this.mouseDownPos.y / Tool.GridWidth), new Point(pos.x/ Tool.GridWidth, pos.y / Tool.GridWidth));
+                for (let p of lp) ctx.fillRect(p.x * Tool.GridWidth, p.y * Tool.GridWidth, Tool.GridWidth, Tool.GridWidth);
             } else if (this.type === ShapeToolType.CIRCLE){
-                var lp = ellipse(new Point(this.mouseDownPos.x/ GridWidth, this.mouseDownPos.y / GridWidth), new Point(pos.x/ GridWidth, pos.y / GridWidth));
-                for (let p of lp) ctx.fillRect(p.x * GridWidth, p.y * GridWidth, GridWidth, GridWidth);
+                var lp = ellipse(new Point(this.mouseDownPos.x/ Tool.GridWidth, this.mouseDownPos.y / Tool.GridWidth), new Point(pos.x/ Tool.GridWidth, pos.y / Tool.GridWidth));
+                for (let p of lp) ctx.fillRect(p.x * Tool.GridWidth, p.y * Tool.GridWidth, Tool.GridWidth, Tool.GridWidth);
             }
             // const vertexs: Point[] = getVertexs(this.type, this.mouseDownPos.x, this.mouseDownPos.y, pos.x, pos.y);
             // if (this.type === ShapeToolType.CIRCLE) {
