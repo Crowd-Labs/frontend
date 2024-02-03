@@ -39,9 +39,8 @@ import { useState } from 'react';
 
 const currencys = [
   { label: 'ETH', value: 'eth' },
-  { label: 'USDT', value: 'usdt' },
-  { label: 'USDC', value: 'usdc' },
-  { label: 'BNB', value: 'bnb' },
+  // { label: 'USDT', value: 'usdt' },
+  // { label: 'USDC', value: 'usdc' },
 ] as const;
 
 const accountFormSchema = z.object({
