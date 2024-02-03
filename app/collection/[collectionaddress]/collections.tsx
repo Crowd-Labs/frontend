@@ -8,6 +8,7 @@ import DeleteBtn from '@/components/Button/DeleteBtn';
 import { NFTCard } from '@/components/Collection/NFTCards';
 import { cn } from '@/lib/utils';
 import { CollectionInfo, NewNFTCreateds } from '@/lib/type';
+import { useRouter } from "next/navigation";
 
 function Collections(props: {
   data: NewNFTCreateds[];
@@ -18,9 +19,7 @@ function Collections(props: {
   return (
     <div className={cn('grid grid-cols-4 gap-4 py-8', className)}>
       {data.map((card) => (
-        <Link key={card.id} href={`/nft/${card.collectionAddr}/${card.tokenId}`}>
-          <CollectionCard data={card} {...rest} key={card.id} />
-        </Link>
+        <CollectionCard data={card} {...rest} key={card.id} />
       ))}
     </div>
   );
@@ -33,26 +32,30 @@ export function CollectionCard(props: {
   [index: string]: any;
 }) {
   const { data: card, collectionItem, ...rest } = props;
-
+  const router = useRouter()
   return (
-    <NFTCard src={card?.detailJson.image} {...rest}>
-      <>
-        <div className="absolute right-2 top-2">
-          <DeleteBtn data={card} owner={collectionItem?.collectionOwner} />
-        </div>
-        <div className="h-11 flex items-center justify-between px-2 gap-2 text-white bg-green">
-          {card.tokenId && <div>{`#${card.tokenId}`}</div>}
-          <ForkButton data={card} />
-          <BuyButton
-            data={{
-              ...card,
-              derivedCollectionAddr: collectionItem?.derivedCollectionAddr,
-            }}
-          />
-          {props.children}
-        </div>
-      </>
-    </NFTCard>
+    <div key={card.id} className="cursor-pointer" onClick={() => {
+      router.push(`/nft/${card.collectionAddr}/${card.tokenId}`)
+    }}>
+      <NFTCard src={card?.detailJson.image} {...rest}>
+        <>
+          <div className="absolute right-2 top-2">
+            <DeleteBtn data={card} owner={collectionItem?.collectionOwner} />
+          </div>
+          <div className="h-11 flex items-center justify-between px-2 gap-2 text-white bg-green">
+            {card.tokenId && <div>{`#${card.tokenId}`}</div>}
+            <ForkButton data={card} />
+            <BuyButton
+              data={{
+                ...card,
+                derivedCollectionAddr: collectionItem?.derivedCollectionAddr,
+              }}
+            />
+            {props.children}
+          </div>
+        </>
+      </NFTCard>
+    </div>
   );
 }
 
