@@ -27,24 +27,27 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
 
 
     return (
-      <div className="flex flex-row items-center">
-        <div className="flex border border-gray-500 w-full h-48 relative rounded-sm justify-center p-2">
-          <Input
-            type="file"
-            className={cn(
-              'absolute w-full h-full opacity-0 cursor-pointer',
-              className,
+      <div className="flex items-center">
+        <div className="flex flex-col w-full items-center border border-gray-500 rounded-sm p-2">
+          <div className="flex items-center justify-center h-48 w-full relative">
+            <Input
+              type="file"
+              className={cn(
+                'absolute w-full h-full opacity-0 cursor-pointer',
+                className,
+              )}
+              ref={ref}
+              {...props}
+              accept={accept}
+              onChange={handleFileOnChange}
+            />
+            {value ? (
+              <img className="h-48 pointer-events-none aspect-auto" src={URL.createObjectURL(value)} alt="" />
+            ) : (
+              <img src={"/images/holder.png"} className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 pointer-events-none" />
             )}
-            ref={ref}
-            {...props}
-            accept={accept}
-            onChange={handleFileOnChange}
-          />
-          {value ? (
-            <img className="h-full pointer-events-none aspect-auto" src={URL.createObjectURL(value)} alt="" />
-          ) : (
-            <img src={"/images/holder.png"} className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 pointer-events-none" />
-          )}
+          </div>
+          <div className='text-lg text-white/40'>Recommended size: 350 x 350</div>
         </div>
         {accept !== defaultAccept && value ? value.name : ''}
         {props.children}

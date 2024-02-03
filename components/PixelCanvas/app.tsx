@@ -149,18 +149,21 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           loading: true,
         });
         const attributes = [];
-        const metadata = {
-          external_link: `${BeCrowd_WEBSITE}`,
+
+        const data = JSON.stringify({
+          pinataContent: {
+            external_link: `${BeCrowd_WEBSITE}`,
           image: imageSource,
           attributes,
-        };
-        console.log("metadata", metadata);
-        const formData = new FormData();
-        formData.append('metadata', JSON.stringify(metadata))
-        const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+          },
+          pinataMetadata: {
+            name: "metadata",
+          },
+        });
+        const res = await axios.post("https://api.pinata.cloud/pinning/pinJSONToIPFS", data, {
           'maxBodyLength': Infinity,
           headers: {
-            'Content-Type': `multipart/form-data;`,
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT_KEY}`
           }
         });
@@ -224,7 +227,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
             return canvas.toBlob(async (res)=>{
                 if (res){
                   const formData = new FormData();
-                  formData.append('nft', res)
+                  formData.append('file', res)
                   const response = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
                     'maxBodyLength': Infinity,
                     headers: {
