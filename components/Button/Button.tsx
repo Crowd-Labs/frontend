@@ -9,7 +9,7 @@ function Button(props: ButtonProps) {
   return (
     <div
       className={cn(
-        'w-60 py-4 rounded-2xl shadow-md text-center font-medium bg-indigo-800 cursor-pointer',
+        'w-60 py-4 rounded-md shadow-md text-center font-medium bg-indigo-800 cursor-pointer',
         className,
       )}
     >

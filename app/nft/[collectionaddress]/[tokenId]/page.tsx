@@ -1,6 +1,7 @@
 'use client'
 import { Share2 } from "lucide-react";
 import Button from "@/components/Button/Button";
+import { Button as Button2 } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { NewNFTCreateds, CollectionInfo } from "@/lib/type";
@@ -11,13 +12,13 @@ import { getCollectionInfoByCollectionAddress, getNFTInfoByCollectionAddressAndT
 const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string } }) => {
 
   const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
-  const [nftInfo, setNFTInfo] = useState<NewNFTCreateds|undefined>()
+  const [nftInfo, setNFTInfo] = useState<NewNFTCreateds | undefined>()
 
-  useEffect(()=>{
+  useEffect(() => {
     getCollectionInfoByCollectionAddress(params.collectionaddress).then((res) => setCollectionItem(res));
-    
-    getNFTInfoByCollectionAddressAndTokenId(params.collectionaddress, params.tokenId).then((res)=>setNFTInfo(res as NewNFTCreateds))
-  },[])
+
+    getNFTInfoByCollectionAddressAndTokenId(params.collectionaddress, params.tokenId).then((res) => setNFTInfo(res as NewNFTCreateds))
+  }, [])
 
   return (
     <div className="container mx-auto">
@@ -28,7 +29,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
             className="w-full h-[37.68rem]"
             src={sanitizeDStorageUrl(nftInfo?.detailJson.image || '')}
             alt="card"
-          /> 
+          />
           <div className="flex gap-4 mt-4">
             <div className="text-white-rgba">Collection initialed by:</div>
             <div className="text-green-700">{`0x${collectionItem?.collectionOwner?.slice(-4)}`}</div>
@@ -58,12 +59,13 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
           </div>
           <div className="flex gap-8 mt-24">
             <a href={`${ELEMENT_MARKET}/assets/blast_testnet/${collectionItem?.derivedCollectionAddr}/${params.tokenId}`} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-yellow-rgba text-black">
+              <Button2 variant="yellow" className="w-60 p-4 h-full items-center">
+                <div className="w-7 overflow-x-hidden bg-element bg-no-repeat bg-[length:100px_auto] bg-left -indent-32">element</div>
                 View on Element
-              </Button>
+              </Button2>
             </a>
-            
-            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson.image?.replace('ipfs://','')}`}>
+
+            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson.image?.replace('ipfs://', '')}`}>
               <Button>Fork</Button>
             </Link>
           </div>
