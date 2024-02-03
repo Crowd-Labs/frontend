@@ -57,14 +57,6 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
               <div className="text-green-700">{nftInfo?.forkFrom}</div>
             </div>
           </div>
-          <div className="mt-8 text-2xl font-medium">Prompt:</div>
-          <div className="mt-4 break-all">
-            {nftInfo?.prompt}
-          </div>
-          <div className="mt-8 text-2xl font-medium">Negative prompt:</div>
-          <div className="mt-4 break-all">
-            {nftInfo?.nagativePrompt}
-          </div>
           <div className="flex gap-8 mt-24">
             <a href={`${ELEMENT_MARKET}/assets/blast_testnet/${collectionItem?.derivedCollectionAddr}/${params.tokenId}`} target="_blank" rel="noopener noreferrer">
               <Button className="bg-yellow-rgba text-black">

@@ -152,9 +152,9 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
 
         const data = JSON.stringify({
           pinataContent: {
-            external_link: `${BeCrowd_WEBSITE}`,
-          image: imageSource,
-          attributes,
+            name: `${collectionItem?.name}`,
+            image: imageSource,
+            attributes,
           },
           pinataMetadata: {
             name: "metadata",

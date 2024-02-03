@@ -11,6 +11,6 @@ export const POST = async (request) => {
         await newForkNft.save();
         return new Response(JSON.stringify({message :"create collection successful.", tokenId: tokenId, belongToCollectionId}), { status: 200 })
     } catch (error) {
-        return new Response(JSON.stringify({error:"Failed to create a new prompt"}), { status: 500 });
+        return new Response(JSON.stringify({error:"Failed to create a new nft"}), { status: 500 });
     }
 }

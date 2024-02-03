@@ -83,8 +83,6 @@ export interface NFTInfoProps {
   nftCreator: string,
   nftOwner: string,
   forkFrom: number,
-  prompt: string,
-  nagativePrompt: string,
   imageUrl: string,
   tokenId: number
 }
