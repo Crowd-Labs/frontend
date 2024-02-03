@@ -120,7 +120,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
         <img
           src={collectionItem?.detailJson?.image!}
           alt=""
-          className="w-40 h-40"
+          className="w-40 h-40 image-rendering-pixelated"
         />
         <div className="grid grid-cols-3 gap-14 text-lg text-white">
           <div className="col-span-2">

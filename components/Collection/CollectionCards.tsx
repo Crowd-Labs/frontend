@@ -30,7 +30,7 @@ export const CollectionDone = (props: CollectionCardProps) => {
     <div
       className={cn("w-[15.18125rem] h-[18.75rem] relative", props.className)}
     >
-      <Image src={sampleData.detailJson.image} alt="card" className="w-full h-full" width={242} height={300}/>
+      <Image src={sampleData.detailJson.image} alt="card" className="w-full h-full image-rendering-pixelated" width={242} height={300}/>
       {props.children}
     </div>
   );

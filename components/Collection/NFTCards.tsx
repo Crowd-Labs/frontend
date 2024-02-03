@@ -17,7 +17,7 @@ export function NFTCard(props: CardProps) {
       {...rest}
     >
       <div className='flex-1'>
-        <Image src={src} alt="card" className="w-full h-full object-cover" width={242} height={300} />
+        <Image src={src} alt="card" className="w-full h-full image-rendering-pixelated" width={242} height={300} />
       </div>
       {props.children}
     </div>
