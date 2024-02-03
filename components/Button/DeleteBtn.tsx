@@ -36,7 +36,6 @@ function DeleteButton(props: { data: NewNFTCreateds; owner?: string }) {
     console.log('deleteNFT', data.collectionId, data.tokenId);
     writePostContract?.({ args: [[data.collectionId, data.tokenId]] });
   };
-  // console.log("owner",owner);
 
   if (account.address?.toLocaleLowerCase() !== owner?.toLocaleLowerCase() || !isShowDeleteButton(data) || data.tokenId === '0') {
     return false;

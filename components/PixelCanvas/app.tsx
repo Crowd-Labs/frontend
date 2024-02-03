@@ -164,7 +164,6 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           }
         });
         const metadataUri = "ipfs://" + res.data.IpfsHash;
-        console.log("metadataUri", metadataUri);
         setStatus({
           buttonText: `Posting image`,
           loading: true,
