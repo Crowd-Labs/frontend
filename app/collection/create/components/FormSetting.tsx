@@ -134,7 +134,7 @@ export default function AccountForm(props: SettingProps) {
               <FormItem>
                 <FormLabel>Royalty</FormLabel>
                 <FormControl>
-                  <Input {...field} type="number" max={10} step={"0.1"}/>
+                  <Input {...field} type="number" max={10} step={"0.1"} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -274,7 +274,6 @@ export default function AccountForm(props: SettingProps) {
                   )}
                 />
               </div>
-
               <FormField
                 control={form.control}
                 name="receiptAddress"
@@ -288,44 +287,44 @@ export default function AccountForm(props: SettingProps) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="isSupportWhiteList"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Support WhiteList</FormLabel>
-                    <FormDescription>Only whitelist can mint</FormDescription>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {isSupportWhiteList && (
-                <FormField
-                  control={form.control}
-                  name="whiteList"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Upload
-                          accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        Upload excel/csv whitelist file
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
             </>
+          )}
+          <FormField
+            control={form.control}
+            name="isSupportWhiteList"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Support WhiteList</FormLabel>
+                <FormDescription>Only whitelist can mint</FormDescription>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {isSupportWhiteList && (
+            <FormField
+              control={form.control}
+              name="whiteList"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Upload
+                      accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Upload excel/csv whitelist file
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           )}
           <div className='flex justify-end'>
             <Button type="submit" variant="green" loading={props.status.loading}>{props.status.buttonText}</Button>

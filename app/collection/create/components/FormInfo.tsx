@@ -88,7 +88,7 @@ export default function AccountForm(props: { next: (info: AccountFormValues) => 
             <FormItem>
               <FormLabel>Logo Image<span className='text-red-500'>*</span></FormLabel>
               <FormControl>
-                <Upload {...field} />
+                <Upload {...field} showTip/>
               </FormControl>
               <FormMessage />
             </FormItem>

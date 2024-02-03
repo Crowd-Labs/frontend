@@ -7,6 +7,7 @@ export type UploadProps = React.HTMLAttributes<HTMLDivElement> & {
   onChange?: (value?: File) => void;
   value?: File;
   accept?: string;
+  showTip?: boolean
 };
 // export interface UploadProps extends InputProps {
 //   children?: React.ReactNode;
@@ -16,7 +17,7 @@ const defaultAccept = 'image/*';
 
 const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
   ({
-    className, value, accept = defaultAccept, onChange, ...props
+    className, value, showTip = false, accept = defaultAccept, onChange, ...props
   }, ref) => {
     const handleFileOnChange: React.ChangeEventHandler<HTMLInputElement> = (
       event,
@@ -47,7 +48,7 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
               <img src={"/images/holder.png"} className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 pointer-events-none" />
             )}
           </div>
-          <div className='text-lg text-white/40'>Recommended size: 350 x 350</div>
+          {showTip && <div className='text-lg text-white/40'>Recommended size: 350 x 350</div>}
         </div>
         {accept !== defaultAccept && value ? value.name : ''}
         {props.children}
