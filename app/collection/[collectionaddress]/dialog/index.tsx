@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import { BsPlusLg, } from 'react-icons/bs';
+import { toast } from '@/components/ui/use-toast';
 
 export const DEFAULT_PIX_GRID_NUMBER = 32;
 const MIN = 16;
@@ -22,9 +23,9 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
     <Dialog.Root>
       <Dialog.Trigger className="text-white my-8 text-2xl font-medium text-center">
         <div
-          className="flex flex-col items-center justify-center w-[15.18125rem] mt-4 h-[18.75rem] border text-white"
+          className="flex flex-col items-center justify-center w-64 h-64 mt-4 text-white/40 rounded-md border border-gray-500 p-2 text-lg"
         >
-          <BsPlusLg className="w-36 h-36" />
+          <img src={"/images/holder.png"} className="w-24 h-24 mb-2" />
           Initail Ancestor NFT
         </div>
       </Dialog.Trigger>
@@ -40,13 +41,7 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
                 <div>W:</div>
                 <Input type="number" className='w-20' min={MIN} max={MAX} value={value} onChange={(e) => {
                   const newValue = Number(e.target.value);
-                  if (newValue > MAX) {
-                    setValue(MAX)
-                  } else if (newValue < MIN) {
-                    setValue(MIN)
-                  } else {
-                    setValue(newValue)
-                  }
+                  setValue(newValue)
                 }} />
               </div>
               <div className='text-yellow'>X</div>
@@ -57,6 +52,19 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
             </div>
             <div className='my-10 flex justify-center gap-20'>
               <Button variant="green" onClick={() => {
+                if (value > MAX) {
+                  toast({
+                    title: 'warning',
+                    description: `the max number of the dimensions is ${MAX} ,please change`
+                  });
+                  return
+                } else if (value < MIN) {
+                  toast({
+                    title: 'warning',
+                    description: `the min number of the dimensions is ${MIN} ,please change`
+                  });
+                  return
+                }
                 // const newValue = getClosetNumerDivdBy640(value)
                 props.onConfirm(value);
               }} className='text-2xl'>Confirm</Button>

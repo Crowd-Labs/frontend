@@ -89,7 +89,7 @@ const CreateCollection = () => {
         discord: socialInfo.discord,
         mintLimit: settingInfo?.limit,
         royalty: parseFloat((BigNumber(settingInfo?.royalty || 0).toFixed(1))) * 100,
-        endTime: (settingInfo?.endTime?.getTime() || (Date.now() + 7 * 24 * 3600 * 1000)) / 1000,
+        endTime: (settingInfo?.endTime?.getTime() || (Date.now() + 7 * 24 * 3600 * 1000)),
         bCharge: !!settingInfo?.isCharge,
         mintPrice: settingInfo?.price,
         currency: settingInfo?.currency,
