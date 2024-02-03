@@ -1,13 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { NFTInfoProps } from '@/lib/type';
 import { getShortAddress } from '@/lib/utils';
 
 function UserAvatar(props: {
-  data?: NFTInfoProps;
   created?: { detailJson:{ image: string }, collectionOwner?: string };
   className?: string;
 }) {
-  const { data, created, className = 'w-10 h-10' } = props;
+  const { created, className = 'w-10 h-10' } = props;
   let logo;
   // if (data){
   //     logo = data.nftName

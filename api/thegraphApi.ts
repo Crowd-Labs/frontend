@@ -35,6 +35,27 @@ export const queryAllCollectionInfo = gql`
   }
 `
 
+//get collection info by account address
+export const queryCollectionInfoByAccountAddress = gql`
+  query newCollectionCreateds ($accountAddress: String!){
+    newCollectionCreateds(where: {collectionOwner: $accountAddress}) {
+      collectionOwner
+      derivedCollectionAddr
+      derivedRuleModule
+      collectionId
+      baseRoyalty
+      mintLimit
+      mintExpired
+      mintPrice
+      whiteListRootHash
+      collInfoURI
+      name
+      blockTimestamp
+      items
+    }    
+  }
+`
+
 //get all collection info
 export const queryAllCreators = gql`
   query creators {
@@ -45,7 +66,7 @@ export const queryAllCreators = gql`
   }
 `
 
-//get collection info by collection id
+//get collection info by collection address
 export const queryCollectionInfoByCollectionAddress = gql`
   query newCollectionCreateds ($collectionAddress: String!){
     newCollectionCreateds(where: {derivedCollectionAddr: $collectionAddress}) {
@@ -84,18 +105,53 @@ export const queryAllNFT = gql`
   }
 `
 
+export const queryAllNFTByAccountAddress = gql`
+  query getNewNFTCreateds ($accountAddress: String!){
+    newNFTCreateds(where: {creator: $accountAddress}) {
+      id
+      tokenId
+      collectionId
+      derivedFrom
+      collectionAddr
+      creator
+      nftInfoURI
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }    
+  }
+`
+
 //get all nft of one collection
 export const queryAllNFTByCollectionAddress = gql`
   query getNewNFTCreateds ($collectionAddr: String!){
     newNFTCreateds(where: {collectionAddr: $collectionAddr}) {
       id
-      blockNumber
-      blockTimestamp
+      tokenId
       collectionId
       derivedFrom
       collectionAddr
+      creator
       nftInfoURI
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }    
+  }
+`
+
+export const queryNFTInfoByCollectionAddressAndTokenId = gql`
+  query getNewNFTCreateds ($collectionAddr: String!, $tokenId: String!){
+    newNFTCreateds(where: {collectionAddr: $collectionAddr, tokenId: $tokenId}) {
+      id
       tokenId
+      collectionId
+      derivedFrom
+      collectionAddr
+      creator
+      nftInfoURI
+      blockNumber
+      blockTimestamp
       transactionHash
     }    
   }
@@ -151,6 +207,19 @@ export const getAllCollectionInfo = async () => {
   return collections.filter((item) => !!item)
 }
 
+export const getCollectionInfoByAccountAddress = async (accountAddress: string) => {
+  let response: { data: { newCollectionCreateds: CollectionInfo[] } } = await client.query({
+    query: queryCollectionInfoByAccountAddress,
+    variables: { accountAddress }
+  })
+  let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: CollectionInfo) => {
+    let json = await parseCollectionDetailJson(collection.collInfoURI)
+    return { ...collection, detailJson: json }
+  }))
+ 
+  return collections.filter((item) => !!item)
+}
+
 export const getAllCreators = async () => {
   let response: { data: { creators: Creator[] } } = await client.query({ query: queryAllCreators })
   let creators = response?.data?.creators
@@ -166,6 +235,19 @@ export const getCollectionInfoByCollectionAddress = async (collectionAddress: st
   })
   let collections = await Promise.all(response.data.newCollectionCreateds.map(async (collection: CollectionInfo) => {
     let json = await parseCollectionDetailJson(collection.collInfoURI)
+    return { ...collection, detailJson: json }
+  }))
+  return collections?.[0]
+}
+
+export const getNFTInfoByCollectionAddressAndTokenId = async (collectionAddress: string, tokenId: string) => {
+
+  let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
+    query: queryNFTInfoByCollectionAddressAndTokenId,
+    variables: { collectionAddress,  tokenId}
+  })
+  let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {
+    let json = await parseCollectionDetailJson(collection.nftInfoURI)
     return { ...collection, detailJson: json }
   }))
   return collections?.[0]
@@ -190,6 +272,18 @@ export const getAllNFTByCollectionAddress = async (collectionAddr: string) => {
 export const getAllNFT = async () => {
   let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
     query: queryAllNFT
+  })
+  let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {
+    let json = await parseCollectionDetailJson(collection.nftInfoURI)
+    return { ...collection, detailJson: json }
+  }))
+  return collections
+}
+
+export const getAllNFTByAccountAddress = async (accountAddress: string) => {
+  let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
+    query: queryAllNFTByAccountAddress,
+    variables: { accountAddress }
   })
   let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {
     let json = await parseCollectionDetailJson(collection.nftInfoURI)

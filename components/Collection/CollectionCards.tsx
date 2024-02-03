@@ -3,7 +3,6 @@ import React from "react"
 import type { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 import {
-  NFTInfoProps,
   CollectionInfo,
 } from "@/lib/type";
 
@@ -19,13 +18,6 @@ export interface CollectionProps {
 export interface CollectionCardProps {
   data?: CollectionInfo;
   sampleData: CollectionInfo;
-  children?: React.ReactNode;
-  className?: string;
-}
-
-export interface NFTCardProps {
-  data?: NFTInfoProps;
-  sampleData: NFTInfoProps;
   children?: React.ReactNode;
   className?: string;
 }

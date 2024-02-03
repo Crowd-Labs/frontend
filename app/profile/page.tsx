@@ -1,10 +1,19 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import CollectionCards from "./collections";
 import Nfts from "./nfts";
 import { Divider } from "@/components/Footer";
 import UserAvatar from "@/components/UserAvatar";
+import { useAccount } from "wagmi";
 
 const Profile = () => {
+    
+    const account = useAccount({
+        onConnect: (data) => console.log('connected', data),
+        onDisconnect: () => console.log('disconnected'),
+      });
+
     return (
         <div>
             <UserAvatar className="rounded-sm w-28 h-28"/>
@@ -15,10 +24,10 @@ const Profile = () => {
                 </TabsList>
                 <Divider />
                 <TabsContent value="collections">
-                    <CollectionCards />
+                    <CollectionCards accountAddress={account.address as string}/>
                 </TabsContent>
                 <TabsContent value="nft">
-                    <Nfts />
+                    <Nfts accountAddress={account.address as string}/>
                 </TabsContent>
             </Tabs>
         </div>
