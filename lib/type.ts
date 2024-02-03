@@ -55,37 +55,6 @@ export interface CollectionIdQueryRequest {
   collectionId: string
 }
 
-export interface CollectionInfoProps {
-  collectionName: string,
-  collectionDesc: string,
-  creator: string,
-  collectionId: number,
-  logoImage: string,
-  website: string,
-  twitter: string,
-  telegram: string,
-  medium: string,
-  discord: string,
-  mintLimit: number,
-  royalty: number,
-  endTime: Date,
-  bCharge: boolean,
-  mintPrice: number,
-  currency: string,
-  receiptAddress: string,
-  bWhitelist: boolean,
-  whitelistRootHash: string,
-}
-
-export interface NFTInfoProps {
-  nftName: string,
-  belongToCollectionId: number,
-  nftCreator: string,
-  nftOwner: string,
-  forkFrom: number,
-  imageUrl: string,
-  tokenId: number
-}
 declare global {
   interface Window {
    	timer: number;

@@ -1,16 +1,21 @@
 'use client'
-import { getAllNFT } from '@/api/thegraphApi';
+import { getAllNFTByAccountAddress } from '@/api/thegraphApi';
 import { NewNFTCreateds } from '@/lib/type';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { NFTCard } from '@/components/Collection/NFTCards';
 import InscribeBtn from '@/components/Button/InscribeBtn';
 
-const Collections = () => {
+interface CollectionsProps {
+    accountAddress: string;
+}
 
+const Nfts = (params : CollectionsProps) => {
+
+    const { accountAddress } = params
     const [nfts, setNFTs] = useState<NewNFTCreateds[]>();
     useEffect(() => {
-        getAllNFT().then((res) => {
+        getAllNFTByAccountAddress(accountAddress).then((res) => {
             console.log('res', res);
             setNFTs(res);
         });
@@ -36,4 +41,4 @@ const Collections = () => {
 }
 
 
-export default Collections 
+export default Nfts 

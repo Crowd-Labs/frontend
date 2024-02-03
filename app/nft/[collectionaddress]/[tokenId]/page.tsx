@@ -3,21 +3,20 @@ import { Share2 } from "lucide-react";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { NFTInfoProps, CollectionInfo } from "@/lib/type";
-import { getMongoNFTById } from "@/api/mongodbApi";
+import { NewNFTCreateds, CollectionInfo } from "@/lib/type";
 import { sanitizeDStorageUrl } from "@/lib/utils";
 import { ELEMENT_MARKET } from "@/constants";
-import { getCollectionInfoByCollectionAddress } from "@/api/thegraphApi";
+import { getCollectionInfoByCollectionAddress, getNFTInfoByCollectionAddressAndTokenId } from "@/api/thegraphApi";
 
 const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string } }) => {
 
   const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
-  const [nftInfo, setNFTInfo] = useState<NFTInfoProps|undefined>()
+  const [nftInfo, setNFTInfo] = useState<NewNFTCreateds|undefined>()
 
   useEffect(()=>{
     getCollectionInfoByCollectionAddress(params.collectionaddress).then((res) => setCollectionItem(res));
     
-    getMongoNFTById(params.collectionaddress, params.tokenId).then((res)=>setNFTInfo(res as NFTInfoProps))
+    getNFTInfoByCollectionAddressAndTokenId(params.collectionaddress, params.tokenId).then((res)=>setNFTInfo(res as NewNFTCreateds))
   },[])
 
   return (
@@ -27,7 +26,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
         <div>
           <img
             className="w-full h-[37.68rem]"
-            src={sanitizeDStorageUrl(nftInfo?.imageUrl || '')}
+            src={sanitizeDStorageUrl(nftInfo?.detailJson.image || '')}
             alt="card"
           /> 
           <div className="flex gap-4 mt-4">
@@ -44,7 +43,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
             <div className="text-2xl font-medium">{`#${params.tokenId}`}</div>
             <div className="flex justify-between gap-2">
               <div>created by</div>
-              <div className="text-green-700">{`0x${nftInfo?.nftCreator?.slice(-4).toLocaleLowerCase()}`}</div>
+              <div className="text-green-700">{`0x${nftInfo?.creator?.slice(-4).toLocaleLowerCase()}`}</div>
             </div>
           </div>
           <div className="flex justify-between items-center mt-6">
@@ -54,7 +53,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
             </div> */}
             <div className="flex justify-between gap-2">
               <div className="text-white-rgba">Fork from</div>
-              <div className="text-green-700">{nftInfo?.forkFrom}</div>
+              <div className="text-green-700">{nftInfo?.derivedFrom}</div>
             </div>
           </div>
           <div className="flex gap-8 mt-24">
@@ -64,7 +63,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
               </Button>
             </a>
             
-            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.imageUrl?.replace('ipfs://','')}`}>
+            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson.image?.replace('ipfs://','')}`}>
               <Button>Fork</Button>
             </Link>
           </div>

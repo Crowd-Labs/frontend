@@ -1,15 +1,21 @@
 'use client'
-import { getAllCollectionInfo } from '@/api/thegraphApi';
+import { getAllCollectionInfo, getCollectionInfoByAccountAddress } from '@/api/thegraphApi';
 import BuyButton from '@/components/Button/BuyBtn';
 import { CollectionDone } from '@/components/Collection/CollectionCards';
 import { CollectionInfo } from '@/lib/type';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const Collections = () => {
+interface CollectionsProps {
+    accountAddress: string;
+}
+
+const Collections = ( params: CollectionsProps) => {
+    const { accountAddress } = params
+
     const [collections, setCollections] = useState<CollectionInfo[]>([])
     useEffect(()=>{
-        getAllCollectionInfo().then(res=>{
+        getCollectionInfoByAccountAddress(accountAddress).then(res=>{
             setCollections(res as CollectionInfo[])
         })
     }, [])
