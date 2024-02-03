@@ -16,7 +16,6 @@ const Nfts = (params : CollectionsProps) => {
     const [nfts, setNFTs] = useState<NewNFTCreateds[]>();
     useEffect(() => {
         getAllNFTByAccountAddress(accountAddress).then((res) => {
-            console.log('res', res);
             setNFTs(res);
         });
     }, []);

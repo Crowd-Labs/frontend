@@ -75,7 +75,6 @@ export function rect(p1: Point, p2: Point) {
  
   return points;
 }
-//console.log(line(new Point(1, 1), new Point(5, 5)));
 
 export function circle(r: number, pc: Point) {
   /* This function returns points of Circle with radius r and center as pc*/

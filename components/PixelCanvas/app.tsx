@@ -59,12 +59,10 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
       if (sourceImage){
         let canvas = document.createElement('canvas');
         let ctx = canvas.getContext('2d');
-        console.log('sourceimageimage', sourceImage)
         if (ctx){
           let img = new Image();
           img.crossOrigin = 'Anonymous'; 
           img.onload = function() {
-              console.log('onload img',img)
               canvas.width = img.width ;
               canvas.height = img.height;
               let countH = img.width
@@ -115,7 +113,6 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
         abi: BeCrowd_ABI,
         functionName: "commitNewNFTIntoCollection",
         onSuccess: async (data) => {
-          console.log("onSuccess data", data);
           await postReq({
             url: "/api/nft/fork",
             data: {
@@ -134,7 +131,6 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           router.push(`/collection/${collectionAddress}`);
         },
         onError: (error) => {
-          console.log("onError error", error);
           setStatus({
             buttonText: `Save & CreateNFT`,
             loading: false,
@@ -181,7 +177,6 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           abiCoder.encode(["bool"], [false]),
           [],
         ];
-        console.log("writePostContract args", args);
         return writePostContract?.({ args: [args] });
       } catch (e) {
         console.error("e", e);

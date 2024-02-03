@@ -97,7 +97,6 @@ const CreateCollection = () => {
         bWhitelist: false,
         whitelistRootHash: "",
       }
-      console.log("onSuccess data", data, request);
       let res: any = await postReq({
         url: "/api/collection/create",
         data: request,
@@ -106,7 +105,6 @@ const CreateCollection = () => {
         buttonText: "Create collection",
         loading: false,
       });
-      console.log('collectionAddress', res)
       router.push(`/collection/${res ? res.message?.collectionAddress : ""}`);
     },
     onError: (error) => {

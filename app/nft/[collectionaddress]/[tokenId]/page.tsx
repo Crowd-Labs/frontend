@@ -19,8 +19,6 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
     getNFTInfoByCollectionAddressAndTokenId(params.collectionaddress, params.tokenId).then((res)=>setNFTInfo(res as NewNFTCreateds))
   },[])
 
-  console.log("nftInfo: ", nftInfo)
-
   return (
     <div className="container mx-auto">
       <div className="border-b-2 border-[#D9D9D9] mt-2"></div>
