@@ -6,8 +6,8 @@ import Dispatcher from "@/util/dispatcher";
 import Toolbar from "./toolBar";
 import Canvas from "./canvas";
 import { Button } from '@/components/ui/button';
-import { useAccount, useContractWrite } from "wagmi";
-import { BECROWD_PROXY_ADDRESS, BeCrowd_WEBSITE } from "@/constants";
+import { Address, useAccount, useContractWrite } from "wagmi";
+import { BECROWD_PROXY_ADDRESS } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { postReq } from "@/api/server/abstract";
 import { useRouter,useSearchParams } from "next/navigation";
@@ -109,7 +109,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
     }, [collectionAddress]);
 
     const { write: writePostContract } = useContractWrite({
-        address: BECROWD_PROXY_ADDRESS,
+        address: BECROWD_PROXY_ADDRESS as Address,
         abi: BeCrowd_ABI,
         functionName: "commitNewNFTIntoCollection",
         onSuccess: async (data) => {

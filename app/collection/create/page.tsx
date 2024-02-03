@@ -11,7 +11,7 @@ import {
   FREE_DERIVIED_MODULE_ADDRESS,
 } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
-import { useAccount, useContractWrite } from "wagmi";
+import { Address, useAccount, useContractWrite } from "wagmi";
 import { cn, trimify } from "@/lib/utils";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
@@ -69,7 +69,7 @@ const CreateCollection = () => {
   } | null>(null);
 
   const { write: writeContract } = useContractWrite({
-    address: BECROWD_PROXY_ADDRESS,
+    address: BECROWD_PROXY_ADDRESS as Address,
     abi: BeCrowd_ABI,
     value: stakeEthAmountInfo
       ? BigInt(stakeEthAmountInfo.newStakeEthAmount)

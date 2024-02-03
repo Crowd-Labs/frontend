@@ -4,9 +4,9 @@ export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'
 
 export const IPFS_GATEWAY_URL = 'https://orange-real-wildfowl-609.mypinata.cloud/ipfs' //'https://ipfs.io/ipfs'
 
-export const BECROWD_PROXY_ADDRESS = '0x39cB46115d52Bc0D8bf7494E3D5A2b436c9aD63f'
-export const DERIVED_NFTIMPL_ADDRESS = '0x1BA462520a17715A9c081f9F053d6578BAE87ac6'
-export const YIELD_AND_GASREWARD = '0xCd1A7Fc7A3AA4da340dc7c96F3f573cd66399381'
+export const BECROWD_PROXY_ADDRESS = process.env.NEXT_PUBLIC_BECROWD_PROXY_ADDRESS || ""
+export const DERIVED_NFTIMPL_ADDRESS = process.env.NEXT_PUBLIC_DERIVED_NFTIMPL_ADDRESS || ""
+export const YIELD_AND_GASREWARD = process.env.NEXT_PUBLIC_YIELD_AND_GASREWARD || ""
 export const ELEMENT_MARKET = 'https://element.market'
 
 export const BeCrowdHubProxy = 'BeCrowdHubProxy'

@@ -2,7 +2,7 @@
 
 import { NewNFTCreateds } from '@/lib/type';
 import { Trash2Icon } from 'lucide-react';
-import { useAccount, useContractWrite } from 'wagmi';
+import { Address, useAccount, useContractWrite } from 'wagmi';
 import { BeCrowd_ABI } from '@/abis/BeCrowdProxy';
 import { BECROWD_PROXY_ADDRESS } from '@/constants';
 // Only the person who created the collection has permission to delete it.
@@ -22,7 +22,7 @@ function DeleteButton(props: { data: NewNFTCreateds; owner?: string }) {
     onDisconnect: () => console.log('disconnected'),
   });
   const { write: writePostContract } = useContractWrite({
-    address: BECROWD_PROXY_ADDRESS,
+    address: BECROWD_PROXY_ADDRESS as Address,
     abi: BeCrowd_ABI,
     functionName: 'limitBurnTokenByCollectionOwner',
     onSuccess: (data) => {
