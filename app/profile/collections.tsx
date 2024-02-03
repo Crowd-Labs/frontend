@@ -18,7 +18,7 @@ const Collections = () => {
     return (
         <div className='grid grid-cols-4 gap-4 py-8'>
             {collections?.map(card => (
-                <div key={card.collectionId} data-href={`/collection/${card?.derivedCollectionAddr}`} onClick={() => {
+                <div key={card.collectionId} className='cursor-pointer' data-href={`/collection/${card?.derivedCollectionAddr}`} onClick={() => {
                     router.push(`/collection/${card?.derivedCollectionAddr}`)
                 }}>
                     <CollectionDone sampleData={card} >

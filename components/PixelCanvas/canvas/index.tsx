@@ -1,15 +1,15 @@
 import React from "react";
 
-import {useEffect} from "react";
-import {useRef} from "react";
-import { ShapeToolType, ToolType} from "@/util/toolType";
-import {FC} from "react";
-import {useState} from "react";
-import {Pen, Tool, Eraser, ColorExtract, ColorFill} from "@/util/tool";
+import { useEffect } from "react";
+import { useRef } from "react";
+import { ShapeToolType, ToolType } from "@/util/toolType";
+import { FC } from "react";
+import { useState } from "react";
+import { Pen, Tool, Eraser, ColorExtract, ColorFill } from "@/util/tool";
 import Shape from "@/util/tool/shape";
-import {useContext} from "react";
-import {DispatcherContext} from "@/context";
-import {CLEAR_EVENT, REDO_EVENT, UNDO_EVENT} from "@/util/dispatcher/event";
+import { useContext } from "react";
+import { DispatcherContext } from "@/context";
+import { CLEAR_EVENT, REDO_EVENT, UNDO_EVENT } from "@/util/dispatcher/event";
 import SnapShot from "@/util/snapshot";
 import Snapshot from "@/util/snapshot";
 import { CanvasBgColor } from "@/util/tool/tool";
@@ -25,7 +25,7 @@ interface CanvasProps {
 }
 
 const Canvas: FC<CanvasProps> = (props) => {
-    const {sourceImageData, toolType, mainColor, setColor, shapeType, canvasWidth, canvasHeight} = props;
+    const { sourceImageData, toolType, mainColor, setColor, shapeType, canvasWidth, canvasHeight } = props;
     const [tool, setTool] = useState<Tool>();
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const dispatcherContext = useContext(DispatcherContext);
@@ -56,19 +56,19 @@ const Canvas: FC<CanvasProps> = (props) => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (canvas){
+        if (canvas) {
             canvas.height = canvas.clientHeight;
             canvas.width = canvas.clientWidth;
             Tool.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-            if (sourceImageData ){
+            if (sourceImageData) {
                 canvas.height = canvas.clientHeight;
                 canvas.width = canvas.clientWidth;
                 let ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
                 ctx.putImageData(sourceImageData, 0, 0);
                 snapshot.clear();
                 snapshot.add(ctx.getImageData(0, 0, canvas.width, canvas.height));
-                
-            }else  {
+
+            } else {
                 // initial
                 const ctx = canvas.getContext("2d");
                 if (ctx) {
@@ -83,12 +83,12 @@ const Canvas: FC<CanvasProps> = (props) => {
             const callback = () => {
                 const ctx = canvas.getContext("2d");
                 if (ctx) {
-                    if (sourceImageData){
+                    if (sourceImageData) {
                         ctx.putImageData(sourceImageData, 0, 0)
-                    } else{
+                    } else {
                         ctx.fillStyle = CanvasBgColor;
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    }                    
+                    }
                 }
             };
             dispatcher.on(CLEAR_EVENT, callback);
@@ -119,7 +119,7 @@ const Canvas: FC<CanvasProps> = (props) => {
             };
             dispatcher.on(UNDO_EVENT, back);
 
-            window.addEventListener("resize", () => {
+            const resizeHandle = () => {
                 const canvasData = Tool.ctx.getImageData(0, 0, canvas.width, canvas.height);
                 canvas.height = canvas.clientHeight;
                 canvas.width = canvas.clientWidth;
@@ -127,21 +127,23 @@ const Canvas: FC<CanvasProps> = (props) => {
                 Tool.ctx.fillStyle = CanvasBgColor;
                 Tool.ctx.fillRect(0, 0, canvas.width, canvas.height);
                 Tool.ctx.putImageData(canvasData, 0, 0);
-            });
+            }
+            window.addEventListener("resize", resizeHandle);
 
             return () => {
                 dispatcher.off(CLEAR_EVENT, callback);
+                window.removeEventListener("resize",resizeHandle)
             };
         }
-    },[sourceImageData, canvasRef]);
+    }, [sourceImageData, canvasRef]);
 
     useEffect(() => {
         Tool.mainColor = mainColor;
     }, [mainColor]);
-    
+
     useEffect(() => {
         const canvas = canvasRef.current;
-       
+
     }, [canvasRef]);
 
     const onMouseDown = (event: MouseEvent) => {
