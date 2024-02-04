@@ -7,14 +7,16 @@ export const IPFS_GATEWAY_URL = 'https://orange-real-wildfowl-609.mypinata.cloud
 export const BECROWD_PROXY_ADDRESS = process.env.NEXT_PUBLIC_BECROWD_PROXY_ADDRESS || ""
 export const DERIVED_NFTIMPL_ADDRESS = process.env.NEXT_PUBLIC_DERIVED_NFTIMPL_ADDRESS || ""
 export const YIELD_AND_GASREWARD = process.env.NEXT_PUBLIC_YIELD_AND_GASREWARD || ""
+
+export const FREE_DERIVIED_MODULE_ADDRESS = process.env.NEXT_PUBLIC_FREE_DERIVIED_MODULE_ADDRESS || ""
+export const FEE_DERIVIED_MODULE_ADDRESS = process.env.NEXT_PUBLIC_FEE_DERIVIED_MODULE_ADDRESS || ""
+export const WHITELIST_FREE_DERIVIED_MODULE_ADDRESS = process.env.NEXT_PUBLIC_WHITELIST_FREE_DERIVIED_MODULE_ADDRESS || ""
+export const WHITELIST_FEE_DERIVIED_MODULE_ADDRESS = process.env.NEXT_PUBLIC_WHITELIST_FEE_DERIVIED_MODULE_ADDRESS || ""
+
 export const ELEMENT_MARKET = 'https://element.market'
 
 export const BeCrowdHubProxy = 'BeCrowdHubProxy'
 export const BeCrowd_WEBSITE = 'https://www.becrowd.xyz'
-export const FREE_DERIVIED_MODULE_ADDRESS = '0x1212c1fb86514080F40cfc59C5D82FCbeB469702'
-export const FEE_DERIVIED_MODULE_ADDRESS = '0xcD22ff5d299AB3cC5e838c31723DaFcb512857D2'
-export const WHITELIST_FREE_DERIVIED_MODULE_ADDRESS = '0xc480266AC2F4c975C44bD075B5B3cEF937Cce92D'
-export const WHITELIST_FEE_DERIVIED_MODULE_ADDRESS = '0x3d50830B330c5D436D2d7ade7266cc9B4173F6c6'
 
 export const navLinks = [
     { href: "/collection", label: "Collection", target: "_self" },
