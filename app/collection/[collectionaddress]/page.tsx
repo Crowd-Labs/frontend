@@ -9,8 +9,6 @@ import {
   BsFillHouseHeartFill,
 } from 'react-icons/bs';
 import BigNumber from 'bignumber.js';
-
-import UserAvatar from '@/components/UserAvatar';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
@@ -31,7 +29,7 @@ import {
   useContractWrite,
 } from 'wagmi';
 import { baseGoerli } from 'wagmi/chains';
-import { toAmount } from '@/lib/utils';
+import { toAmount, getShortAddress } from '@/lib/utils';
 
 import { getCollectionCreated } from '@/api/mongodbApi';
 import { MongoCollection } from '@/models/createcollection';
@@ -40,7 +38,10 @@ import { Divider } from '@/components/Footer';
 import PixDialogForm from './dialog';
 import { useRouter } from 'next/navigation';
 
+import { GoChevronRight, GoChevronDown } from "react-icons/go";
+
 function Collection({ params }: { params: { collectionaddress: string } }) {
+  const [expanded, setExpand] = useState(false);
   const [collectionItem, setCollectionItem] = useState<CollectionInfo>();
   const [collectionmongo, setCollection] = useState<MongoCollection>();
   const router = useRouter()
@@ -115,71 +116,83 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
         style={{ objectFit: 'cover' }}
         className="w-full h-56 -mb-32"
       /> */}
-      <div className="px-10 py-5 ">
-        <img
-          src={collectionItem?.detailJson?.image!}
-          alt=""
-          className="w-40 h-40 image-rendering-pixelated"
-        />
-        <div className="grid grid-cols-3 gap-14 text-lg text-white">
-          <div className="col-span-2">
-            <div className="flex justify-between items-center mt-4">
-              <div className="text-2xl font-medium">
-                {collectionItem?.name}
+      <Divider className='my-0' />
+      <div className="grid grid-cols-3 gap-20 px-24 py-5 text-white">
+        <div className="col-span-2">
+          <div className='flex gap-2 text-lg'>
+            <img
+              src={collectionItem?.detailJson?.image!}
+              alt=""
+              className="w-[84px] h-[84px] image-rendering-pixelated rounded-md"
+            />
+            <div className='flex-1'>
+              <div className='flex justify-between'>
+                <div className="flex flex-col gap-2">
+                  <div className="text-sm font-medium">
+                    {collectionItem?.name}
+                  </div>
+                  <div className="flex gap-2 items-center text-xs">
+                    <div>By</div>
+                    <span className="w-2 h-2 bg-[#46F12A] rounded-full" />
+                    {collectionItem && <div>{getShortAddress(collectionItem?.collectionOwner || '')}</div>}
+                  </div>
+                </div>
+                <div className="flex justify-between gap-8">
+                  {collectionmongo?.website && (
+                    <Link target="_blank" href={collectionmongo.website}>
+                      <BsFillHouseHeartFill />
+                    </Link>
+                  )}
+                  {collectionmongo?.twitter && (
+                    <Link target="_blank" href={collectionmongo.twitter}>
+                      <BsTwitter />
+                    </Link>
+                  )}
+                  {collectionmongo?.telegram && (
+                    <Link target="_blank" href={collectionmongo.telegram}>
+                      <BsTelegram />
+                    </Link>
+                  )}
+                  {collectionmongo?.medium && (
+                    <Link target="_blank" href={collectionmongo.medium}>
+                      <BsMedium />
+                    </Link>
+                  )}
+                  {collectionmongo?.discord && (
+                    <Link target="_blank" href={collectionmongo.discord}>
+                      <BsDiscord />
+                    </Link>
+                  )}
+                </div>
               </div>
-              <div className="flex justify-between gap-2">
-                {collectionmongo?.website && (
-                  <Link target="_blank" href={collectionmongo.website}>
-                    <BsFillHouseHeartFill />
-                  </Link>
-                )}
-                {collectionmongo?.twitter && (
-                  <Link target="_blank" href={collectionmongo.twitter}>
-                    <BsTwitter />
-                  </Link>
-                )}
-                {collectionmongo?.telegram && (
-                  <Link target="_blank" href={collectionmongo.telegram}>
-                    <BsTelegram />
-                  </Link>
-                )}
-                {collectionmongo?.medium && (
-                  <Link target="_blank" href={collectionmongo.medium}>
-                    <BsMedium />
-                  </Link>
-                )}
-                {collectionmongo?.discord && (
-                  <Link target="_blank" href={collectionmongo.discord}>
-                    <BsDiscord />
-                  </Link>
-                )}
+              <div className="flex gap-6 mt-4">
+                <div className="flex gap-2 items-center">
+                  <div className="text-white/60">Creators: </div>
+                  <div>0</div>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <div className="text-white/60">Items: </div>
+                  <div>{`${new Number(totalItems)}`}</div>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <div className="text-white/60">Community earnings: </div>
+                  <div>{`${(collectionItem?.baseRoyalty ?? 0) / 100}%`}</div>
+                </div>
               </div>
             </div>
-            <div className="flex gap-2 items-center mt-4">
-              <div>By</div>
-              {collectionItem && <UserAvatar created={collectionItem} />}
-            </div>
-            <div className="flex gap-6 mt-4">
-              <div className="flex gap-2 items-center">
-                <div className="text-white-rgba">Creators: </div>
-                <div>0</div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <div className="text-white-rgba">Items: </div>
-                <div>{`${new Number(totalItems)}`}</div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <div className="text-white-rgba">Community earnings: </div>
-                <div>{`${(collectionItem?.baseRoyalty ?? 0) / 100}%`}</div>
-              </div>
-            </div>
+          </div>
+          <div className='text-sm'>
+            {/* {collectionItem?.detailJson?.description && ( */}
             <div className="mt-4">
-              {collectionItem?.detailJson?.description}
+              <div>Collection description</div>
+              <div className='opacity-60 flex gap-2 items-center mt-4' onClick={() => setExpand(!expanded)}>See more {expanded ? <GoChevronRight /> : <GoChevronDown />}</div>
+              {expanded ? collectionItem?.detailJson?.description : ""}
             </div>
-            <div className="py-4 px-2">
+            {/* )} */}
+            <div className="py-4">
               <div className="flex gap-6">
                 <div className="flex gap-2 items-center">
-                  <div className="text-white-rgba">Total Royalty: </div>
+                  <div>Total Royalty: </div>
                   <div>
                     {`${toAmount(
                       (totalReceivedEthRoyalty as BigNumber.Value) || 0,
@@ -188,7 +201,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
                   </div>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <div className="text-white-rgba">Royalty Balance: </div>
+                  <div>Royalty Balance: </div>
                   <div>
                     {`${toAmount(
                       (collectionBalance?.value as unknown as BigNumber.Value) || 0,
@@ -197,9 +210,9 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-6 mt-4">
+              <div className="flex gap-10 mt-4">
                 <div className="flex gap-2 items-center">
-                  <div className="text-white-rgba"> Your Share: </div>
+                  <div> Your Share: </div>
                   <div>
                     {`${toAmount(
                       (releasable as BigNumber.Value) || 0,
@@ -216,40 +229,40 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
               </div>
             </div>
           </div>
-          <div className="col-span-1">
-            <div className="text-2xl font-medium text-white-rgba">Rule</div>
-            <div className="flex gap-4 mt-4">
-              <div className="text-white-rgba">Mint Limit: </div>
-              <div>{collectionItem?.mintLimit}</div>
+        </div>
+        <div className="col-span-1 text-sm">
+          <div className="font-medium opacity-60">Rule</div>
+          <div className="flex gap-4 mt-4">
+            <div className="opacity-60">Mint Limit: </div>
+            <div>{collectionItem?.mintLimit}</div>
+          </div>
+          <div className="flex gap-4 mt-4">
+            <div className="opacity-60">End Time: </div>
+            <div>
+              {collectionItem?.mintExpired
+                ? format(collectionItem?.mintExpired * 1000, 'PPP')
+                : ''}
             </div>
-            <div className="flex gap-4 mt-4">
-              <div className="text-white-rgba">End Time: </div>
-              <div>
-                {collectionItem?.mintExpired
-                  ? format(collectionItem?.mintExpired * 1000, 'PPP')
-                  : ''}
-              </div>
-            </div>
-            <div className="flex gap-4 mt-4">
-              <div className="text-white-rgba">Mint Price: </div>
-              <div>{collectionItem?.mintPrice}</div>
-            </div>
-            <div className="flex gap-4 mt-4">
-              <div className="text-white-rgba">Permission: </div>
-              <div>Public</div>
-            </div>
-            <div className="flex gap-4 mt-4">
-              <div className="text-white-rgba">Rights: </div>
-              <div>
-                To protect the quality of collection,Collection owner have
-                rights to refund(gas not include) and delete any item within 7
-                days after minted.
-              </div>
+          </div>
+          <div className="flex gap-4 mt-4">
+            <div className="opacity-60">Mint Price: </div>
+            <div>{collectionItem?.mintPrice}</div>
+          </div>
+          <div className="flex gap-4 mt-4">
+            <div className="opacity-60">Permission: </div>
+            <div>Public</div>
+          </div>
+          <div className="flex gap-4 mt-4">
+            <div className="opacity-60">Rights: </div>
+            <div>
+              To protect the quality of collection,Collection owner have
+              rights to refund(gas not include) and delete any item within 7
+              days after minted.
             </div>
           </div>
         </div>
       </div>
-      <Divider />
+      <Divider className='my-0' />
       {/* <div className="flex w-full items-center justify-between mt-3 gap-4">
         <div className="flex space-x-2">
           <Input

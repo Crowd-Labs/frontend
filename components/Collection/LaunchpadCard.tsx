@@ -39,7 +39,7 @@ function LaunchpadCard(props: CollectionCardProps) {
           </div>
           <div className="flex bg-[#414040] justify-center gap-6 mt-1">
             <div className="text-[#46F12A] flex items-center gap-1 scale-90">
-              <span className="w-2 h-2 bg-green-400 rounded-full" />
+              <span className="w-2 h-2 bg-[#46F12A] rounded-full" />
               Live
             </div>
             <div className="scale-90 flex gap-1">
