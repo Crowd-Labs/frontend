@@ -42,16 +42,17 @@ export function CollectionCard(props: {
           <div className="absolute right-2 top-2">
             <DeleteBtn data={card} owner={collectionItem?.collectionOwner} />
           </div>
-          <div className="h-11 flex items-center justify-between px-2 gap-2 text-white bg-green">
+          <div className="flex flex-col p-2 text-white bg-green">
             {card.tokenId && <div>{`${collectionItem?.name} #${card.tokenId}`}</div>}
-            <ForkButton data={card} />
-            <BuyButton
-              data={{
-                ...card,
-                derivedCollectionAddr: collectionItem?.derivedCollectionAddr,
-              }}
-            />
-            {props.children}
+            <div className="flex items-center justify-end gap-2">
+              <ForkButton data={card} />
+              <BuyButton
+                data={{
+                  ...card,
+                  derivedCollectionAddr: collectionItem?.derivedCollectionAddr,
+                }}
+              />
+            </div>
           </div>
         </>
       </NFTCard>
