@@ -39,9 +39,8 @@ import { useState } from 'react';
 
 const currencys = [
   { label: 'ETH', value: 'eth' },
-  { label: 'USDT', value: 'usdt' },
-  { label: 'USDC', value: 'usdc' },
-  { label: 'BNB', value: 'bnb' },
+  // { label: 'USDT', value: 'usdt' },
+  // { label: 'USDC', value: 'usdc' },
 ] as const;
 
 const accountFormSchema = z.object({
@@ -207,7 +206,7 @@ export default function AccountForm(props: SettingProps) {
                   name="price"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Mint Price</FormLabel>
+                      <FormLabel>Mint Price: </FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -220,7 +219,7 @@ export default function AccountForm(props: SettingProps) {
                   name="currency"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>currency</FormLabel>
+                      <FormLabel>Currency: </FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -279,7 +278,7 @@ export default function AccountForm(props: SettingProps) {
                 name="receiptAddress"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Receipt Address</FormLabel>
+                    <FormLabel>Receipt Address: </FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -289,7 +288,7 @@ export default function AccountForm(props: SettingProps) {
               />
             </>
           )}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="isSupportWhiteList"
             render={({ field }) => (
@@ -305,8 +304,8 @@ export default function AccountForm(props: SettingProps) {
                 <FormMessage />
               </FormItem>
             )}
-          />
-          {isSupportWhiteList && (
+          /> */}
+          {/* {isSupportWhiteList && (
             <FormField
               control={form.control}
               name="whiteList"
@@ -325,7 +324,7 @@ export default function AccountForm(props: SettingProps) {
                 </FormItem>
               )}
             />
-          )}
+          )} */}
           <div className='flex justify-end'>
             <Button type="submit" variant="green" loading={props.status.loading}>{props.status.buttonText}</Button>
           </div>

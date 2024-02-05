@@ -45,8 +45,6 @@ export default function AccountForm(props:{ next:(info:AccountFormValues)=>void,
   });
 
   function onSubmit(data: AccountFormValues) {
-    console.log(data);
-
     // toast({
     //   title: 'You submitted the following values:',
     //   description: (

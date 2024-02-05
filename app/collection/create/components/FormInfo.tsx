@@ -39,7 +39,7 @@ export default function AccountForm(props: { next: (info: AccountFormValues) => 
   });
 
   function onSubmit(data: AccountFormValues) {
-    console.log('onSubmit', data);
+    //console.log('onSubmit', data);
     // toast({
     //   title: 'You submitted the following values:',
     //   description: (

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { NewNFTCreateds, CollectionInfo } from "@/lib/type";
 import { sanitizeDStorageUrl } from "@/lib/utils";
-import { ELEMENT_MARKET } from "@/constants";
+import { ELEMENT_MARKET, IPFS_GATEWAY_URL } from "@/constants";
 import { getCollectionInfoByCollectionAddress, getNFTInfoByCollectionAddressAndTokenId } from "@/api/thegraphApi";
 
 const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string } }) => {
@@ -26,7 +26,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
       <div className="grid grid-cols-2 gap-14 text-lg text-white mt-14">
         <div>
           <img
-            className="w-full h-[37.68rem]"
+            className="w-full h-[37.68rem] image-rendering-pixelated"
             src={sanitizeDStorageUrl(nftInfo?.detailJson.image || '')}
             alt="card"
           />
@@ -41,7 +41,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
             <Share2 />
           </div>
           <div className="flex justify-between items-center mt-6">
-            <div className="text-2xl font-medium">{`#${params.tokenId}`}</div>
+            <div className="text-2xl font-medium">{`${collectionItem?.name} #${params.tokenId}`}</div>
             <div className="flex justify-between gap-2">
               <div>created by</div>
               <div className="text-green-700">{`0x${nftInfo?.creator?.slice(-4).toLocaleLowerCase()}`}</div>
@@ -64,8 +64,8 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
                 View on Element
               </Button2>
             </a>
-
-            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson.image?.replace('ipfs://', '')}`}>
+            
+            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson.image?.replace(`${IPFS_GATEWAY_URL}/`,'')}`}>
               <Button>Fork</Button>
             </Link>
           </div>

@@ -6,8 +6,8 @@ import Dispatcher from "@/util/dispatcher";
 import Toolbar from "./toolBar";
 import Canvas from "./canvas";
 import { Button } from '@/components/ui/button';
-import { useAccount, useContractWrite } from "wagmi";
-import { BECROWD_PROXY_ADDRESS, BeCrowd_WEBSITE } from "@/constants";
+import { Address, useAccount, useContractWrite } from "wagmi";
+import { BECROWD_PROXY_ADDRESS } from "@/constants";
 import { BeCrowd_ABI } from "@/abis/BeCrowdProxy";
 import { postReq } from "@/api/server/abstract";
 import { useRouter,useSearchParams } from "next/navigation";
@@ -59,12 +59,10 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
       if (sourceImage){
         let canvas = document.createElement('canvas');
         let ctx = canvas.getContext('2d');
-        console.log('sourceimageimage', sourceImage)
         if (ctx){
           let img = new Image();
           img.crossOrigin = 'Anonymous'; 
           img.onload = function() {
-              console.log('onload img',img)
               canvas.width = img.width ;
               canvas.height = img.height;
               let countH = img.width
@@ -111,11 +109,10 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
     }, [collectionAddress]);
 
     const { write: writePostContract } = useContractWrite({
-        address: BECROWD_PROXY_ADDRESS,
+        address: BECROWD_PROXY_ADDRESS as Address,
         abi: BeCrowd_ABI,
         functionName: "commitNewNFTIntoCollection",
         onSuccess: async (data) => {
-          console.log("onSuccess data", data);
           await postReq({
             url: "/api/nft/fork",
             data: {
@@ -134,7 +131,6 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           router.push(`/collection/${collectionAddress}`);
         },
         onError: (error) => {
-          console.log("onError error", error);
           setStatus({
             buttonText: `Save & CreateNFT`,
             loading: false,
@@ -168,7 +164,6 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           }
         });
         const metadataUri = "ipfs://" + res.data.IpfsHash;
-        console.log("metadataUri", metadataUri);
         setStatus({
           buttonText: `Posting image`,
           loading: true,
@@ -181,7 +176,6 @@ const PixelCanvas: FC<PixelCanvasProps> = ({collectionAddress, nftId=0, sourceIm
           abiCoder.encode(["bool"], [false]),
           [],
         ];
-        console.log("writePostContract args", args);
         return writePostContract?.({ args: [args] });
       } catch (e) {
         console.error("e", e);

@@ -45,7 +45,6 @@ export async function uploadFile(key: string, filePath: string) {
     const command = new PutObjectCommand(params);
     const response = await s3Client.send(command);
     console.log(`File uploaded successfully. URL: ${response.$metadata.httpStatusCode}`);
-    // return s3keyUrl(key)
   } catch (err) {
     console.error(err);
   }

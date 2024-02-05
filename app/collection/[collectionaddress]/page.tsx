@@ -50,7 +50,6 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
     getCollectionInfoByCollectionAddress(params.collectionaddress).then((res) => setCollectionItem(res));
 
     getAllNFTByCollectionAddress(params.collectionaddress).then((res) => {
-      console.log('res', res);
       setNFTs(res);
     });
 
@@ -116,11 +115,11 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
         style={{ objectFit: 'cover' }}
         className="w-full h-56 -mb-32"
       /> */}
-      <div className="px-10 ">
+      <div className="px-10 py-5 ">
         <img
           src={collectionItem?.detailJson?.image!}
           alt=""
-          className="w-40 h-40"
+          className="w-40 h-40 image-rendering-pixelated"
         />
         <div className="grid grid-cols-3 gap-14 text-lg text-white">
           <div className="col-span-2">
@@ -162,16 +161,16 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
             </div>
             <div className="flex gap-6 mt-4">
               <div className="flex gap-2 items-center">
-                <div className="text-white-rgba">Creators</div>
+                <div className="text-white-rgba">Creators: </div>
                 <div>0</div>
               </div>
               <div className="flex gap-2 items-center">
-                <div className="text-white-rgba">Items </div>
+                <div className="text-white-rgba">Items: </div>
                 <div>{`${new Number(totalItems)}`}</div>
               </div>
               <div className="flex gap-2 items-center">
-                <div className="text-white-rgba">Community earnings</div>
-                <div>{`${(collectionItem?.baseRoyalty ?? 0) / 100} %`}</div>
+                <div className="text-white-rgba">Community earnings: </div>
+                <div>{`${(collectionItem?.baseRoyalty ?? 0) / 100}%`}</div>
               </div>
             </div>
             <div className="mt-4">

@@ -4,7 +4,6 @@ import { connectToDB } from "@/lib/mongodb";
 export const GET = async (request, {params}) => {
     try {
         await connectToDB()
-        console.log('params',params)
         const collectionInfo = await CreateCollection.find(params)
         if (!collectionInfo) return new Response(JSON.stringify({error: "Collection Not Found"}), { status: 404 });
         return new Response(JSON.stringify(collectionInfo), { status: 200 })

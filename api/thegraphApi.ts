@@ -240,11 +240,10 @@ export const getCollectionInfoByCollectionAddress = async (collectionAddress: st
   return collections?.[0]
 }
 
-export const getNFTInfoByCollectionAddressAndTokenId = async (collectionAddress: string, tokenId: string) => {
-
+export const getNFTInfoByCollectionAddressAndTokenId = async (collectionAddr: string, tokenId: string) => {
   let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
     query: queryNFTInfoByCollectionAddressAndTokenId,
-    variables: { collectionAddress,  tokenId}
+    variables: { collectionAddr,  tokenId}
   })
   let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {
     let json = await parseCollectionDetailJson(collection.nftInfoURI)
@@ -259,12 +258,10 @@ export const getAllNFTByCollectionAddress = async (collectionAddr: string) => {
     query: queryAllNFTByCollectionAddress,
     variables: { collectionAddr }
   })
-  console.log('getNewNFTCreateds response', response)
   let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {
     let json = await parseCollectionDetailJson(collection.nftInfoURI)
     return { ...collection, detailJson: json }
   }))
-  console.log('getNewNFTCreateds response', collections)
   return collections
 }
 

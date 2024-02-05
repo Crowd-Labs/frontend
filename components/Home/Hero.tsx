@@ -16,7 +16,6 @@ function Hero() {
   const [collections, setCollections] = useState<CollectionInfo[]>([]);
   useEffect(() => {
     getAllCollectionInfo().then((res) => {
-      console.log("res", res);
       setCollections(res);
     });
   }, []);

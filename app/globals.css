@@ -155,9 +155,8 @@ body {
   .info-text {
     @apply text-red-400 text-lg leading-7;
   }
-  .pixelated-image {
-    image-rendering: pixelated;
-    width: 240px;
-    height: 240px;
+
+  .image-rendering-pixelated {
+    image-rendering: pixelated
   }
 }
