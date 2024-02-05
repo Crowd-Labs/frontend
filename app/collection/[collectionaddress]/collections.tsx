@@ -34,29 +34,30 @@ export function CollectionCard(props: {
   const { data: card, collectionItem, ...rest } = props;
   const router = useRouter()
   return (
-    <div key={card.id} className="cursor-pointer" onClick={() => {
-      router.push(`/nft/${card.collectionAddr}/${card.tokenId}`)
-    }}>
-      <NFTCard src={card?.detailJson.image} {...rest}>
-        <>
-          <div className="absolute right-2 top-2">
-            <DeleteBtn data={card} owner={collectionItem?.collectionOwner} />
+    <NFTCard
+      src={card?.detailJson.image}
+      className="cursor-pointer"
+      onClick={() => {
+        router.push(`/nft/${card.collectionAddr}/${card.tokenId}`)
+      }}{...rest}>
+      <div>
+        <div className="absolute right-2 top-2">
+          <DeleteBtn data={card} owner={collectionItem?.collectionOwner} />
+        </div>
+        <div className="flex flex-col p-2 text-white bg-green">
+          {card.tokenId && <div>{`${collectionItem?.name} #${card.tokenId}`}</div>}
+          <div className="flex items-center justify-end gap-2">
+            <ForkButton data={card} />
+            <BuyButton
+              data={{
+                ...card,
+                derivedCollectionAddr: collectionItem?.derivedCollectionAddr,
+              }}
+            />
           </div>
-          <div className="flex flex-col p-2 text-white bg-green">
-            {card.tokenId && <div>{`${collectionItem?.name} #${card.tokenId}`}</div>}
-            <div className="flex items-center justify-end gap-2">
-              <ForkButton data={card} />
-              <BuyButton
-                data={{
-                  ...card,
-                  derivedCollectionAddr: collectionItem?.derivedCollectionAddr,
-                }}
-              />
-            </div>
-          </div>
-        </>
-      </NFTCard>
-    </div>
+        </div>
+      </div>
+    </NFTCard>
   );
 }
 

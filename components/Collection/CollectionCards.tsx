@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import {
   CollectionInfo,
 } from "@/lib/type";
+import { useRouter } from "next/navigation";
 
 export interface CollectionProps {
   name: string;
@@ -26,11 +27,16 @@ export interface CollectionCardProps {
 // finshed collection
 export const CollectionDone = (props: CollectionCardProps) => {
   const { sampleData } = props;
+  const router = useRouter()
+
   return (
     <div
-      className={cn("w-[15.18125rem] h-[18.75rem] relative", props.className)}
+      className={cn("w-[16.625rem] h-[18.75rem] relative", props.className)}
+      onClick={() => {
+        router.push(`/collection/${sampleData?.derivedCollectionAddr}`)
+      }}
     >
-      <img src={sampleData.detailJson.image} alt="card" className="w-full h-full image-rendering-pixelated" width={242} height={300}/>
+      <img src={sampleData.detailJson.image} alt="card" className="w-full h-full image-rendering-pixelated" width={242} height={300} />
       {props.children}
     </div>
   );
