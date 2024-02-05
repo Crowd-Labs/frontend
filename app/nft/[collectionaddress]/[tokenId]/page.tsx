@@ -40,7 +40,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
             <Share2 />
           </div>
           <div className="flex justify-between items-center mt-6">
-            <div className="text-2xl font-medium">{`#${params.tokenId}`}</div>
+            <div className="text-2xl font-medium">{`${collectionItem?.name} #${params.tokenId}`}</div>
             <div className="flex justify-between gap-2">
               <div>created by</div>
               <div className="text-green-700">{`0x${nftInfo?.creator?.slice(-4).toLocaleLowerCase()}`}</div>
