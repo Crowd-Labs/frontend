@@ -14,7 +14,7 @@ export function NFTCard(props: CardProps) {
   const { src, className, ...rest } = props;
   return (
     <div
-      className={cn('w-[16.25rem] h-[18.75rem] relative flex flex-col', className)}
+      className={cn('w-[16.625rem] h-80 relative flex flex-col', className)}
       {...rest}
     >
       <div className='flex-1'>

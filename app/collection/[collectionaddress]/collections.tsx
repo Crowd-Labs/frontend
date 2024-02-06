@@ -17,7 +17,7 @@ function Collections(props: {
 }) {
   const { data = [], className, ...rest } = props;
   return (
-    <div className={cn('grid grid-cols-4 gap-4 py-8', className)}>
+    <div className={cn('grid grid-cols-4 gap-4 py-4', className)}>
       {data.map((card) => (
         <CollectionCard data={card} {...rest} key={card.id} />
       ))}

@@ -1,9 +1,10 @@
-import { Tabs, TabsContent} from "@/components/ui/tabs"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
 import CollectionCards from "./collections";
+import { Divider } from "@/components/Footer";
 const Collection = () => {
   return (
     <div>
-      <div className="border-b-2 border-[#D9D9D9] mt-7"></div>
+      <Divider className="my-0" />
       <Tabs defaultValue="Collections" className="mt-12">
         {/* <TabsList className="bg-transparent text-xl text-white">
           <TabsTrigger value="Collections">Collections</TabsTrigger>

@@ -20,7 +20,7 @@ const Collections = (params: CollectionsProps) => {
         })
     }, [])
     return (
-        <div className='grid grid-cols-4 gap-4 py-8'>
+        <div className='grid grid-cols-4 gap-4 py-4'>
             {collections?.map(card => (
                 <CollectionDone sampleData={card} key={card.collectionId}>
                     <div className="absolute w-full bottom-0 h-11 flex items-center justify-between bg-green px-2 text-white gap-2">
