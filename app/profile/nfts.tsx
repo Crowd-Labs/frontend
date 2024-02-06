@@ -32,8 +32,8 @@ const Nfts = (params: CollectionsProps) => {
                             src={card?.detailJson.image}
                             className="mt-4"
                         >
-                            <div className="h-11 flex items-center justify-between px-2 gap-2 text-white bg-green">
-                                {card.detailJson.name && <div>{card.detailJson.name}</div>}
+                            <div className="h-11 flex items-center justify-between px-1 gap-2 text-white bg-green">
+                                {card.detailJson.name && <div>{card.detailJson.name} #{card.tokenId}</div>}
                                 <InscribeBtn data={card} onClick={(e) => { e.stopPropagation();e.preventDefault(); setOpen(true) }} />
                             </div>
                         </NFTCard>

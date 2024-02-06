@@ -54,7 +54,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
       setNFTs(res);
     });
 
-    getCollectionCreated<MongoCollection[]>({ collectionId: params.collectionaddress }).then(
+    getCollectionCreated<MongoCollection[]>({ collectionAddress: params.collectionaddress }).then(
       (res) => setCollection(res?.[0]),
     );
   }, [params.collectionaddress]);
@@ -107,6 +107,16 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
       claimFromContract({ args: [account.address] });
     }
   };
+
+  const creatorNums = (): number => {
+    let creators : string[] = []
+    nfts?.map((card) => {
+      if(!creators.includes(card.creator)){
+        creators.push(card.creator)
+      }
+    })
+    return creators.length
+  }
 
   return (
     <div>
@@ -168,7 +178,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
               <div className="flex gap-6 mt-4">
                 <div className="flex gap-2 items-center">
                   <div className="text-white/60">Creators: </div>
-                  <div>0</div>
+                  <div>{creatorNums()}</div>
                 </div>
                 <div className="flex gap-2 items-center">
                   <div className="text-white/60">Items: </div>
@@ -231,7 +241,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           </div>
         </div>
         <div className="col-span-1 text-sm">
-          <div className="font-medium opacity-60">Rule</div>
+          <div className="font-medium opacity-60">Rule:</div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Mint Limit: </div>
             <div>{collectionItem?.mintLimit}</div>
