@@ -16,7 +16,7 @@ function Launchpad() {
       <div className="h1-heading">
         Launchpad drops
       </div>
-      <div className="mt-12 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+      <div className="mt-12 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-4 gap-y-8">
         {collections.map((card) => (
           <LaunchpadCard sampleData={card} key={card.collectionId} />
         ))}
