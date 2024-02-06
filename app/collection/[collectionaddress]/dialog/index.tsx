@@ -21,7 +21,7 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="text-white px-16 my-8 text-2xl font-medium text-center">
+      <Dialog.Trigger className="text-white my-8 text-2xl font-medium text-center">
         <div
           className="flex flex-col items-center justify-center w-48 h-48 mt-4 text-white/40 rounded-md border border-gray-500 p-2 text-lg"
         >
