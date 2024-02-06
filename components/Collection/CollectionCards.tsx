@@ -31,7 +31,7 @@ export const CollectionDone = (props: CollectionCardProps) => {
 
   return (
     <div
-      className={cn("w-[16.625rem] h-[18.75rem] relative", props.className)}
+      className={cn("w-[16.625rem] h-[18.75rem] relative cursor-pointer", props.className)}
       onClick={() => {
         router.push(`/collection/${sampleData?.derivedCollectionAddr}`)
       }}
