@@ -127,7 +127,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
         className="w-full h-56 -mb-32"
       /> */}
       <Divider className='my-0' />
-      <div className="grid grid-cols-3 gap-20 px-24 py-5 text-white">
+      <div className="grid grid-cols-3 gap-20 py-5 text-white">
         <div className="col-span-2">
           <div className='flex gap-2 text-lg'>
             <img
@@ -194,7 +194,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           <div className='text-sm'>
             {/* {collectionItem?.detailJson?.description && ( */}
             <div className="mt-4">
-              <div>Collection description</div>
+              <div>Collection description:</div>
               <div className='opacity-60 flex gap-2 items-center mt-4' onClick={() => setExpand(!expanded)}>See more {expanded ? <GoChevronRight /> : <GoChevronDown />}</div>
               {expanded ? collectionItem?.detailJson?.description : ""}
             </div>

@@ -15,7 +15,7 @@ function LaunchpadCard(props: CollectionCardProps) {
           <img src={detailJson.image} alt={sampleData.name} className="w-full h-full object-cover image-rendering-pixelated" width={200} height={280} />
         </div>
         <div className="bg-green text-white px-2 pb-2">
-          <div className="text-sm mt-1">{sampleData.name}</div>
+          <div className="text-sm pt-1">{sampleData.name}</div>
           <div className="flex justify-between text-xs font-thin mt-2">
             <div>
               <div>PRICE</div>

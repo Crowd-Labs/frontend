@@ -21,17 +21,17 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="text-white my-8 text-2xl font-medium text-center">
+      <Dialog.Trigger className="text-white px-16 my-8 text-2xl font-medium text-center">
         <div
-          className="flex flex-col items-center justify-center w-64 h-64 mt-4 text-white/40 rounded-md border border-gray-500 p-2 text-lg"
+          className="flex flex-col items-center justify-center w-48 h-48 mt-4 text-white/40 rounded-md border border-gray-500 p-2 text-lg"
         >
-          <img src={"/images/holder.png"} className="w-24 h-24 mb-2" />
-          Initail Ancestor NFT
+          <img src={"/images/holder.png"} className="w-20 h-20 mb-2" />
+          Initial Ancestor NFT
         </div>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[900px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-[#161b10] p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+        <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[55vh] w-[45vw] max-w-[900px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-[#161b10] p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
           <Dialog.Title className="text-white my-8 text-2xl font-medium text-center">
             Select the Dimensions Of The Grid
           </Dialog.Title>
