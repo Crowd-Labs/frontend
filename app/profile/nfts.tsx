@@ -25,7 +25,7 @@ const Nfts = (params: CollectionsProps) => {
     const [open, setOpen] = useState(false)
     return (
         <>
-            <div className='grid grid-cols-4 gap-4 py-4'>
+            <div className='grid grid-cols-4 gap-x-4 gap-y-8'>
                 {nfts?.map(card => (
                     <Link key={card.id} href={`/collection/${card?.collectionAddr}`}>
                         <NFTCard
