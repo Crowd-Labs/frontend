@@ -22,7 +22,7 @@ function LaunchpadCard(props: CollectionCardProps) {
               <div className="mt-1 text-[#9BA885]">
                 {sampleData.mintPrice > 0 ? `${toAmount(
                   (sampleData.mintPrice as BigNumber.Value) || 0,
-                  18,
+                  18, 4
                 )} ETH` : "Free"}
               </div>
             </div>

@@ -68,11 +68,11 @@ function Hero() {
       <div className="flex-center mt-10 gap-32 text-white text-2xl">
         <div>Current Yield:<span className='text-egg'> {`${toAmount(
           (currentYield as BigNumber.Value) || 0,
-          18,
+          18, 10
         )} ETH`}</span></div>
         <div>TVL:<span className='text-egg'>{`${toAmount(
           (currentTVL as BigNumber.Value) || 0,
-          18,
+          18, 4
         )} ETH`}</span></div>
         <div>Creators: <span className='text-egg'>{formatNumber(creatorsNum)}</span></div>
       </div>

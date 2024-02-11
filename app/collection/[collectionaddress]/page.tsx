@@ -206,7 +206,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
                   <div>
                     {`${toAmount(
                       (totalReceivedEthRoyalty as BigNumber.Value) || 0,
-                      18,
+                      18, 4
                     )} ETH`}
                   </div>
                 </div>
@@ -215,7 +215,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
                   <div>
                     {`${toAmount(
                       (collectionBalance?.value as unknown as BigNumber.Value) || 0,
-                      18,
+                      18, 4
                     )} ETH`}
                   </div>
                 </div>
@@ -226,7 +226,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
                   <div>
                     {`${toAmount(
                       (releasable as BigNumber.Value) || 0,
-                      18,
+                      18, 4
                     )} ETH`}
                   </div>
                 </div>

@@ -66,10 +66,10 @@ export const dataURLtoBlob = (dataurl: any) => {
   return new Blob([u8arr], { type: mime });
 };
 
-export const toAmount = (s: BigNumber.Value, decimals: number) => {
+export const toAmount = (s: BigNumber.Value, decimals: number, fixed: number) => {
   const value = new BigNumber(s);
   const divide = new BigNumber(10 ** decimals);
-  return value.dividedBy(divide).toFixed(4);
+  return value.dividedBy(divide).toFixed(fixed);
 };
 
 export const bignumberPlus = (add1: BigNumber.Value, add2: BigNumber.Value, decimals: number) => {
