@@ -288,7 +288,7 @@ export default function AccountForm(props: SettingProps) {
               />
             </>
           )}
-          {/* <FormField
+          <FormField
             control={form.control}
             name="isSupportWhiteList"
             render={({ field }) => (
@@ -304,8 +304,8 @@ export default function AccountForm(props: SettingProps) {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
-          {/* {isSupportWhiteList && (
+          />
+          {isSupportWhiteList && (
             <FormField
               control={form.control}
               name="whiteList"
@@ -324,7 +324,7 @@ export default function AccountForm(props: SettingProps) {
                 </FormItem>
               )}
             />
-          )} */}
+          )}
           <div className='flex justify-end'>
             <Button type="submit" variant="green" loading={props.status.loading}>{props.status.buttonText}</Button>
           </div>
