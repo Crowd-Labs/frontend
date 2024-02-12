@@ -31,16 +31,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { toast } from '@/components/ui/use-toast';
 import { Switch } from '@/components/ui/switch';
 import Upload from '@/components/Upload';
 import DialogConfirm from './dialog';
 import { useState } from 'react';
+import { useAccount } from 'wagmi';
 
 const currencys = [
   { label: 'ETH', value: 'eth' },
-  // { label: 'USDT', value: 'usdt' },
-  // { label: 'USDC', value: 'usdc' },
+  { label: 'USDT', value: 'usdt' },
+  { label: 'USDC', value: 'usdc' },
 ] as const;
 
 const accountFormSchema = z.object({
@@ -91,6 +91,11 @@ export default function AccountForm(props: SettingProps) {
   ]);
 
   const [open, onOpenChange] = useState(false)
+  
+  const account = useAccount({
+    onConnect: (data) => console.log('connected', data),
+    onDisconnect: () => console.log('disconnected'),
+  });
 
   function onSubmit(data: AccountFormValues) {
     // toast({
@@ -118,7 +123,7 @@ export default function AccountForm(props: SettingProps) {
             name="limit"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Mint Limit</FormLabel>
+                <FormLabel>Mint Limit:</FormLabel>
                 <FormControl>
                   <Input {...field} type="number" max={10000} />
                 </FormControl>
@@ -131,7 +136,7 @@ export default function AccountForm(props: SettingProps) {
             name="royalty"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Royalty</FormLabel>
+                <FormLabel>Royalty:</FormLabel>
                 <FormControl>
                   <Input {...field} type="number" max={10} step={"0.1"} />
                 </FormControl>
@@ -144,7 +149,7 @@ export default function AccountForm(props: SettingProps) {
             name="endTime"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>End Time</FormLabel>
+                <FormLabel>End Time:</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -184,9 +189,9 @@ export default function AccountForm(props: SettingProps) {
             name="isCharge"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Charge for minting</FormLabel>
+                <FormLabel>Charge for minting:</FormLabel>
                 <FormDescription>
-                  Charge for mintingCharge for mintingCharge for minting
+                  Set the mint price for participants
                 </FormDescription>
                 <FormControl>
                   <Switch
@@ -208,7 +213,7 @@ export default function AccountForm(props: SettingProps) {
                     <FormItem>
                       <FormLabel>Mint Price: </FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} type="number" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -227,7 +232,7 @@ export default function AccountForm(props: SettingProps) {
                               variant="outline"
                               role="combobox"
                               className={cn(
-                                'w-[200px] justify-between',
+                                'w-[200px] justify-between text-black',
                                 !field.value && 'text-muted-foreground',
                               )}
                             >
@@ -280,7 +285,7 @@ export default function AccountForm(props: SettingProps) {
                   <FormItem>
                     <FormLabel>Receipt Address: </FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} placeholder={account?.address} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
