@@ -25,7 +25,7 @@ const ColorPanel: React.FC<ColorPanelProps> = (props) => {
     return (
         <div className={className ? `colorpanel ${className}` : "colorpanel"}>
             <div className="content">
-                <span className="span-title">Color</span>
+                <span className="span-title text-white">Color</span>
                 <div className="color-picker">
                     <Popover>
                         <PopoverTrigger>

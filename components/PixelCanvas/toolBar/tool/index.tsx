@@ -13,7 +13,7 @@ const ToolPanel: React.FC<ToolPanelProps> = (props) => {
     const {className} = props;
     return (
         <div className={className ? `toolpanel ${className}` : "toolpanel"}>
-            <span className="span-title">Tool</span>
+            <span className="span-title text-white">Tool</span>
             <ToolTypeContext.Consumer>
                 {
                     ({type, setType}) => (
