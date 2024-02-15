@@ -24,10 +24,10 @@ const intros: IntroItemType[] = [
     icon: '/icons/icon5.png',
   },
   {
-    title: 'EARN MORE',
-    content: `Earn yield from blast, and
-        earn gas fee revenue, earn
-        points from platform.`,
+    title: 'ERC404',
+    content: `Supporting ERC404 to enhance the liquidity of NFTs.
+        For each minted NFT, a corresponding quantity of ERC20 
+        tokens is also minted.`,
     icon: '/icons/icon6.png',
   },
   {
