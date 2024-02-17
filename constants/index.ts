@@ -2,7 +2,7 @@ export const BRCROWD_DOC = 'https://docs.becrowd.xyz/'
 export const TWITTER_ADDRESS = 'https://twitter.com/BeCrowd_'
 export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'
 
-export const IPFS_GATEWAY_URL = 'https://orange-real-wildfowl-609.mypinata.cloud/ipfs' //'https://ipfs.io/ipfs'
+export const IPFS_GATEWAY_URL = process.env.NEXT_PUBLIC_IPFS_GATEWAY_URL || ""
 
 export const BECROWD_PROXY_ADDRESS = process.env.NEXT_PUBLIC_BECROWD_PROXY_ADDRESS || ""
 export const DERIVED_NFTIMPL_ADDRESS = process.env.NEXT_PUBLIC_DERIVED_NFTIMPL_ADDRESS || ""
