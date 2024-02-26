@@ -1,6 +1,6 @@
 import { cn, sanitizeDStorageUrl } from '@/lib/utils';
 import React from "react";
-import Image from 'next/image';
+import Image from '@/components/Image';
 
 interface CardProps {
   src: string;
@@ -19,7 +19,7 @@ export function NFTCard(props: CardProps) {
     >
       <div className='flex-1'>
         {/* <Image src={src} alt="card" className="w-full h-full image-rendering-pixelated" width={242} height={300}/> */}
-        <img src={src} alt="card" className="w-full h-full image-rendering-pixelated" width={200} height={200} />
+        <Image src={src} alt="card" className="w-full h-full image-rendering-pixelated" width={200} height={200} />
       </div>
       {props.children}
     </div>

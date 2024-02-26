@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { CollectionCardProps } from './CollectionCards';
 import { getDateDiffFromNow, toAmount } from '@/lib/utils';
 import BigNumber from 'bignumber.js';
-import Image from 'next/image';
+import Image from '@/components/Image';
 
 function LaunchpadCard(props: CollectionCardProps) {
   const { sampleData } = props;
@@ -12,7 +12,7 @@ function LaunchpadCard(props: CollectionCardProps) {
     <Link href={`/collection/${sampleData.derivedCollectionAddr}`}>
       <div className="rounded-lg overflow-hidden">
         <div className='xl:h-[280px]'>
-          <img src={detailJson.image} alt={sampleData.name} className="w-full h-full object-cover image-rendering-pixelated" width={200} height={280} />
+          <Image src={detailJson.image} alt={sampleData.name} className="w-full h-full object-cover image-rendering-pixelated" width={200} height={280} />
         </div>
         <div className="bg-green text-white px-2 pb-2">
           <div className="text-sm pt-1">{sampleData.name}</div>

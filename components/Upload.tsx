@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import Image from '@/components/Image';
 
 export type UploadProps = React.HTMLAttributes<HTMLDivElement> & {
   onChange?: (value?: File) => void;
@@ -43,9 +44,9 @@ const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
               onChange={handleFileOnChange}
             />
             {value ? (
-              <img className="h-48 pointer-events-none aspect-auto" src={URL.createObjectURL(value)} alt="" />
+              <Image className="h-48 pointer-events-none aspect-auto" src={URL.createObjectURL(value)} alt="" />
             ) : (
-              <img src={"/images/holder.png"} className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 pointer-events-none" />
+              <Image src={"/images/holder.png"} className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-20 h-20 pointer-events-none" />
             )}
           </div>
           {showTip && <div className='text-lg text-white/40'>Recommended size: 350 x 350</div>}

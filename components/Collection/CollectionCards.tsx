@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react"
 import type { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
@@ -6,6 +5,7 @@ import {
   CollectionInfo,
 } from "@/lib/type";
 import { useRouter } from "next/navigation";
+import Image from '@/components/Image';
 
 export interface CollectionProps {
   name: string;
@@ -36,7 +36,7 @@ export const CollectionDone = (props: CollectionCardProps) => {
         router.push(`/collection/${sampleData?.derivedCollectionAddr}`)
       }}
     >
-      <img src={sampleData.detailJson.image} alt="card" className="w-full h-full image-rendering-pixelated" width={242} height={300} />
+      <Image src={sampleData.detailJson.image} alt="card" className="w-full h-full image-rendering-pixelated" width={242} height={300} />
       {props.children}
     </div>
   );

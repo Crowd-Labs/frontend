@@ -3,7 +3,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { BsPlusLg, } from 'react-icons/bs';
+import Image from '@/components/Image';
 import { toast } from '@/components/ui/use-toast';
 
 export const DEFAULT_PIX_GRID_NUMBER = 32;
@@ -25,7 +25,7 @@ export default function PixDialogForm(props: { onConfirm: (info: number) => void
         <div
           className="flex flex-col items-center justify-center w-48 h-48 mt-4 text-white/40 rounded-md border border-gray-500 p-2 text-lg"
         >
-          <img src={"/images/holder.png"} className="w-20 h-20 mb-2" />
+          <Image src={"/images/holder.png"} className="w-20 h-20 mb-2" />
           Initial Ancestor NFT
         </div>
       </Dialog.Trigger>

@@ -37,6 +37,7 @@ import CollectionCards from './collections';
 import { Divider } from '@/components/Footer';
 import PixDialogForm from './dialog';
 import { useRouter } from 'next/navigation';
+import Image from '@/components/Image';
 
 import { GoChevronRight, GoChevronDown } from "react-icons/go";
 
@@ -120,7 +121,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
 
   return (
     <div>
-      {/* <img
+      {/* <Image
         src={collectionItem?.detailJson?.image!}
         alt=""
         style={{ objectFit: 'cover' }}
@@ -130,7 +131,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
       <div className="grid grid-cols-3 gap-20 py-5 text-white">
         <div className="col-span-2">
           <div className='flex gap-2 text-lg'>
-            <img
+            <Image
               src={collectionItem?.detailJson?.image!}
               alt=""
               className="w-[84px] h-[84px] image-rendering-pixelated rounded-md"
