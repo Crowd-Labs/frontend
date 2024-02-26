@@ -190,6 +190,28 @@ export const queryStakeEthAmountForInitialCollection = gql`
 }
 `
 
+// rank creator
+export const rankCreatorByItemNFTAmount = gql`
+  query getCreatorByItemNFTs {
+    creators(orderBy: itemsNFT, orderDirection: desc) {
+      address
+      itemsNFT
+      itemsCollection
+  }
+}
+`
+
+// rank creator
+export const rankCreatorByItemCollectionAmount = gql`
+  query getCreatorByItemCollection {
+    creators(orderBy: itemsCollection, orderDirection: desc) {
+      address
+      itemsNFT
+      itemsCollection
+  }
+}
+`
+
 export const parseCollectionDetailJson = async (collInfoURI: string) => {
   let url = sanitizeDStorageUrl(collInfoURI);
   let json: any = await getReq(url)
