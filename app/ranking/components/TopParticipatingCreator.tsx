@@ -21,16 +21,16 @@ function TopParticipatingCreator() {
         </div>
         {creators.map((creator, i) => (
           <ListItem index={i} data={creator} key={creator.address} />
-          ))}
+        ))}
       </div>
     </div>
   );
 }
 function ListItem(props: { index?: number, data: CreatorRank }) {
-  const { index, data } = props
+  const { index = 0, data } = props
   return (
     <div className={cn('flex py-2 text-2xl')}>
-      <div className='w-40 indent-4'>{index ?? 0 + 1}</div>
+      <div className='w-40 indent-4'>{index + 1}</div>
       <div className='flex-1'>{getEllipseAddress(data.address)}</div>
       <div className='w-60 text-center'>{data.itemsCollection}</div>
     </div>
