@@ -19,7 +19,7 @@ function LaunchpadCard(props: CollectionCardProps) {
           <div className="flex justify-between text-xs font-thin mt-2">
             <div>
               <div>PRICE</div>
-              <div className="mt-1 text-[#9BA885]">
+              <div className="mt-1 text-darkgreen">
                 {sampleData.mintPrice > 0 ? `${toAmount(
                   (sampleData.mintPrice as BigNumber.Value) || 0,
                   18, 4

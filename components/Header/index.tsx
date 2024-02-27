@@ -81,14 +81,14 @@ function Header() {
                     }
                     if (chain.unsupported) {
                       return (
-                        <Button onClick={openChainModal} className="text-[#9BA885] font-bold">Wrong network</Button>
+                        <Button onClick={openChainModal} className="text-darkgreen font-bold">Wrong network</Button>
                       );
                     }
                     return (
                       <div className="flex gap-3 text-yellow items-center">
                         <Button
                           onClick={openAccountModal}
-                          className="flex items-center text-[#9BA885] font-semibold"
+                          className="flex items-center text-darkgreen font-semibold"
                           variant="outline"
                         >
                           {account.displayName}

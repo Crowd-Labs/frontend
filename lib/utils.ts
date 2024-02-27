@@ -94,6 +94,12 @@ export const getShortAddress = (address: string): string => {
   return `0x${shortAddress}`;
 };
 
+export const getEllipseAddress = (address: string): string => {
+  const fisrt_six = address.slice(0,6);
+  const last_four = address.slice(-4);
+  return `${fisrt_six}....${last_four}`;
+};
+
 export const calNextCollectionContractAddr = (implementationAddress: string, salt: string, deployAddress: string): string => {
   const bytecode = '0x3d602d80600a3d3981f3363d3d373d3d3d363d73';
   const initCode = '0x5af43d82803e903d91602b57fd5bf3ff';

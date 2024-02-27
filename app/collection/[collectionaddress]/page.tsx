@@ -232,7 +232,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
                   </div>
                 </div>
                 <div
-                  className="bg-[#9BA885] p-1 rounded-sm"
+                  className="bg-darkgreen p-1 rounded-sm"
                   onClick={claimRelease}
                 >
                   Claim

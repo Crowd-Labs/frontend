@@ -113,7 +113,7 @@ body {
   }
 
   .nav-link {
-    @apply text-base font-bold text-[#9BA885]
+    @apply text-base font-bold text-darkgreen
   }
 
   .flex-center {
