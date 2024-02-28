@@ -40,6 +40,13 @@ export interface StakeEthAmountForInitialCollection {
   blockTimestamp: number
 }
 
+export interface ProjectInfo {
+  creatorsNum: number
+  totalCollectioinNum: number
+  totalNFTNum: number
+  totalTx: number
+}
+
 export interface NewNFTCreateds {
   id: string
   tokenId: string

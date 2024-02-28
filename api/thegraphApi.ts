@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { getReq } from './server/abstract';
 import { sanitizeDStorageUrl } from '@/lib/utils';
-import { CollectionInfo, Creator, CreatorRank, NewNFTCreateds, StakeEthAmountForInitialCollection } from '@/lib/type';
+import { CollectionInfo, Creator, CreatorRank, NewNFTCreateds, ProjectInfo, StakeEthAmountForInitialCollection } from '@/lib/type';
 
 const API_URL = process.env.NEXT_PUBLIC_SUBGRAPH_URL || ""
 
@@ -211,6 +211,26 @@ export const rankCreatorByItemCollectionAmount = gql`
   }
 }
 `
+
+//get all collection info
+export const queryProjectInfo = gql`
+  query getProjectInfos {
+    projectInfos(first: 1) {
+      creatorsNum
+      totalCollectioinNum
+      totalNFTNum
+      totalTx
+    }    
+  }
+`
+
+export const getProjectInfo = async () => {
+  let response: { data: { getProjectInfos: ProjectInfo[] } } = await client.query({
+    query: queryProjectInfo
+  })
+  let projectInfos = response?.data?.getProjectInfos
+  return projectInfos?.[0]
+}
 
 export const parseCollectionDetailJson = async (collInfoURI: string) => {
   let url = sanitizeDStorageUrl(collInfoURI);
