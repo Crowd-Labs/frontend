@@ -56,11 +56,11 @@ const connectors = connectorsForWallets([
   {
     groupName: 'Suggest',
     wallets: [
+      bitgetWallet({ chains, projectId }),
       metaMaskWallet({ chains, projectId }),
       rainbowWallet({ chains, projectId }),
       coinbaseWallet({ chains , appName: 'C Web3'}),
       walletConnectWallet({ chains, projectId }),
-      bitgetWallet({ chains, projectId }),
     ],
   },
 ]);
