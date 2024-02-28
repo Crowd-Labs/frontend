@@ -2,18 +2,24 @@
 
 import * as React from 'react';
 import {
-  RainbowKitProvider,
   darkTheme,
-  getDefaultWallets,
+  getDefaultConfig,
+  RainbowKitProvider
 } from '@rainbow-me/rainbowkit';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { publicProvider } from 'wagmi/providers/public';
-import { Chain } from '@wagmi/core';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  metaMaskWallet,
+  rainbowWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+  bitgetWallet
+} from '@rainbow-me/rainbowkit/wallets';
+import { WagmiProvider } from 'wagmi';
+import { Chain } from '@rainbow-me/rainbowkit'
 
 export const blast = {
   id: 168587773,
   name: 'Blast Sepolia',
-  network: 'Blast',
   nativeCurrency: {
     decimals: 18,
     name: 'Blast',
@@ -29,39 +35,40 @@ export const blast = {
   },
 } as const satisfies Chain;
 
-const { chains, publicClient } = configureChains(
-  [
-    blast,
-  ],
-  [publicProvider()],
-);
 
+const chains: readonly [Chain, ...Chain[]] = [
+  {
+    ...blast
+  },
+];
+const queryClient = new QueryClient()
 const projectId = '746a0239f7d6fbd6e1ddd2d61c9c6358';
 
-const { connectors } = getDefaultWallets({
+const config = getDefaultConfig({
   appName: 'C Web3',
   projectId,
   chains,
-});
+  wallets:[{groupName:"Suggested", wallets:[
+    metaMaskWallet,
+    rainbowWallet,
+    coinbaseWallet,
+    walletConnectWallet,
+    bitgetWallet
+  ]}], 
+})
 
-const demoAppInfo = {
-  appName: 'C Web3 Dapp',
-};
-
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-});
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
+
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider theme={darkTheme()} chains={chains} appInfo={demoAppInfo}>
-        {mounted && children}
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider theme={darkTheme()}>
+          {mounted && children}
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
