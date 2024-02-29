@@ -95,7 +95,7 @@ export const getShortAddress = (address: string): string => {
 };
 
 export const getEllipseAddress = (address: string): string => {
-  const fisrt_six = address.slice(0,6);
+  const fisrt_six = address.slice(0, 6);
   const last_four = address.slice(-4);
   return `${fisrt_six}....${last_four}`;
 };
@@ -119,22 +119,23 @@ export const calNextCollectionContractAddr = (implementationAddress: string, sal
 }
 
 export const getDateDiffFromNow = (timestamp: number) => {
-    const startDate = new Date(); 
-    const endDate = new Date(timestamp * 1000);
-    const duration = intervalToDuration({ start: startDate, end: endDate });
-    return `${duration.days}d ${duration.hours}h ${duration.minutes}m`
+  const startDate = new Date();
+  const endDate = new Date(timestamp * 1000);
+  const duration = intervalToDuration({ start: startDate, end: endDate });
+  return `${duration.days}d ${duration.hours}h ${duration.minutes}m`
 }
 
-export const formatNumber = (num: number = 0) => {
-    if (num < 1000) {
-        return num;
-    } else if (num >= 1000 && num < 1000000) {
-        return (num / 1000).toFixed(1) + 'K';
-    } else if (num >= 1000000 && num < 1000000000) {
-        return (num / 1000000).toFixed(1) + 'M';
-    } else if (num >= 1000000000 && num < 1000000000000) {
-        return (num / 1000000000).toFixed(1) + 'B';
-    } else if (num >= 1000000000000) {
-        return (num / 1000000000000).toFixed(1) + 'T';
-    }
+export const formatNumber = (value: number | string = 0) => {
+  const num = Number(value);
+  if (num < 1000) {
+    return num;
+  } else if (num >= 1000 && num < 1000000) {
+    return (num / 1000).toFixed(1) + 'K';
+  } else if (num >= 1000000 && num < 1000000000) {
+    return (num / 1000000).toFixed(1) + 'M';
+  } else if (num >= 1000000000 && num < 1000000000000) {
+    return (num / 1000000000).toFixed(1) + 'B';
+  } else if (num >= 1000000000000) {
+    return (num / 1000000000000).toFixed(1) + 'T';
+  }
 }

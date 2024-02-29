@@ -121,6 +121,15 @@ export const queryAllNFTByAccountAddress = gql`
     }    
   }
 `
+// get current user assert num
+export const queryUserAsserts = gql`
+  query MyQuery ($accountAddress: String!){
+    creators(where: {address: $accountAddress}) {
+      itemsNFT
+      itemsCollection
+    }
+  }
+`
 
 //get all nft of one collection
 export const queryAllNFTByCollectionAddress = gql`
@@ -225,11 +234,21 @@ export const queryProjectInfo = gql`
 `
 
 export const getProjectInfo = async () => {
-  let response: { data: { getProjectInfos: ProjectInfo[] } } = await client.query({
+  let response: { data: { projectInfos: ProjectInfo[] } } = await client.query({
     query: queryProjectInfo
   })
-  let projectInfos = response?.data?.getProjectInfos
+  let projectInfos = response?.data?.projectInfos
   return projectInfos?.[0]
+}
+
+
+export const getUserAsserts = async (accountAddress) => {
+  let response: { data: { creators: CreatorRank[] } } = await client.query({
+    query: queryUserAsserts,
+    variables: { accountAddress }
+  })
+  let creators = response?.data?.creators
+  return creators?.[0]
 }
 
 export const parseCollectionDetailJson = async (collInfoURI: string) => {
