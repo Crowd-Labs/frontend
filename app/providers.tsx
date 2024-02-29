@@ -3,12 +3,20 @@
 import * as React from 'react';
 import {
   RainbowKitProvider,
+  connectorsForWallets,
   darkTheme,
   getDefaultWallets,
 } from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { Chain } from '@wagmi/core';
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+  bitgetWallet,
+} from '@rainbow-me/rainbowkit/wallets';
 
 export const blast = {
   id: 168587773,
@@ -38,12 +46,24 @@ const { chains, publicClient } = configureChains(
 
 const projectId = '746a0239f7d6fbd6e1ddd2d61c9c6358';
 
-const { connectors } = getDefaultWallets({
-  appName: 'C Web3',
-  projectId,
-  chains,
-});
+// const { connectors } = getDefaultWallets({
+//   appName: 'C Web3',
+//   projectId,
+//   chains,
+// });
 
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Suggest',
+    wallets: [
+      bitgetWallet({ chains, projectId }),
+      metaMaskWallet({ chains, projectId }),
+      rainbowWallet({ chains, projectId }),
+      coinbaseWallet({ chains , appName: 'C Web3'}),
+      walletConnectWallet({ chains, projectId }),
+    ],
+  },
+]);
 const demoAppInfo = {
   appName: 'C Web3 Dapp',
 };

@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { getReq } from './server/abstract';
 import { sanitizeDStorageUrl } from '@/lib/utils';
-import { CollectionInfo, Creator, NewNFTCreateds, StakeEthAmountForInitialCollection } from '@/lib/type';
+import { CollectionInfo, Creator, CreatorRank, NewNFTCreateds, ProjectInfo, StakeEthAmountForInitialCollection } from '@/lib/type';
 
 const API_URL = process.env.NEXT_PUBLIC_SUBGRAPH_URL || ""
 
@@ -121,6 +121,15 @@ export const queryAllNFTByAccountAddress = gql`
     }    
   }
 `
+// get current user assert num
+export const queryUserAsserts = gql`
+  query MyQuery ($accountAddress: String!){
+    creators(where: {address: $accountAddress}) {
+      itemsNFT
+      itemsCollection
+    }
+  }
+`
 
 //get all nft of one collection
 export const queryAllNFTByCollectionAddress = gql`
@@ -190,6 +199,58 @@ export const queryStakeEthAmountForInitialCollection = gql`
 }
 `
 
+// rank creator
+export const rankCreatorByItemNFTAmount = gql`
+  query getCreatorByItemNFTs {
+    creators(orderBy: itemsNFT, orderDirection: desc) {
+      address
+      itemsNFT
+      itemsCollection
+  }
+}
+`
+
+// rank creator
+export const rankCreatorByItemCollectionAmount = gql`
+  query getCreatorByItemCollection {
+    creators(orderBy: itemsCollection, orderDirection: desc) {
+      address
+      itemsNFT
+      itemsCollection
+  }
+}
+`
+
+//get all collection info
+export const queryProjectInfo = gql`
+  query getProjectInfos {
+    projectInfos(first: 1) {
+      creatorsNum
+      totalCollectioinNum
+      totalNFTNum
+      totalTx
+    }    
+  }
+`
+
+export const getProjectInfo = async () => {
+  let response: { data: { projectInfos: ProjectInfo[] } } = await client.query({
+    query: queryProjectInfo
+  })
+  let projectInfos = response?.data?.projectInfos
+  return projectInfos?.[0]
+}
+
+
+export const getUserAsserts = async (accountAddress) => {
+  let response: { data: { creators: CreatorRank[] } } = await client.query({
+    query: queryUserAsserts,
+    variables: { accountAddress }
+  })
+  let creators = response?.data?.creators
+  return creators?.[0]
+}
+
 export const parseCollectionDetailJson = async (collInfoURI: string) => {
   let url = sanitizeDStorageUrl(collInfoURI);
   let json: any = await getReq(url)
@@ -203,7 +264,7 @@ export const getAllCollectionInfo = async () => {
     let json = await parseCollectionDetailJson(collection.collInfoURI)
     return { ...collection, detailJson: json }
   }))
- 
+
   return collections.filter((item) => !!item)
 }
 
@@ -216,7 +277,7 @@ export const getCollectionInfoByAccountAddress = async (accountAddress: string) 
     let json = await parseCollectionDetailJson(collection.collInfoURI)
     return { ...collection, detailJson: json }
   }))
- 
+
   return collections.filter((item) => !!item)
 }
 
@@ -243,7 +304,7 @@ export const getCollectionInfoByCollectionAddress = async (collectionAddress: st
 export const getNFTInfoByCollectionAddressAndTokenId = async (collectionAddr: string, tokenId: string) => {
   let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
     query: queryNFTInfoByCollectionAddressAndTokenId,
-    variables: { collectionAddr,  tokenId}
+    variables: { collectionAddr, tokenId }
   })
   let collections = await Promise.all(response.data.newNFTCreateds.map(async (collection: NewNFTCreateds) => {
     let json = await parseCollectionDetailJson(collection.nftInfoURI)
@@ -309,4 +370,20 @@ export const getStakeEthAmountForInitialCollection = async () => {
   })
   let stakeEthAmountInfos = response?.data?.createCollectionStakeEthAmountSets
   return stakeEthAmountInfos?.[0]
+}
+
+export const getRankCreatorByItemNFTAmount = async () => {
+  let response: { data: { creators: CreatorRank[] } } = await client.query({
+    query: rankCreatorByItemNFTAmount
+  })
+
+  return response?.data?.creators
+}
+
+export const getRankCreatorByItemCollectionAmount = async () => {
+  let response: { data: { creators: CreatorRank[] } } = await client.query({
+    query: rankCreatorByItemCollectionAmount
+  })
+
+  return response?.data?.creators
 }

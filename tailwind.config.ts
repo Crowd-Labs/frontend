@@ -55,6 +55,7 @@ const config = {
         yellow: '#FCFDC7',
         egg: '#FCFC03',
         green: '#373A33',
+        darkgreen: '#9BA885',
       },
       borderRadius: {
         lg: 'var(--radius)',

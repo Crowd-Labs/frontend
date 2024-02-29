@@ -1,11 +1,11 @@
 import { CollectionInfo } from '@/lib/type';
-import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
+import Image from '@/components/Image';
 
 function HotCollectionCard(collectionInfo: CollectionInfo) {
   return (
-    <Link href={`/collection/${collectionInfo.derivedCollectionAddr}`} className='relative block group rounded-sm overflow-hidden'>
-      <img src={collectionInfo.detailJson?.image} alt={collectionInfo.name} className="object-fit w-full h-full opacity-90 image-rendering-pixelated" width={256} height={256} />
+    <Link href={`/collection/${collectionInfo.derivedCollectionAddr}`} className='relative block group rounded-sm overflow-hidden h-full'>
+      <Image src={collectionInfo.detailJson?.image} alt={collectionInfo.name} className="object-fit w-full h-full opacity-90 image-rendering-pixelated" />
       <div className='hidden group-hover:block absolute bottom-0 w-full text-white p-2'>
         <div className='text-base'>{collectionInfo.name}</div>
         <div className='text-xs'>HOT COLLECTION</div>

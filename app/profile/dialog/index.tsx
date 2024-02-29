@@ -1,8 +1,8 @@
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { Button } from '@/components/ui/button';
 import { Divider } from '@/components/Footer';
 import { Cross2Icon } from '@radix-ui/react-icons';
+import Image from '@/components/Image';
 
 interface BitCoinConfirmProps extends Dialog.DialogProps {
   onConfirm: () => void;
@@ -26,7 +26,7 @@ const BitCoinConfirm = (props: BitCoinConfirmProps) => {
           <div className="flex flex-col justify-center mt-4 gap-6 text-white">
             <div className='h-9 flex items-center border border-gray-400 cursor-pointer' onClick={onConfirm}>
               <div className='w-8 h-full flex items-center justify-center border-r border-gray-400'>
-                <img src="/icons/unisat.png" alt="" />
+                <Image src="/icons/unisat.png" alt="" />
               </div>
               <div className='flex-1 text-center'>
                 Unisat Wallet
@@ -34,7 +34,7 @@ const BitCoinConfirm = (props: BitCoinConfirmProps) => {
             </div>
             <div className='h-9 flex items-center border border-gray-400 cursor-pointer' onClick={onConfirm}>
               <div className='w-8 h-full flex items-center justify-center border-r border-gray-400'>
-                <img src="/icons/okx.png" alt="" />
+                <Image src="/icons/okx.png" alt="" />
               </div>
               <div className='flex-1 text-center'>
                 OKX Wallet

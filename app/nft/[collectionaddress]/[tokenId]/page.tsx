@@ -8,6 +8,7 @@ import { NewNFTCreateds, CollectionInfo } from "@/lib/type";
 import { sanitizeDStorageUrl } from "@/lib/utils";
 import { ELEMENT_MARKET, IPFS_GATEWAY_URL } from "@/constants";
 import { getCollectionInfoByCollectionAddress, getNFTInfoByCollectionAddressAndTokenId } from "@/api/thegraphApi";
+import Image from '@/components/Image';
 
 const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string } }) => {
 
@@ -25,7 +26,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
       <div className="border-b-2 border-[#D9D9D9] mt-2"></div>
       <div className="grid grid-cols-2 gap-14 text-lg text-white mt-14">
         <div>
-          <img
+          <Image
             className="w-full h-[37.68rem] image-rendering-pixelated"
             src={sanitizeDStorageUrl(nftInfo?.detailJson.image || '')}
             alt="card"

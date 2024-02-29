@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { BRCROWD_DOC, YIELD_AND_GASREWARD } from '@/constants';
 import { Button } from '../ui/button';
 import HotCollectionCard from '../HotCollectionCard';
-import { CollectionInfo } from '@/lib/type';
+import { CollectionInfo, ProjectInfo } from '@/lib/type';
 import { useEffect, useState } from 'react';
-import { getAllCollectionInfo, getAllCreators } from '@/api/thegraphApi';
+import { getAllCollectionInfo, getAllCreators, getProjectInfo } from '@/api/thegraphApi';
 import { formatNumber, shuffleArray } from '@/lib/utils';
 import { Address, useContractRead } from 'wagmi';
 import { YIELD_AND_GASREWARD_ABI } from '@/abis/BeCrowdProxy';
@@ -25,13 +25,22 @@ function Hero() {
     randomCollections = randomCollections.slice(0, 5)
   }
 
-  const [creatorsNum, setCreatorsNum] = useState<number>()
+  // const [creatorsNum, setCreatorsNum] = useState<number>()
+  // useEffect(() => {
+  //   getAllCreators().then(res => {
+  //     setCreatorsNum(res)
+  //   })
+  // }, [])
+  
+  const [projectInfo, setProjectInfo] = useState<ProjectInfo>()
+
   useEffect(() => {
-    getAllCreators().then(res => {
-      setCreatorsNum(res)
+    getProjectInfo().then(res => {      
+      setProjectInfo(res)
     })
   }, [])
 
+  
   const { data: currentTVL } = useContractRead({
     address: YIELD_AND_GASREWARD as Address,
     abi: YIELD_AND_GASREWARD_ABI,
@@ -74,8 +83,16 @@ function Hero() {
           (currentTVL as BigNumber.Value) || 0,
           18, 4
         )} ETH`}</span></div>
-        <div>Creators: <span className='text-egg'>{formatNumber(creatorsNum)}</span></div>
       </div>
+
+      <div className="flex-center gap-32 text-white text-xl">
+        <div>Creators: <span className='text-egg'>{formatNumber(projectInfo?.creatorsNum)}</span></div>
+        <div>Collections: <span className='text-egg'>{formatNumber(projectInfo?.totalCollectioinNum)}</span>
+        </div>
+        <div>NFTs: <span className='text-egg'>{formatNumber(projectInfo?.totalNFTNum)}</span></div>
+        <div>Txs: <span className='text-egg'>{formatNumber(projectInfo?.totalTx)}</span></div>
+      </div>
+
       <div className="mt-16 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between relative">
         {randomCollections.map((coll) => (
           <HotCollectionCard key={coll.collectionId} {...coll} />

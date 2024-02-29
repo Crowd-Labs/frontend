@@ -29,11 +29,22 @@ export interface Creator {
   itemsNFT: number
 }
 
+export interface CreatorRank extends Creator{
+  itemsCollection: number
+}
+
 export interface StakeEthAmountForInitialCollection {
   id: string
   prevStakeEthAmount: number
   newStakeEthAmount: number
   blockTimestamp: number
+}
+
+export interface ProjectInfo {
+  creatorsNum: number
+  totalCollectioinNum: number
+  totalNFTNum: number
+  totalTx: number
 }
 
 export interface NewNFTCreateds {

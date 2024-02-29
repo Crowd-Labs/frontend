@@ -9,6 +9,7 @@ import { BsFillPersonLinesFill, BsGithub, BsTwitter } from 'react-icons/bs';
 import logo from '/public/icons/logo.svg';
 import hamburger from '/public/icons/hamburger.svg';
 import { Button } from '../ui/button';
+import Points from './Point';
 
 function Header() {
   return (
@@ -39,11 +40,12 @@ function Header() {
           </ul>
         </div>
         <div className="flex gap-6 items-center">
+          <Points />
           <Link target="_blank" href={TWITTER_ADDRESS}>
-            <BsTwitter size={26} className='text-gray-500 hover:text-white'/>
+            <BsTwitter size={26} className='text-gray-500 hover:text-white' />
           </Link>
           <Link target="_blank" href={GITHUB_ADDRESS}>
-            <BsGithub size={26} className='text-gray-500 hover:text-white'/>
+            <BsGithub size={26} className='text-gray-500 hover:text-white' />
           </Link>
           <ConnectButton.Custom>
             {({
@@ -81,14 +83,14 @@ function Header() {
                     }
                     if (chain.unsupported) {
                       return (
-                        <Button onClick={openChainModal} className="text-[#9BA885] font-bold">Wrong network</Button>
+                        <Button onClick={openChainModal} className="text-darkgreen font-bold">Wrong network</Button>
                       );
                     }
                     return (
                       <div className="flex gap-3 text-yellow items-center">
                         <Button
                           onClick={openAccountModal}
-                          className="flex items-center text-[#9BA885] font-semibold"
+                          className="flex items-center text-darkgreen font-semibold"
                           variant="outline"
                         >
                           {account.displayName}
