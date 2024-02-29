@@ -13,15 +13,15 @@ import Points from './Point';
 
 function Header() {
   return (
-    <header className="py-8">
+    <header className="py-2">
       <nav className="flex-between">
-        <div className="flex gap-16">
+        <div className="flex gap-8">
           <a href="/">
             <Image
               src={logo}
               alt="logo"
-              width={137.8}
-              height={23.5}
+              width={38}
+              height={38}
             />
           </a>
           <ul className="flex-center flex-1 gap-12 max-md:hidden">

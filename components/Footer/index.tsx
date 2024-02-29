@@ -7,7 +7,7 @@ import { BLOG_ADDRESS, BRCROWD_DOC, DISCORD_ADDRESS, LEARN_ADDRESS, TWITTER_ADDR
 
 
 export const Divider = (props: { className?: string }) => {
-  return <div className={cn("border-t-2 border-darkgreen my-4", props.className)} />
+  return <div className={cn("border-t-2 border-darkgreen", props.className)} />
 }
 
 function Footer() {

@@ -55,7 +55,7 @@ function Hero() {
 
   return (
     <section className="w-full flex flex-col justify-center gap-10">
-      <div className="relative flex-center flex-col w-full pt-28 gap-6">
+      <div className="relative flex-center flex-col w-full pt-20 gap-6">
         <h1 className="h1-heading items-center"> Like-minded people makes you idea great.</h1>
         <div className=" relative flex-center flex-col gap-2">
           <p className="p-content">A decentralized co-creation platform where you only need an idea, set the rules,</p>
@@ -74,7 +74,7 @@ function Hero() {
           <Link target="_blank" href={BRCROWD_DOC}>Read the doc</Link>
         </Button>
       </div>
-      <div className="flex-center mt-10 gap-32 text-white text-2xl">
+      <div className="flex-center mt-4 gap-32 text-white text-2xl">
         <div>Current Yield:<span className='text-egg'> {`${toAmount(
           (currentYield as BigNumber.Value) || 0,
           18, 10
@@ -93,7 +93,7 @@ function Hero() {
         <div>Txs: <span className='text-egg'>{formatNumber(projectInfo?.totalTx)}</span></div>
       </div>
 
-      <div className="mt-16 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between relative">
+      <div className="mt-2 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between relative">
         {randomCollections.map((coll) => (
           <HotCollectionCard key={coll.collectionId} {...coll} />
         ))}
