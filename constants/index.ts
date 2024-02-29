@@ -1,6 +1,9 @@
 export const BRCROWD_DOC = 'https://docs.becrowd.xyz/'
 export const TWITTER_ADDRESS = 'https://twitter.com/BeCrowd_'
 export const GITHUB_ADDRESS = 'https://github.com/Crowd-Labs'
+export const BLOG_ADDRESS = 'https://medium.com/@BeCrowd_'
+export const LEARN_ADDRESS = 'https://www.youtube.com/watch?v=zvLuxSwtDgk'
+export const DISCORD_ADDRESS = 'https://discord.gg/C8X5Mp9E8S'
 
 export const IPFS_GATEWAY_URL = 'https://red-working-hookworm-192.mypinata.cloud/ipfs'
 
