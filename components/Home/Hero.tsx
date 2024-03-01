@@ -31,16 +31,16 @@ function Hero() {
   //     setCreatorsNum(res)
   //   })
   // }, [])
-  
+
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>()
 
   useEffect(() => {
-    getProjectInfo().then(res => {      
+    getProjectInfo().then(res => {
       setProjectInfo(res)
     })
   }, [])
 
-  
+
   const { data: currentTVL } = useContractRead({
     address: YIELD_AND_GASREWARD as Address,
     abi: YIELD_AND_GASREWARD_ABI,
@@ -74,7 +74,7 @@ function Hero() {
           <Link target="_blank" href={BRCROWD_DOC}>Read the doc</Link>
         </Button>
       </div>
-      <div className="flex-center mt-4 gap-32 text-white text-2xl">
+      <div className="flex-center mt-4 lg:gap-32 gap-2 text-white text-2xl flex-wrap">
         <div>Current Yield:<span className='text-egg'> {`${toAmount(
           (currentYield as BigNumber.Value) || 0,
           18, 10
@@ -85,7 +85,7 @@ function Hero() {
         )} ETH`}</span></div>
       </div>
 
-      <div className="flex-center gap-32 text-white text-xl">
+      <div className="flex-center lg:gap-32 gap-2 text-white text-xl flex-wrap">
         <div>Creators: <span className='text-egg'>{formatNumber(projectInfo?.creatorsNum)}</span></div>
         <div>Collections: <span className='text-egg'>{formatNumber(projectInfo?.totalCollectioinNum)}</span>
         </div>
@@ -94,6 +94,7 @@ function Hero() {
       </div>
 
       <div className="mt-2 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 justify-between relative">
+        {randomCollections.length === 0 && <div className='h-[208px]' id="holder"></div>}
         {randomCollections.map((coll) => (
           <HotCollectionCard key={coll.collectionId} {...coll} />
         ))}

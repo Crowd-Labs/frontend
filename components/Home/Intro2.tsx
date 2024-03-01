@@ -69,7 +69,7 @@ function IntroItem(props: { data: IntroItemType, className?: string }) {
 function Intros2() {
   return (
     <section className="mt-32">
-      <div className="grid grid-cols-3 grid-rows-2 gap-1 justify-between mt-12 gap-y-20">
+      <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-1 justify-between mt-12 gap-y-20">
         {intros?.map((intro, index) => <IntroItem data={intro} key={intro.title} />)}
       </div>
     </section>

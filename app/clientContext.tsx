@@ -13,9 +13,11 @@ export default function ClientContext({ children }: { children: React.ReactNode 
 
   return (
     <Providers>
-      <div className="xl:container mx-auto">
+      <div className="xl:container mx-auto flex flex-col min-h-screen">
         <Header />
-        {mounted && children}
+        <div className='flex-1'>
+          {mounted && children}
+        </div>
         <Footer />
         <Toaster />
       </div>

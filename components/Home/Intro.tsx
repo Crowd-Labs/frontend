@@ -52,7 +52,7 @@ function Intros() {
       <div className="text-center h1-heading mt-10">
         We will share
       </div>
-      <div className="grid grid-cols-2 grid-rows-2 gap-10 justify-between mt-12 [&>*:nth-child(2n)]:justify-self-end">
+      <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-2 gap-10 justify-between mt-12 lg:[&>*:nth-child(2n)]:justify-self-end">
         {intros?.map((intro, index) => <IntroItem data={intro} key={intro.title} />)}
       </div>
     </section>

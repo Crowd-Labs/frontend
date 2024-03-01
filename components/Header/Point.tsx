@@ -16,7 +16,7 @@ const Points = () => {
     return false
   }
   return (
-    <div className="text-white">
+    <div className="text-white font-bold">
       Points :<span className="text-egg">{Number(userAssert?.itemsNFT ?? 0) * 12 + Number(userAssert?.itemsCollection ?? 0) * 8}</span>
     </div>
   )
