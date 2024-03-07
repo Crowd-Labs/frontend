@@ -10,10 +10,10 @@ function UserAvatar(props: {
   // if (data){
   //     logo = data.nftName
   // }else{
-  //     logo = created?.detailJson.image
+  //     logo = created?.detailJson?.image
   // }
   // NFT doesn't has a logo
-  logo = created?.detailJson.image;
+  logo = created?.detailJson?.image;
   return (
     <div className="flex gap-2 items-center">
       <Avatar className={className}>

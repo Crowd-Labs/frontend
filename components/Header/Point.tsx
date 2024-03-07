@@ -10,7 +10,6 @@ const Points = () => {
     onConnect: (data) => getUserAsserts(data.address).then(res => setUserAsserts(res)),
     onDisconnect: () => console.log('disconnected'),
   });
-  console.log(account);
 
   if (!account.isConnected) {
     return false

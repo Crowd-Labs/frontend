@@ -35,7 +35,7 @@ export function CollectionCard(props: {
   const router = useRouter()
   return (
     <NFTCard
-      src={card?.detailJson.image}
+      src={card?.detailJson?.image}
       className="cursor-pointer"
       onClick={() => {
         router.push(`/nft/${card.collectionAddr}/${card.tokenId}`)

@@ -28,7 +28,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
         <div>
           <Image
             className="w-full h-[37.68rem] image-rendering-pixelated"
-            src={sanitizeDStorageUrl(nftInfo?.detailJson.image || '')}
+            src={sanitizeDStorageUrl(nftInfo?.detailJson?.image || '')}
             alt="card"
           />
           <div className="flex gap-4 mt-4">
@@ -66,7 +66,7 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
               </Button2>
             </a>
             
-            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson.image?.replace(`${IPFS_GATEWAY_URL}/`,'')}`}>
+            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson?.image?.replace(`${IPFS_GATEWAY_URL}/`,'')}`}>
               <Button>Fork</Button>
             </Link>
           </div>

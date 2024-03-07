@@ -36,7 +36,7 @@ export const CollectionDone = (props: CollectionCardProps) => {
         router.push(`/collection/${sampleData?.derivedCollectionAddr}`)
       }}
     >
-      <Image src={sampleData.detailJson.image} alt="card" className="w-full h-full image-rendering-pixelated" />
+      <Image src={sampleData.detailJson?.image} alt="card" className="w-full h-full image-rendering-pixelated" />
       {props.children}
     </div>
   );

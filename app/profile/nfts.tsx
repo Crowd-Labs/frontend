@@ -29,7 +29,7 @@ const Nfts = (params: CollectionsProps) => {
                 {nfts?.map(card => (
                     <Link key={card.id} href={`/nft/${card?.collectionAddr}/${card?.tokenId}`}>
                         <NFTCard
-                            src={card?.detailJson.image}
+                            src={card?.detailJson?.image}
                             className="mt-4"
                         >
                             <div className="h-11 flex items-center justify-between px-1 gap-2 text-white bg-green">
