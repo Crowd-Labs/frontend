@@ -21,6 +21,7 @@ import { StakeEthAmountForInitialCollection } from "@/lib/type";
 import { Divider } from "@/components/Footer";
 import axios from "axios";
 import BigNumber from "bignumber.js";
+import { DEFAULT_PIX_GRID_NUMBER } from "../[collectionaddress]/dialog";
 
 const CreateCollection = () => {
   const abiCoder = new ethers.AbiCoder();
@@ -105,7 +106,11 @@ const CreateCollection = () => {
         buttonText: "Create collection",
         loading: false,
       });
-      router.push(`/collection/${res ? res.message?.collectionAddress : ""}`);
+      if (res.message?.collectionAddress) {
+        router.push(`/nft/create/${res.message.collectionaddress}?w=${DEFAULT_PIX_GRID_NUMBER}`)
+      } else {
+        router.push(`/collection`);
+      }
     },
     onError: (error) => {
       console.log("onError error", error);
