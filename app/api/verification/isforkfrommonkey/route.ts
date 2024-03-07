@@ -11,8 +11,8 @@ export const GET = async (request: Request) => {
             query: queryAllNFTByAccountAddress,
             variables: { accountAddress: params.address }
         })
-        const MonkeyCollectionId = "0"
-        const isValid = !!response.data.newNFTCreateds?.some(nft => nft.collectionId == MonkeyCollectionId)
+        const PacmanCollectionId = "1"
+        const isValid = !!response.data.newNFTCreateds?.some(nft => nft.collectionId == PacmanCollectionId)
         const result = {
             "result": {  // required on success
                 isValid  // boolean, Whether the user completed the task.
