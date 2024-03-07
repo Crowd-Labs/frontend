@@ -47,7 +47,7 @@ export function CollectionCard(props: {
         <div className="flex flex-col p-2 text-white bg-green">
           {card.tokenId && <div>{`${collectionItem?.name} #${card.tokenId}`}</div>}
           <div className="flex items-center justify-end gap-2">
-            <ForkButton data={card} />
+            {collectionItem?.mintExpired! > Date.now() / 1000 && <ForkButton data={card} />}
             <BuyButton
               data={{
                 ...card,

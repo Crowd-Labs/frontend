@@ -65,10 +65,11 @@ const Nft = ({ params }: { params: { collectionaddress: string, tokenId: string 
                 View on Element
               </Button2>
             </a>
-            
-            <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson?.image?.replace(`${IPFS_GATEWAY_URL}/`,'')}`}>
-              <Button>Fork</Button>
-            </Link>
+            {collectionItem?.mintExpired! > Date.now() / 1000 && (
+              <Link href={`/nft/fork/${params.collectionaddress}/${params.tokenId}/${nftInfo?.detailJson?.image?.replace(`${IPFS_GATEWAY_URL}/`, '')}`}>
+                <Button>Fork</Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
