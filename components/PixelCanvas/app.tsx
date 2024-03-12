@@ -114,6 +114,9 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
   const { write: writePostContract } = useContractWrite({
     address: BECROWD_PROXY_ADDRESS as Address,
     abi: BeCrowd_ABI,
+    value: collectionItem
+      ? BigInt(collectionItem.mintPrice)
+      : BigInt(0),
     functionName: "commitNewNFTIntoCollection",
     onSuccess: async (data) => {
       await postReq({
