@@ -19,6 +19,7 @@ import { CollectionInfo } from "@/lib/type";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import DialogConfirm from "./dialog";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 interface PixelCanvasProps {
   collectionAddress: string;
@@ -38,16 +39,19 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
   const [dispatcher] = useState(new Dispatcher());
   const abiCoder = new ethers.AbiCoder();
   const router = useRouter();
-  const searchParams = useSearchParams()
-  const width = searchParams.get('w')
-  const [gridCountH, setCanvasGridCountH] = useState<number | undefined>(width ? parseInt(width) : undefined)
+  // const searchParams = useSearchParams()
+  // const width = searchParams.get('w')
+  const [gridCountH, setCanvasGridCountH] = useState<number | undefined>(32)
+  // const [gridCountH, setCanvasGridCountH] = useState<number | undefined>(width ? parseInt(width) : undefined)
   const [gridCountV, setCanvasGridCountV] = useState<number | undefined>(gridCountH)
   const [gridWidth, setGridWidth] = useState<number>()
 
+  const { openConnectModal } = useConnectModal();
+  const [autoCreate, setAutoCreate] = useState(false);
 
   const account = useAccount({
-    onConnect: (data) => console.log("connected", data),
-    onDisconnect: () => console.log("disconnected"),
+    onConnect: (data) => { if (autoCreate) { uploadImageToIpfs() } },
+    onDisconnect: () => setAutoCreate(false),
   });
 
   const [status, setStatus] = useState({
@@ -260,8 +264,14 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
   }
 
   const onConfirm = () => {
-    uploadImageToIpfs()
-    onOpenChange(false)
+    if (account.isConnected) {
+      uploadImageToIpfs()
+      onOpenChange(false)
+    } else {
+      openConnectModal?.();
+      setAutoCreate(true)
+    }
+
   }
 
   return (
@@ -299,7 +309,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
                     </div>
 
                   </div>
-                  <Button className="mt-8" variant="green" onClick={()=> onOpenChange(true)} loading={status.loading}>{status.buttonText}</Button>
+                  <Button className="mt-8" variant="green" onClick={() => onOpenChange(true)} loading={status.loading}>{status.buttonText}</Button>
                 </div>
               </div> : <Loader2 className='animate-spin mr-2 h-5 w-5' />
               }

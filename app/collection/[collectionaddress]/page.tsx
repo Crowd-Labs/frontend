@@ -110,9 +110,9 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
   };
 
   const creatorNums = (): number => {
-    let creators : string[] = []
+    let creators: string[] = []
     nfts?.map((card) => {
-      if(!creators.includes(card.creator)){
+      if (!creators.includes(card.creator)) {
         creators.push(card.creator)
       }
     })
@@ -286,13 +286,27 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           </Button>
         </div>
       </div> */}
-      {nfts?.length === 0
+      {/* {nfts?.length === 0
         && collectionItem?.collectionOwner.toLocaleLowerCase()
         === account.address?.toLocaleLowerCase() && (
           <PixDialogForm onConfirm={(value) => {
             router.push(`/nft/create/${params.collectionaddress}?w=${value}`)
           }} />
-        )}
+        )} */}
+      {nfts?.length === 0
+        && collectionItem?.collectionOwner.toLocaleLowerCase()
+        === account.address?.toLocaleLowerCase() && (
+          <div className="text-white my-8 text-2xl font-medium text-center"
+            onClick={() => {
+              router.push(`/nft/create/${params.collectionaddress}?w=32`)
+            }} >
+            <div
+              className="flex flex-col items-center justify-center w-48 h-48 mt-4 text-white/40 rounded-md border border-gray-500 p-2 text-lg"
+            >
+              <Image src={"/images/holder.png"} className="w-20 h-20 mb-2" />
+              Initial Ancestor NFT
+            </div>
+          </div>)}
       {nfts?.[0] && (
         <CollectionCards
           data={nfts}

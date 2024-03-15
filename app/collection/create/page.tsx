@@ -4,6 +4,7 @@ import FormInfo from "./components/FormInfo";
 import FormSocial from "./components/FormSocial";
 import FormSetting from "./components/FormSetting";
 import { useEffect, useState } from "react";
+
 import {
   BECROWD_PROXY_ADDRESS,
   BeCrowd_WEBSITE,
@@ -22,8 +23,10 @@ import { Divider } from "@/components/Footer";
 import axios from "axios";
 import BigNumber from "bignumber.js";
 import { DEFAULT_PIX_GRID_NUMBER } from "../[collectionaddress]/dialog";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 const CreateCollection = () => {
+
   const abiCoder = new ethers.AbiCoder();
   const router = useRouter();
   const [tabValue, setTabValue] = useState("Collections");
@@ -40,10 +43,6 @@ const CreateCollection = () => {
     });
   }, []);
 
-  const account = useAccount({
-    onConnect: (data) => console.log("connected", data),
-    onDisconnect: () => console.log("disconnected"),
-  });
   const [imageSource, setImageSource] = useState<string | undefined>();
   const [collectionInfo, setCollectionInfo] = useState<{
     name: string | undefined;
@@ -68,6 +67,14 @@ const CreateCollection = () => {
     isSupportWhiteList: boolean | undefined;
     whiteList: File | undefined;
   } | null>(null);
+
+  const { openConnectModal } = useConnectModal();
+  const [autoCreate, setAutoCreate] = useState(false);
+
+  const account = useAccount({
+    onConnect: (data) => { if (autoCreate) { uploadImageToIpfs(settingInfo) } },
+    onDisconnect: () => setAutoCreate(false),
+  });
 
   const { write: writeContract } = useContractWrite({
     address: BECROWD_PROXY_ADDRESS as Address,
@@ -106,7 +113,7 @@ const CreateCollection = () => {
         buttonText: "Create collection",
         loading: false,
       });
-      if (res.message?.collectionAddress) {
+      if (res?.message?.collectionAddress) {
         router.push(`/nft/create/${res.message.collectionaddress}?w=${DEFAULT_PIX_GRID_NUMBER}`)
       } else {
         router.push(`/collection`);
@@ -229,7 +236,12 @@ const CreateCollection = () => {
       setTabValue("Setting");
     } else if (tabValue === "Setting") {
       setSettingInfo(info);
-      uploadImageToIpfs(info);
+      if (account.isConnected) {
+        uploadImageToIpfs(info);
+      } else {
+        openConnectModal?.();
+        setAutoCreate(true)
+      }
     }
   };
 
