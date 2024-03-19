@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export const CanvasMinWidth = 640
+export const CanvasMinWidth = 640;
+export const EnlargeFactor = 40;
 export const CanvasBgColor = "#eeeeee";
 export const SVGToolColor = "#ffffff";
 export class Point {

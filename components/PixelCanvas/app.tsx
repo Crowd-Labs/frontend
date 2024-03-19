@@ -13,7 +13,7 @@ import { postReq } from "@/api/server/abstract";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ethers } from "ethers";
 import { Tool } from "@/util/tool";
-import { CanvasMinWidth } from "@/util/tool/tool";
+import { CanvasMinWidth, EnlargeFactor } from "@/util/tool/tool";
 import { getCollectionInfoByCollectionAddress } from "@/api/thegraphApi";
 import { CollectionInfo } from "@/lib/type";
 import axios from "axios";
@@ -62,6 +62,38 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
     setMainColor(value);
   };
 
+  const zoomInImageData = (ctx:CanvasRenderingContext2D, imageData:ImageData, factor: number)=>{
+    const newWidth = imageData.width / factor
+    const newHeight = imageData.height / factor
+    const tempImageData = ctx.createImageData(newWidth, newHeight);
+    for (let y = 0; y < newHeight; y++) {
+      for (let x = 0; x < newWidth; x++) {
+        const srcX = x * factor;
+        const srcY = y * factor;
+        const srcOffset = (srcY * imageData.width + srcX) * 4;
+        const destOffset = (y * newWidth + x) * 4;
+        tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
+      }
+    }
+    return tempImageData
+  }
+
+  const zoomOutImageData = (ctx:CanvasRenderingContext2D, imageData:ImageData, factor: number)=>{
+    const width  = imageData.width
+    const height = imageData.height
+    const tempImageData = ctx.createImageData(width * factor, height * factor);
+    for (let y = 0; y < height * factor; y++) {
+      for (let x = 0; x < width * factor; x++) {
+        const srcX = Math.floor(x / factor);
+        const srcY = Math.floor(y / factor);
+        const srcOffset = (srcY * imageData.width + srcX) * 4;
+        const destOffset = (y * height * factor + x) * 4;
+        tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
+      }
+    }
+    return tempImageData
+  }
+
   useEffect(() => {
     if (sourceImage) {
       let canvas = document.createElement('canvas');
@@ -72,25 +104,25 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
         img.onload = function () {
           canvas.width = img.width;
           canvas.height = img.height;
-          let countH = img.width
-          let countV = img.height
-          let gw = Math.ceil(CanvasMinWidth / countH)
           if (ctx) {
             ctx.drawImage(img, 0, 0);
             var imageData = ctx.getImageData(0, 0, img.width, img.height);
-            const tempImageData = ctx.createImageData(countH * gw, countV * gw);
-            for (let y = 0; y < countH * gw; y++) {
-              for (let x = 0; x < countV * gw; x++) {
-                const srcX = Math.floor(x / gw);
-                const srcY = Math.floor(y / gw);
-                const srcOffset = (srcY * imageData.width + srcX) * 4;
-                const destOffset = (y * countH * gw + x) * 4;
-                tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
-              }
+            let countX = img.width
+            let countY = img.height
+            if (img.width > 128){
+              countX = Math.floor(countX / EnlargeFactor)
+              countY = Math.floor(countY / EnlargeFactor)
+            }
+            let gw = Math.ceil(CanvasMinWidth / countX)
+            let tempImageData
+            if (img.width > 128){
+              tempImageData = zoomInImageData(ctx, imageData, EnlargeFactor/gw )
+            }else{
+              tempImageData = zoomOutImageData(ctx,imageData,gw)
             }
             setSourceImageData(tempImageData)
-            setCanvasGridCountH(img.width)
-            setCanvasGridCountV(img.height)
+            setCanvasGridCountH(countX)
+            setCanvasGridCountV(countY)
           }
         };
         img.onerror = (err) => {
@@ -214,19 +246,20 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
       const newHeight = gridCountV;
       const canvas = document.createElement('canvas');
       const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
-      canvas.width = newWidth;
-      canvas.height = newHeight;
+      canvas.width = newWidth * EnlargeFactor;
+      canvas.height = newHeight * EnlargeFactor;
       if (ctx) {
-        const tempImageData = ctx.createImageData(newWidth, newHeight);
-        for (let y = 0; y < newHeight; y++) {
-          for (let x = 0; x < newWidth; x++) {
-            const srcX = x * gridWidth;
-            const srcY = y * gridWidth;
-            const srcOffset = (srcY * imageData.width + srcX) * 4;
-            const destOffset = (y * newWidth + x) * 4;
-            tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
-          }
-        }
+        // const tempImageData = ctx.createImageData(newWidth, newHeight);
+        // for (let y = 0; y < newHeight; y++) {
+        //   for (let x = 0; x < newWidth; x++) {
+        //     const srcX = x * gridWidth;
+        //     const srcY = y * gridWidth;
+        //     const srcOffset = (srcY * imageData.width + srcX) * 4;
+        //     const destOffset = (y * newWidth + x) * 4;
+        //     tempImageData.data.set(imageData.data.slice(srcOffset, srcOffset + 4), destOffset);
+        //   }
+        // }
+        const tempImageData = zoomOutImageData(ctx, imageData, EnlargeFactor/gridWidth)
         ctx.putImageData(tempImageData, 0, 0);
         return canvas.toBlob(async (res) => {
           if (res) {
