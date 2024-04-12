@@ -258,7 +258,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Mint Price: </div>
-            <div>{ethers.formatEther(collectionItem?.mintPrice!)}</div>
+            <div>{collectionItem?.mintPrice}</div>
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Permission: </div>
