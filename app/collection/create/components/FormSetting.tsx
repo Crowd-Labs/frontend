@@ -32,7 +32,6 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Switch } from '@/components/ui/switch';
-import Upload from '@/components/Upload';
 import DialogConfirm from './dialog';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';

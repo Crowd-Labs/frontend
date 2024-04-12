@@ -40,6 +40,7 @@ import { useRouter } from 'next/navigation';
 import Image from '@/components/Image';
 
 import { GoChevronRight, GoChevronDown } from "react-icons/go";
+import { ethers } from 'ethers';
 
 function Collection({ params }: { params: { collectionaddress: string } }) {
   const [expanded, setExpand] = useState(false);
@@ -257,7 +258,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Mint Price: </div>
-            <div>{collectionItem?.mintPrice}</div>
+            <div>{ethers.formatEther(collectionItem?.mintPrice!)}</div>
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Permission: </div>

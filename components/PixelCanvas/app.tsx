@@ -224,9 +224,9 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
         );
 
       const args = [
-        collectionItem?.collectionId,
+        BigInt(collectionItem?.collectionId!),
         metadataUri,
-        nftId,
+        BigInt(nftId),
         derivedRuleModuleInitData,
         [],
       ];
@@ -363,7 +363,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
           </DispatcherContext.Provider>
         </ShapeTypeContext.Provider>
       </ToolTypeContext.Provider>
-      <DialogConfirm open={open} onOpenChange={onOpenChange} onConfirm={onConfirm} />
+      <DialogConfirm open={open} mintPrice={collectionItem?.mintPrice!} onOpenChange={onOpenChange} onConfirm={onConfirm} />
     </>
 
   );
