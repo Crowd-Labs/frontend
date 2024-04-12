@@ -37,10 +37,14 @@ import DialogConfirm from './dialog';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 
+const ETH_ADDRESS = '0x0000000000000000000000000000000000000000';
+const WETH_ADDRESS = '0x4300000000000000000000000000000000000004';
+const USDB_ADDRESS = '0x4300000000000000000000000000000000000003';
+
 const currencys = [
-  { label: 'ETH', value: 'eth' },
-  // { label: 'WETH', value: 'weth' },
-  // { label: 'USDB', value: 'usdb' },
+  { label: 'ETH', value: ETH_ADDRESS },
+  // { label: 'WETH', value: WETH_ADDRESS },
+  // { label: 'USDB', value: USDB_ADDRESS },
 ] as const;
 
 const accountFormSchema = z.object({
@@ -293,7 +297,7 @@ export default function AccountForm(props: SettingProps) {
               />
             </>
           )}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="isSupportWhiteList"
             render={({ field }) => (
@@ -329,7 +333,7 @@ export default function AccountForm(props: SettingProps) {
                 </FormItem>
               )}
             />
-          )}
+          )} */}
           <div className='flex justify-end'>
             <Button type="submit" variant="green" loading={props.status.loading}>{props.status.buttonText}</Button>
           </div>

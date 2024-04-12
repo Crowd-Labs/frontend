@@ -99,7 +99,7 @@ const CreateCollection = () => {
         royalty: parseFloat((BigNumber(settingInfo?.royalty || 0).toFixed(1))) * 100,
         endTime: (settingInfo?.endTime?.getTime() || (Date.now() + 7 * 24 * 3600 * 1000)),
         bCharge: !!settingInfo?.isCharge,
-        mintPrice: ethers.parseEther(settingInfo?.price?.toString()!),
+        mintPrice: settingInfo?.price,
         currency: settingInfo?.currency,
         receiptAddress: settingInfo?.receiptAddress,
         bWhitelist: false,
@@ -197,7 +197,7 @@ const CreateCollection = () => {
             settingInfo?.limit,
             (settingInfo?.endTime?.getTime() ||
               Date.now() + 7 * 24 * 3600 * 1000) / 1000,
-            settingInfo?.price,
+            ethers.parseEther(BigNumber(settingInfo?.price).toString()),
             settingInfo?.currency,
             settingInfo?.receiptAddress,
           ]
