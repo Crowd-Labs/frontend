@@ -39,8 +39,8 @@ import { useAccount } from 'wagmi';
 
 const currencys = [
   { label: 'ETH', value: 'eth' },
-  { label: 'USDT', value: 'usdt' },
-  { label: 'USDC', value: 'usdc' },
+  // { label: 'WETH', value: 'weth' },
+  // { label: 'USDB', value: 'usdb' },
 ] as const;
 
 const accountFormSchema = z.object({
