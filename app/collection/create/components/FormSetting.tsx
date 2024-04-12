@@ -85,9 +85,17 @@ type SettingProps = {
 };
 
 export default function AccountForm(props: SettingProps) {
+  const account = useAccount({
+    onConnect: (data) => console.log('connected', data),
+    onDisconnect: () => console.log('disconnected'),
+  });
+
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
-    defaultValues: props.defaultValue || {},
+    defaultValues: props.defaultValue || {
+      currency: ETH_ADDRESS,
+      receiptAddress: account?.address
+    },
   });
   const [isCharge, isSupportWhiteList] = form.watch([
     'isCharge',
@@ -96,11 +104,6 @@ export default function AccountForm(props: SettingProps) {
 
   const [open, onOpenChange] = useState(false)
   
-  const account = useAccount({
-    onConnect: (data) => console.log('connected', data),
-    onDisconnect: () => console.log('disconnected'),
-  });
-
   function onSubmit(data: AccountFormValues) {
     // toast({
     //   title: 'You submitted the following values:',
@@ -289,7 +292,7 @@ export default function AccountForm(props: SettingProps) {
                   <FormItem>
                     <FormLabel>Receipt Address: </FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={account?.address} />
+                      <Input {...field} defaultValue={account?.address} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

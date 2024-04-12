@@ -211,11 +211,23 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
         loading: true,
       });
 
+
+      const ETH_ADDRESS = '0x0000000000000000000000000000000000000001';
+      let derivedRuleModuleInitData = collectionItem?.mintPrice == 0
+        ? abiCoder.encode(["bool"], [false])
+        : abiCoder.encode(
+          ["address", "uint256"],
+          [
+            ETH_ADDRESS,
+            collectionItem?.mintPrice,
+          ]
+        );
+
       const args = [
         collectionItem?.collectionId,
         metadataUri,
         nftId,
-        abiCoder.encode(["bool"], [false]),
+        derivedRuleModuleInitData,
         [],
       ];
       return writePostContract?.({ args: [args] });
