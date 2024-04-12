@@ -258,7 +258,10 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Mint Price: </div>
-            <div>{collectionItem?.mintPrice}</div>
+            <div>{`${toAmount(
+                      (collectionItem?.mintPrice as BigNumber.Value) || 0,
+                      18, 4
+            )} ETH`}</div>
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Permission: </div>

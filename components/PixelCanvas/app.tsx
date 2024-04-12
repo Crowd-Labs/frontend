@@ -151,7 +151,7 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
     address: BECROWD_PROXY_ADDRESS as Address,
     abi: BeCrowd_ABI,
     value: collectionItem
-      ? BigInt(collectionItem.mintPrice)
+      ? BigInt(collectionItem?.mintPrice?? 0)
       : BigInt(0),
     functionName: "commitNewNFTIntoCollection",
     onSuccess: async (data) => {
