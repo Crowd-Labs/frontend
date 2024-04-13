@@ -114,7 +114,7 @@ const CreateCollection = () => {
         loading: false,
       });
       if (res?.message?.collectionAddress) {
-        router.push(`/nft/create/${res.message.collectionaddress}?w=${DEFAULT_PIX_GRID_NUMBER}`)
+        router.push(`/nft/create/${res.message.collectionAddress}?w=${DEFAULT_PIX_GRID_NUMBER}`)
       } else {
         router.push(`/collection`);
       }

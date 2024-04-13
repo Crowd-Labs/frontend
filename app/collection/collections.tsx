@@ -1,6 +1,5 @@
 'use client'
 import { getAllCollectionInfo } from '@/api/thegraphApi';
-import BuyButton from '@/components/Button/BuyBtn';
 import { CollectionDone } from '@/components/Collection/CollectionCards';
 import { CollectionInfo } from '@/lib/type';
 
