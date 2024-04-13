@@ -33,8 +33,10 @@ import {
 } from '@/components/ui/popover';
 import { Switch } from '@/components/ui/switch';
 import DialogConfirm from './dialog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
+import { getStakeEthAmountForInitialCollection } from '@/api/thegraphApi';
+import { StakeEthAmountForInitialCollection } from '@/lib/type';
 
 const ETH_ADDRESS = '0x0000000000000000000000000000000000000001';
 const WETH_ADDRESS = '0x4300000000000000000000000000000000000004';
@@ -100,6 +102,13 @@ export default function AccountForm(props: SettingProps) {
     'isCharge',
     'isSupportWhiteList',
   ]);
+
+  const [stakeEthAmountInfo, setStakeEthAmount] = useState<StakeEthAmountForInitialCollection>();
+  useEffect(() => {
+      getStakeEthAmountForInitialCollection().then((res) => {
+        setStakeEthAmount(res as StakeEthAmountForInitialCollection);
+      });
+  }, []);
 
   const [open, onOpenChange] = useState(false)
   
@@ -341,7 +350,7 @@ export default function AccountForm(props: SettingProps) {
           </div>
         </form>
       </Form>
-      <DialogConfirm open={open} onOpenChange={onOpenChange} onConfirm={onConfirm} />
+      <DialogConfirm open={open} stakeEthAmount={stakeEthAmountInfo?.newStakeEthAmount?? 0} onOpenChange={onOpenChange} onConfirm={onConfirm} />
     </>
   );
 }
