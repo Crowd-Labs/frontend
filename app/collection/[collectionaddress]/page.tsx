@@ -5,7 +5,6 @@ import {
   BsMedium,
   BsTwitter,
   BsTelegram,
-  BsPlusLg,
   BsFillHouseHeartFill,
 } from 'react-icons/bs';
 import BigNumber from 'bignumber.js';
@@ -258,10 +257,10 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Mint Price: </div>
-            <div>{`${toAmount(
+            <div>{ collectionItem?.mintPrice! >0 ? `${toAmount(
                       (collectionItem?.mintPrice as BigNumber.Value) || 0,
                       18, 4
-            )} ETH`}</div>
+            )} ETH` : "Free" }</div>
           </div>
           <div className="flex gap-4 mt-4">
             <div className="opacity-60">Permission: </div>
