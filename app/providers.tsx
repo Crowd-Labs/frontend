@@ -19,8 +19,8 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 
 export const blast = {
-  id: 168587773,
-  name: 'Blast Sepolia',
+  id: 81457,
+  name: 'Blast Mainnet',
   network: 'Blast',
   nativeCurrency: {
     decimals: 18,
@@ -28,12 +28,12 @@ export const blast = {
     symbol: 'ETH',
   },
   rpcUrls: {
-    public: { http: ['https://sepolia.blast.io'] },
-    default: { http: ['https://sepolia.blast.io'] },
+    public: { http: ['https://rpc.blast.io'] },
+    default: { http: ['https://rpc.blast.io'] },
   },
   blockExplorers: {
-    etherscan: { name: 'blast', url: 'https://testnet.blastscan.io' },
-    default: { name: 'blast', url: 'https://testnet.blastscan.io' },
+    etherscan: { name: 'blast', url: 'https://blastscan.io' },
+    default: { name: 'blast', url: 'https://blastscan.io' },
   },
 } as const satisfies Chain;
 

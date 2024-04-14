@@ -26,10 +26,8 @@ export interface CollectionInfo {
 
 export interface Creator {
   address: string
+  itemsCreateCollection: number
   itemsNFT: number
-}
-
-export interface CreatorRank extends Creator{
   itemsCollection: number
 }
 

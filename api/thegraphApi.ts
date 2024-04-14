@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { getReq } from './server/abstract';
 import { sanitizeDStorageUrl } from '@/lib/utils';
-import { CollectionInfo, Creator, CreatorRank, NewNFTCreateds, ProjectInfo, StakeEthAmountForInitialCollection } from '@/lib/type';
+import { CollectionInfo, Creator, NewNFTCreateds, ProjectInfo, StakeEthAmountForInitialCollection } from '@/lib/type';
 
 const API_URL = process.env.NEXT_PUBLIC_SUBGRAPH_URL || ""
 
@@ -125,6 +125,7 @@ export const queryAllNFTByAccountAddress = gql`
 export const queryUserAsserts = gql`
   query MyQuery ($accountAddress: String!){
     creators(where: {address: $accountAddress}) {
+      itemsCreateCollection
       itemsNFT
       itemsCollection
     }
@@ -243,7 +244,7 @@ export const getProjectInfo = async () => {
 
 
 export const getUserAsserts = async (accountAddress) => {
-  let response: { data: { creators: CreatorRank[] } } = await client.query({
+  let response: { data: { creators: Creator[] } } = await client.query({
     query: queryUserAsserts,
     variables: { accountAddress }
   })
@@ -373,7 +374,7 @@ export const getStakeEthAmountForInitialCollection = async () => {
 }
 
 export const getRankCreatorByItemNFTAmount = async () => {
-  let response: { data: { creators: CreatorRank[] } } = await client.query({
+  let response: { data: { creators: Creator[] } } = await client.query({
     query: rankCreatorByItemNFTAmount
   })
 
@@ -381,7 +382,7 @@ export const getRankCreatorByItemNFTAmount = async () => {
 }
 
 export const getRankCreatorByItemCollectionAmount = async () => {
-  let response: { data: { creators: CreatorRank[] } } = await client.query({
+  let response: { data: { creators: Creator[] } } = await client.query({
     query: rankCreatorByItemCollectionAmount
   })
 

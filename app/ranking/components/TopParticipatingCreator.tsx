@@ -1,10 +1,10 @@
 import { getRankCreatorByItemCollectionAmount } from '@/api/thegraphApi';
-import { CreatorRank } from '@/lib/type';
+import { Creator } from '@/lib/type';
 import { cn, getEllipseAddress } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 
 function TopParticipatingCreator() {
-  const [creators, setCreators] = useState<CreatorRank[]>([])
+  const [creators, setCreators] = useState<Creator[]>([])
 
   useEffect(() => {
     getRankCreatorByItemCollectionAmount().then((res) => setCreators(res));
@@ -26,7 +26,7 @@ function TopParticipatingCreator() {
     </div>
   );
 }
-function ListItem(props: { index?: number, data: CreatorRank }) {
+function ListItem(props: { index?: number, data: Creator }) {
   const { index = 0, data } = props
   return (
     <div className={cn('flex py-2 text-2xl')}>
