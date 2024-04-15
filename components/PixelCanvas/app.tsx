@@ -155,17 +155,17 @@ const PixelCanvas: FC<PixelCanvasProps> = ({ collectionAddress, nftId = 0, sourc
       : BigInt(0),
     functionName: "commitNewNFTIntoCollection",
     onSuccess: async (data) => {
-      await postReq({
-        url: "/api/nft/fork",
-        data: {
-          nftName: "",
-          belongToCollectionId: collectionItem?.collectionId,
-          collectionAddress: collectionAddress,
-          nftCreator: account?.address,
-          forkFrom: nftId || 0,
-          imageUrl: imageSource,
-        },
-      });
+      // await postReq({
+      //   url: "/api/nft/fork",
+      //   data: {
+      //     nftName: "",
+      //     belongToCollectionId: collectionItem?.collectionId,
+      //     collectionAddress: collectionAddress,
+      //     nftCreator: account?.address,
+      //     forkFrom: nftId || 0,
+      //     imageUrl: imageSource,
+      //   },
+      // });
       setStatus({
         buttonText: `Save & CreateNFT`,
         loading: false,
