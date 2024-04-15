@@ -3,7 +3,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import BigNumber from 'bignumber.js';
 import { ethers, keccak256, BytesLike, concat, dataSlice } from "ethers";
-import { intervalToDuration } from 'date-fns';
+import { differenceInDays, intervalToDuration } from 'date-fns';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -121,8 +121,12 @@ export const calNextCollectionContractAddr = (implementationAddress: string, sal
 export const getDateDiffFromNow = (timestamp: number) => {
   const startDate = new Date();
   const endDate = new Date(timestamp * 1000);
+  const diffDays = differenceInDays(
+    endDate,
+    startDate
+  )
   const duration = intervalToDuration({ start: startDate, end: endDate });
-  return `${duration.days}d ${duration.hours}h ${duration.minutes}m`
+  return `${diffDays}d ${duration.hours}h ${duration.minutes}m`
 }
 
 export const formatNumber = (value: number | string = 0) => {
