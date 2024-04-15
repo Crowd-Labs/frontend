@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BRCROWD_DOC, YIELD_AND_GASREWARD } from '@/constants';
+import { LEARN_ADDRESS, YIELD_AND_GASREWARD } from '@/constants';
 import { Button } from '../ui/button';
 import HotCollectionCard from '../HotCollectionCard';
 import { CollectionInfo, ProjectInfo } from '@/lib/type';
@@ -71,7 +71,7 @@ function Hero() {
         <Button
           variant="yellow"
         >
-          <Link target="_blank" href={BRCROWD_DOC}>Read the doc</Link>
+          <Link target="_blank" href={LEARN_ADDRESS}>View Tutorial</Link>
         </Button>
       </div>
       <div className="flex-center mt-4 lg:gap-32 gap-2 text-white text-2xl flex-wrap">
