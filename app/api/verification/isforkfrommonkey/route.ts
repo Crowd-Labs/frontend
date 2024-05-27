@@ -9,14 +9,23 @@ export const GET = async (request: Request) => {
     try {
         let response: { data: { newNFTCreateds: NewNFTCreateds[] } } = await client.query({
             query: queryAllNFTByAccountAddress,
-            variables: { accountAddress: params.address }
+            variables: { accountAddress: params.Address }
         })
-        const PacmanCollectionId = "1"
-        const isValid = !!response.data.newNFTCreateds?.some(nft => nft.collectionId == PacmanCollectionId)
+        const PacmanCollectionId = "0"
+        // const isValid = !!response.data.newNFTCreateds?.some(nft => nft.collectionId == PacmanCollectionId)
+        const object = response.data.newNFTCreateds?.find(nft => nft.collectionId == PacmanCollectionId)
+        const res = object ? 0 : -1
+        const timestamp = object ? object.blockTimestamp : null
+        const txId = object ? object.transactionHash : null
         const result = {
-            "result": {  // required on success
-                isValid  // boolean, Whether the user completed the task.
+            "Status": res,
+            "Data": {
+                "Timestamp": timestamp,
+                "Tx": txId
             }
+            // "result": {  // required on success
+            //     isValid  // boolean, Whether the user completed the task.
+            // }
         }
         return new Response(JSON.stringify(result), { status: 200 })
     } catch (error) {
