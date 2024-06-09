@@ -135,7 +135,7 @@ export const queryUserAsserts = gql`
 //get all nft of one collection
 export const queryAllNFTByCollectionAddress = gql`
   query getNewNFTCreateds ($collectionAddr: String!){
-    newNFTCreateds(where: {collectionAddr: $collectionAddr}) {
+    newNFTCreateds(where: {collectionAddr: $collectionAddr} orderBy: tokenId) {
       id
       tokenId
       collectionId
