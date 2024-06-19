@@ -77,6 +77,12 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
     functionName: 'getLastTokenId',
   });
 
+  const { data: creatorNums } = useContractRead({
+    address: collectionItem?.derivedCollectionAddr as Address,
+    abi: DERIVED_NFT_ABI,
+    functionName: 'creatorAmount',
+  });
+
   const { data: collectionBalance } = useBalance({
     address: collectionItem?.derivedCollectionAddr as Address,
     chainId: baseGoerli.id,
@@ -109,15 +115,15 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
     }
   };
 
-  const creatorNums = (): number => {
-    let creators: string[] = []
-    nfts?.map((card) => {
-      if (!creators.includes(card.creator)) {
-        creators.push(card.creator)
-      }
-    })
-    return creators.length
-  }
+  // const creatorNums = (): number => {
+  //   let creators: string[] = []
+  //   nfts?.map((card) => {
+  //     if (!creators.includes(card.creator)) {
+  //       creators.push(card.creator)
+  //     }
+  //   })
+  //   return creators.length
+  // }
 
   return (
     <div>
@@ -179,7 +185,7 @@ function Collection({ params }: { params: { collectionaddress: string } }) {
               <div className="flex gap-6 mt-4">
                 <div className="flex gap-2 items-center">
                   <div className="text-white/60">Creators: </div>
-                  <div>{creatorNums()}</div>
+                  <div>{`${new Number(creatorNums)}`}</div>
                 </div>
                 <div className="flex gap-2 items-center">
                   <div className="text-white/60">Items: </div>
