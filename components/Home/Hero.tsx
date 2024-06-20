@@ -20,7 +20,7 @@ function Hero() {
     });
   }, []);
 
-  let randomCollections = shuffleArray<CollectionInfo>(collections);
+  let randomCollections = collections;
   if (randomCollections.length > 5) {
     randomCollections = randomCollections.slice(0, 5)
   }
