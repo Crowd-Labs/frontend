@@ -5,7 +5,7 @@ export const BLOG_ADDRESS = 'https://medium.com/@BeCrowd_'
 export const LEARN_ADDRESS = 'https://www.youtube.com/watch?v=zvLuxSwtDgk'
 export const DISCORD_ADDRESS = 'https://discord.gg/C8X5Mp9E8S'
 
-export const IPFS_GATEWAY_URL = 'https://red-working-hookworm-192.mypinata.cloud/ipfs'
+export const IPFS_GATEWAY_URL = 'https://ipfs.io/ipfs' //'https://red-working-hookworm-192.mypinata.cloud/ipfs'
 
 export const BECROWD_PROXY_ADDRESS = process.env.NEXT_PUBLIC_BECROWD_PROXY_ADDRESS || ""
 export const DERIVED_NFTIMPL_ADDRESS = process.env.NEXT_PUBLIC_DERIVED_NFTIMPL_ADDRESS || ""
